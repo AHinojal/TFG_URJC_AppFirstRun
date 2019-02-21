@@ -1,15 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:padding="50dp"
     tools:context=".Fragments.CreatePlanFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Fragmento CREAR PLAN DE ENTRENAMIENTO" />
 
-</FrameLayout>
+
+    <EditText
+        android:id="@+id/editText_namePlan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint= "Nombre del Plan" />
+
+    <TextView
+        android:id="@+id/textView_durationPlan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_namePlan"
+        android:layout_marginTop="30dp"
+        android:text="Duración del plan" />
+
+    <Spinner
+        android:id="@+id/spinner_durationPlan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_durationPlan"/>
+
+    <TextView
+        android:id="@+id/textView_distancePlan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_durationPlan"
+        android:layout_marginTop="30dp"
+        android:text="Distancia que desea entrenar" />
+
+    <Spinner
+        android:id="@+id/spinner_distancePlan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_distancePlan" />
+
+    <TextView
+        android:id="@+id/textView_actualtime5km"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_distancePlan"
+        android:layout_marginTop="30dp"
+        android:text="Duración del plan" />
+
+    <EditText
+        android:id="@+id/editText_actualtime5km"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_actualtime5km"
+        android:ems="10"
+        android:inputType="time" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton_savePlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_btn_save"/>
+
+</RelativeLayout>
