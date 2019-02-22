@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="duration_plan">
+        <item>12 semanas</item>
+        <item>16 semanas</item>
+    </string-array>
+
+    <string-array name="distance_12w_plan">
+        <item>5 Kilómetros</item>
+        <item>10 Kilómetros</item>
+    </string-array>
+
+    <string-array name="distance_16w_plan">
+        <item>Media Marathon</item>
+        <item>Marathon para principiantes</item>
+        <item>Marathon</item>
+    </string-array>
+</resources>

@@ -5,16 +5,20 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/info_first"
+            android:icon="@drawable/ic_nav_info"
+            android:title="Información sobre FIRST" />
+        <item
             android:id="@+id/create_plan"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_nav_create"
             android:title="Crear plan" />
         <item
-            android:id="@+id/show_actual_plan"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/actual_plan"
+            android:icon="@drawable/ic_nav_actual"
             android:title="Ver plan actual" />
         <item
             android:id="@+id/historical_plan"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_nav_list"
             android:title="Historial de planes" />
     </group>
 
