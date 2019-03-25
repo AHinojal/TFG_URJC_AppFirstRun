@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner_distancePlan"
         android:layout_marginTop="30dp"
-        android:text="Duración del plan" />
+        android:text="Marca actual 5 Km" />
 
     <EditText
         android:id="@+id/editText_actualtime5km"
@@ -58,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_actualtime5km"
         android:ems="10"
+        android:hint="HH:MM:SS"
         android:inputType="time" />
 
     <android.support.design.widget.FloatingActionButton

@@ -2,6 +2,7 @@ package com.example.tfg_urjc_appfirstrun.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment;
@@ -20,6 +22,8 @@ import com.example.tfg_urjc_appfirstrun.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener{
+
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        view = (View) findViewById(R.id.viewSnackbar);
     }
 
     @Override
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Snackbar.make(view,"App diseñada y creada por Álvaro Hinojal Blanco como TFG para la URJC",Snackbar.LENGTH_LONG).setAction("Action", null).show();
             return true;
         }
 
