@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "444520550014",
+    "firebase_url": "https://tfg-urjc-appfirstrun.firebaseio.com",
+    "project_id": "tfg-urjc-appfirstrun",
+    "storage_bucket": "tfg-urjc-appfirstrun.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444520550014:android:d1cf2f3f4218444c56d22f",
+        "android_client_info": {
+          "package_name": "com.example.tfg_urjc_appfirstrun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "444520550014-3rmkch6af35iacd4crrat79pba3melh2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoBiABh4jzd5TD6i5YHlNwVrkgVDNmWL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "444520550014-3rmkch6af35iacd4crrat79pba3melh2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

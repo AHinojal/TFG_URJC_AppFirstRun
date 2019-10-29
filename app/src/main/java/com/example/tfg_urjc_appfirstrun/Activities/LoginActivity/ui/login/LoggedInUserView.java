@@ -5,7 +5,6 @@ package com.example.tfg_urjc_appfirstrun.Activities.LoginActivity.ui.login;
  */
 class LoggedInUserView {
     private String displayName;
-    //... other data fields that may be accessible to the UI
 
     LoggedInUserView(String displayName) {
         this.displayName = displayName;
