@@ -37,7 +37,10 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        final Button loginRegister = findViewById(R.id.register);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        loginRegister.setEnabled(true);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -112,6 +115,13 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+            }
+        });
+
+        loginRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Toast.makeText(getApplicationContext(), "QUIERO IR A REGISTRO", Toast.LENGTH_LONG).show();
             }
         });
     }
