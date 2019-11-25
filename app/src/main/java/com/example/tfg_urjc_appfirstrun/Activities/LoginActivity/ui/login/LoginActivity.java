@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tfg_urjc_appfirstrun.Activities.MainActivity;
+import com.example.tfg_urjc_appfirstrun.Activities.RegisterActivity;
 import com.example.tfg_urjc_appfirstrun.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -39,8 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final Button loginRegister = findViewById(R.id.register);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-
-        loginRegister.setEnabled(true);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -121,7 +120,8 @@ public class LoginActivity extends AppCompatActivity {
         loginRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "QUIERO IR A REGISTRO", Toast.LENGTH_LONG).show();
+                Intent intent= new Intent (LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }

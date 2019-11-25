@@ -8,7 +8,8 @@
     <string name="action_settings">Opciones</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
-    <!-- STRING LOGIN ACTIVITY-->¡
+    <!-- STRING LOGIN ACTIVITY-->
+    <string name="prompt_username">Nombre de usuario</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Iniciar sesión</string>
@@ -18,4 +19,5 @@
     <string name="invalid_username">No es un correo válido</string>
     <string name="invalid_password">La contraseña debe ser mayor a 5 caracteres</string>
     <string name="login_failed">"Inicio de sesión fallido"</string>
+
 </resources>
