@@ -18,7 +18,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final EditText usernameEditText = findViewById(R.id.username);
         final EditText emailEditText = findViewById(R.id.email);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginRegister = findViewById(R.id.register);
@@ -26,8 +25,8 @@ public class RegisterActivity extends AppCompatActivity {
         loginRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent intent= new Intent (RegisterActivity.this, LoginActivity.class);
-            startActivity(intent);
+                Intent intent= new Intent (RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }
