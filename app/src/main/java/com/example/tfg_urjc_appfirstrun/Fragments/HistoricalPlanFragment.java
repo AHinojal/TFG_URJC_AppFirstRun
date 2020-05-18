@@ -2,18 +2,16 @@ package com.example.tfg_urjc_appfirstrun.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.tfg_urjc_appfirstrun.Adapters.MyHistoricalPlanRecyclerViewAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.tfg_urjc_appfirstrun.R;
-import com.example.tfg_urjc_appfirstrun.Fragments.dummy.DummyContent;
-import com.example.tfg_urjc_appfirstrun.Fragments.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.
@@ -69,7 +67,7 @@ public class HistoricalPlanFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyHistoricalPlanRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            //recyclerView.setAdapter(new MyHistoricalPlanRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }
@@ -104,6 +102,6 @@ public class HistoricalPlanFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        // void onListFragmentInteraction(DummyItem item);
     }
 }

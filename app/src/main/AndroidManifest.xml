@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.RegisterActivity"></activity>
+        <!-- <activity android:name=".Activities.RegisterActivity"></activity> -->
+        <!-- TODO: Put Login Activity when we have it -->
         <activity
-            android:name=".Activities.LoginActivity.ui.login.LoginActivity"
+            android:name=".Activities.RegisterActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
