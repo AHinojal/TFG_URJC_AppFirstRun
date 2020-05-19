@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText emailEditText = findViewById(R.id.email);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginRegister = findViewById(R.id.register);
+        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -59,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (loginResult == null) {
                     return;
                 }
+                loadingProgressBar.setVisibility(View.GONE);
                 if (loginResult.getSuccess() != null) {
                     showRegisterSuccess(loginResult.getSuccess());
                 }
@@ -66,9 +69,6 @@ public class RegisterActivity extends AppCompatActivity {
                     showRegisterFailed(loginResult.getError());
                 }
                 setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-                finish();
             }
         });
 
@@ -106,16 +106,19 @@ public class RegisterActivity extends AppCompatActivity {
         loginRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.register(emailEditText.getText().toString(),
                         passwordEditText.getText().toString());
-                /* Intent intent= new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);*/
             }
         });
     }
 
     private void showRegisterSuccess(LoggedInUserView model) {
         Toast.makeText(getApplicationContext(), getString(R.string.register_success), Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        //Complete and destroy register activity once successful
+        finish();
     }
 
     private void showRegisterFailed(@StringRes Integer errorString) {

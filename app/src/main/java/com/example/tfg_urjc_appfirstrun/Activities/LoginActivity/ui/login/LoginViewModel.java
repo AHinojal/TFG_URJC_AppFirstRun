@@ -41,13 +41,21 @@ public class LoginViewModel extends ViewModel {
     public void login(String email, String password) {
         // can be launched in a separate asynchronous job
         Result<LoggedInUser> result = loginRepository.login(email, password);
-
-        if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
-        } else {
-            loginResult.setValue(new LoginResult(R.string.login_failed));
-        }
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Success User Login in FirebaseAuth: " + email);
+                            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+                            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.e(TAG, "Failed User Login in FirebaseAuth: " + email + " -> " + task.getException().getMessage());
+                            loginResult.setValue(new LoginResult(R.string.login_failed));
+                        }
+                    }
+                });
     }
 
     public void register(String email, String password) {
