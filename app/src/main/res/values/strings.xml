@@ -19,6 +19,8 @@
     <string name="invalid_username">No es un correo válido</string>
     <string name="invalid_password">La contraseña debe ser mayor a 5 caracteres</string>
     <string name="login_failed">"Inicio de sesión fallido"</string>
+    <string name="register_success">"Registro de usuario completado"</string>
+    <string name="register_failed">"Registro de usuario fallido"</string>
     <string name="title_activity_login">Log In</string>
 
 </resources>
