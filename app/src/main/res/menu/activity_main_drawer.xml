@@ -20,6 +20,10 @@
             android:id="@+id/historical_plan"
             android:icon="@drawable/ic_nav_list"
             android:title="Historial de planes" />
+        <item
+            android:id="@+id/log_out"
+            android:icon="@drawable/ic_close"
+            android:title="Cerrar sesión" />
     </group>
 
 </menu>

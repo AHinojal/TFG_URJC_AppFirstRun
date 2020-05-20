@@ -1,11 +1,12 @@
 package com.example.tfg_urjc_appfirstrun.Activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +14,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.tfg_urjc_appfirstrun.Activities.LoginActivity.ui.login.LoginActivity;
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment.OnFragmentInteractionListener;
@@ -21,6 +23,7 @@ import com.example.tfg_urjc_appfirstrun.Fragments.InfoFirstFragment;
 import com.example.tfg_urjc_appfirstrun.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener{
@@ -100,6 +103,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.info_first){
             fragment = new InfoFirstFragment();
             fragmentSelected = true;
+        } else if (id == R.id.log_out) {
+            logout();
         }
 
         if(fragmentSelected){
@@ -116,5 +121,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        Log.d("Logout: ", "User logout correctly");
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

@@ -115,8 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void showRegisterSuccess(LoggedInUserView model) {
         Toast.makeText(getApplicationContext(), getString(R.string.register_success), Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        onBackPressed();
         //Complete and destroy register activity once successful
         finish();
     }
