@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_nav_info"
             android:title="Información sobre FIRST" />
         <item
+            android:id="@+id/redirect_strava"
+            android:icon="@drawable/ic_launch"
+            android:title="Iniciar sesión Strava" />
+        <item
             android:id="@+id/create_plan"
             android:icon="@drawable/ic_nav_create"
             android:title="Crear plan" />
@@ -22,7 +26,7 @@
             android:title="Historial de planes" />
         <item
             android:id="@+id/log_out"
-            android:icon="@drawable/ic_close"
+            android:icon="@drawable/ic_logout"
             android:title="Cerrar sesión" />
     </group>
 
