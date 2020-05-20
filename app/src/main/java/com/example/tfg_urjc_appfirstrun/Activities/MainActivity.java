@@ -18,7 +18,6 @@ import com.example.tfg_urjc_appfirstrun.Activities.LoginActivity.ui.login.LoginA
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment.OnFragmentInteractionListener;
-import com.example.tfg_urjc_appfirstrun.Fragments.HistoricalPlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.InfoFirstFragment;
 import com.example.tfg_urjc_appfirstrun.R;
 import com.google.android.material.navigation.NavigationView;
@@ -98,8 +97,9 @@ public class MainActivity extends AppCompatActivity
             fragment = new ActualPlanFragment();
             fragmentSelected = true;
         } else if (id == R.id.historical_plan) {
-            fragment = new HistoricalPlanFragment();
-            fragmentSelected = true;
+            // fragment = new HistoricalPlanFragment();
+            // TODO: Crear RecyclerView para mostrar la lista de entrenamientos realizados
+            fragmentSelected = false;
         } else if (id == R.id.info_first){
             fragment = new InfoFirstFragment();
             fragmentSelected = true;
