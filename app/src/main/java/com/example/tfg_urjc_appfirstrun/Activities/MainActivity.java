@@ -13,7 +13,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
 import com.example.tfg_urjc_appfirstrun.Activities.LoginActivity.ui.login.LoginActivity;
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment;
@@ -46,6 +45,25 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         view = (View) findViewById(R.id.viewSnackbar);
+
+        /*m mWebview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if (url.contains("code")){
+                    Log.d("URL", url );
+                    mWebview.setVisibility(View.GONE);
+                }
+            }
+        });*/
+
+        if (getIntent() != null && getIntent().getData() != null)
+        {
+            //parse your data here,
+            //it's the deeplink you want "https://www.example.com/..."
+            Uri data = getIntent().getData();
+            Log.i("TAG DATA", data.toString());
+        }
     }
 
     @Override
@@ -106,7 +124,6 @@ public class MainActivity extends AppCompatActivity
 
             Intent intent = new Intent(Intent.ACTION_VIEW, intentUri);
             startActivity(intent);
-
         } else if (id == R.id.actual_plan) {
             fragment = new ActualPlanFragment();
             fragmentSelected = true;

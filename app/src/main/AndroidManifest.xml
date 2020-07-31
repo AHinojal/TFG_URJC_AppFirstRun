@@ -22,7 +22,18 @@
         </activity>
         <activity
             android:name=".Activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "http://localhost/exchange_token?state=&code=e7a4dc0011900c1e322cb0a78b32764103e7ac17&scope=read,activity:read_all,profile:read_all,read_all” -->
+                <data android:scheme="http"
+                    android:host="localhost"
+                    android:pathPattern="/.*"/>
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
