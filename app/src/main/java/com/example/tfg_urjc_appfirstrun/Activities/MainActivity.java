@@ -13,6 +13,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.tfg_urjc_appfirstrun.Activities.LoginActivity.ui.login.LoginActivity;
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment;
@@ -23,10 +30,17 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener{
 
     private View view;
+
+    private String clientId = "40301";
+    private String clientSecret = "cf7feabaae97e78edbd6b35e2e3a3280dc7c7fbb";
+    private String code = "";
+    private String grantType = "authorization_code";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +73,42 @@ public class MainActivity extends AppCompatActivity
 
         if (getIntent() != null && getIntent().getData() != null)
         {
-            //parse your data here,
-            //it's the deeplink you want "https://www.example.com/..."
+            //it's the deeplink you want "http://localhost/exchane_token?......"
             Uri data = getIntent().getData();
-            Log.i("TAG DATA", data.toString());
+            // to obtain the code for the auth
+            this.code = data.getQueryParameter("code");
+            Log.i("Code for Auth", this.code);
+
+            this.requestAccessToken();
         }
     }
 
+    private void requestAccessToken() {
+        // REQUEST TO OBTAIN ACCESS TOKEN
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // URL which return the access token
+        String url = "https://www.strava.com/oauth/token?client_id=" + this.clientId + "&client_secret=" + this.clientSecret + "&code=" + this.code + "&grant_type=" + this.grantType;
+        Log.i("URL Auth: ", url);
+
+        // Request a JSON response from the provided URL.
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("Request Auth", "Response is: "+ response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("Request Auth", "That didn't work!: " + error);
+                    }
+                }
+        );
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -115,7 +158,7 @@ public class MainActivity extends AppCompatActivity
             // Nos redirecciona a Strava
             Uri intentUri = Uri.parse("https://www.strava.com/oauth/mobile/authorize")
                     .buildUpon()
-                    .appendQueryParameter("client_id", "40301")
+                    .appendQueryParameter("client_id", this.clientId)
                     .appendQueryParameter("redirect_uri", "http://localhost/exchange_token")
                     .appendQueryParameter("response_type", "code")
                     .appendQueryParameter("approval_prompt", "auto")
