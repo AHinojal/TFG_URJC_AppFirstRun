@@ -5,7 +5,9 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -42,6 +44,8 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final Button loginRegister = findViewById(R.id.register);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        preloadBD();
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -125,6 +129,18 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    private void preloadBD() {
+        SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("isStravaLogin", false);
+        editor.putString("access_token", null);
+
+        editor.commit();
+    }
+
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome);

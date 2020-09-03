@@ -1,6 +1,8 @@
 package com.example.tfg_urjc_appfirstrun.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +32,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity
@@ -58,19 +61,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        view = (View) findViewById(R.id.viewSnackbar);
-
-        /*m mWebview.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                if (url.contains("code")){
-                    Log.d("URL", url );
-                    mWebview.setVisibility(View.GONE);
-                }
-            }
-        });*/
-
         if (getIntent() != null && getIntent().getData() != null)
         {
             //it's the deeplink you want "http://localhost/exchane_token?......"
@@ -95,7 +85,23 @@ public class MainActivity extends AppCompatActivity
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i("Request Auth", "Response is: "+ response);
+                        Log.i("Request Auth", "Response is: " + response);
+                        try {
+                            // PARA GUARDAR LOS DATOS ALMACENADOS
+                            //Log.i("Access Token", response.getString("access_token"));
+                            SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+
+                            SharedPreferences.Editor editor = preferences.edit();
+
+                            editor.putBoolean("isStravaLogin", true);
+                            editor.putString("access_token", response.getString("access_token"));
+
+                            editor.commit();
+
+                            Log.i("Access Token in BDInt", preferences.getString("access_token", "No access token"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
