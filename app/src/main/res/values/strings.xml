@@ -6,7 +6,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Opciones</string>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <!-- STRING LOGIN ACTIVITY-->
     <string name="prompt_username">Nombre de usuario</string>
