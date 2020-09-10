@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     private String clientSecret = "cf7feabaae97e78edbd6b35e2e3a3280dc7c7fbb";
     private String code = "";
     private String grantType = "authorization_code";
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,24 +61,10 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu menuNavigation = navigationView.getMenu();
         // Para conseguir el valor de si estamos logueados en Strava ya
-        SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
-        // TODO: Falla la primera vez que se logea en Strava...ver por que
-        boolean isStravaLogin = preferences.getBoolean("isStravaLogin", false);
-        if (isStravaLogin){
-            menuNavigation.findItem(R.id.redirect_strava).setVisible(false);
-            menuNavigation.findItem(R.id.create_plan).setVisible(true);
-            menuNavigation.findItem(R.id.actual_plan).setVisible(true);
-            menuNavigation.findItem(R.id.historical_plan).setVisible(true);
-        } else {
-            menuNavigation.findItem(R.id.redirect_strava).setVisible(true);
-            menuNavigation.findItem(R.id.create_plan).setVisible(false);
-            menuNavigation.findItem(R.id.actual_plan).setVisible(false);
-            menuNavigation.findItem(R.id.historical_plan).setVisible(false);
-        }
-
+        checkIfIsStravaIsLogin(menuNavigation);
         navigationView.setNavigationItemSelectedListener(this);
 
         if (getIntent() != null && getIntent().getData() != null)
@@ -90,6 +77,15 @@ public class MainActivity extends AppCompatActivity
 
             this.requestAccessToken();
         }
+    }
+
+    private void checkIfIsStravaIsLogin(Menu menuNavigation) {
+        SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        boolean isStravaLogin = preferences.getBoolean("isStravaLogin", false);
+        menuNavigation.findItem(R.id.redirect_strava).setVisible(!isStravaLogin);
+        menuNavigation.findItem(R.id.create_plan).setVisible(isStravaLogin);
+        menuNavigation.findItem(R.id.actual_plan).setVisible(isStravaLogin);
+        menuNavigation.findItem(R.id.historical_plan).setVisible(isStravaLogin);
     }
 
     private void requestAccessToken() {
@@ -118,6 +114,9 @@ public class MainActivity extends AppCompatActivity
                             editor.commit();
 
                             Log.i("Access Token in BDInt", preferences.getString("access_token", "No access token"));
+
+                            Menu menuNavigation = navigationView.getMenu();
+                            checkIfIsStravaIsLogin(menuNavigation);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -134,6 +133,7 @@ public class MainActivity extends AppCompatActivity
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
