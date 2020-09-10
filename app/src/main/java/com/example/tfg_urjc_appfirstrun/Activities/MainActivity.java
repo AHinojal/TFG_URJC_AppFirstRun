@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -59,6 +61,23 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu menuNavigation = navigationView.getMenu();
+        // Para conseguir el valor de si estamos logueados en Strava ya
+        SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        // TODO: Falla la primera vez que se logea en Strava...ver por que
+        boolean isStravaLogin = preferences.getBoolean("isStravaLogin", false);
+        if (isStravaLogin){
+            menuNavigation.findItem(R.id.redirect_strava).setVisible(false);
+            menuNavigation.findItem(R.id.create_plan).setVisible(true);
+            menuNavigation.findItem(R.id.actual_plan).setVisible(true);
+            menuNavigation.findItem(R.id.historical_plan).setVisible(true);
+        } else {
+            menuNavigation.findItem(R.id.redirect_strava).setVisible(true);
+            menuNavigation.findItem(R.id.create_plan).setVisible(false);
+            menuNavigation.findItem(R.id.actual_plan).setVisible(false);
+            menuNavigation.findItem(R.id.historical_plan).setVisible(false);
+        }
+
         navigationView.setNavigationItemSelectedListener(this);
 
         if (getIntent() != null && getIntent().getData() != null)
@@ -170,7 +189,6 @@ public class MainActivity extends AppCompatActivity
                     .appendQueryParameter("approval_prompt", "auto")
                     .appendQueryParameter("scope", "activity:read_all,profile:read_all,read_all")
                     .build();
-
             Intent intent = new Intent(Intent.ACTION_VIEW, intentUri);
             startActivity(intent);
         } else if (id == R.id.actual_plan) {
@@ -206,6 +224,7 @@ public class MainActivity extends AppCompatActivity
     private void logout() {
         FirebaseAuth.getInstance().signOut();
         Log.d("Logout: ", "User logout correctly");
+        Toast.makeText(getApplicationContext(), getString(R.string.session_closed), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

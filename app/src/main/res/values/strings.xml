@@ -16,6 +16,7 @@
     <string name="action_sign_in_short">Iniciar</string>
     <string name="action_register">Crear Usuario</string>
     <string name="welcome">"Bienvenido!"</string>
+    <string name="session_closed">Sesión cerrada</string>
     <string name="invalid_username">No es un correo válido</string>
     <string name="invalid_password">La contraseña debe ser mayor a 5 caracteres</string>
     <string name="login_failed">"Inicio de sesión fallido"</string>
@@ -23,4 +24,11 @@
     <string name="register_failed">"Registro de usuario fallido"</string>
     <string name="title_activity_login">Log In</string>
 
+    <!-- STRINGS MENU NAVEGACION -->
+    <string name="info_first">Información sobre FIRST</string>
+    <string name="redirect_strava">Iniciar sesión Strava</string>
+    <string name="create_plan">Crear plan</string>
+    <string name="actual_plan">Ver plan actual</string>
+    <string name="historical_plan">Historial de planes</string>
+    <string name="log_out">Cerrar sesión</string>
 </resources>
