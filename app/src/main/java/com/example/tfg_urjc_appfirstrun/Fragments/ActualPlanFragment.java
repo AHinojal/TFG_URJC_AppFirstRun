@@ -48,10 +48,10 @@ public class ActualPlanFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(this.getContext());
         // URL which return the access token
         String url = "https://www.strava.com/api/v3/activities/" + this.idActivity + "?include_all_efforts=true";
-        Log.i("URL Activity Test: ", url);
+        Log.i("URL Activity Test", url);
 
         // Request a JSON response from the provided URL.
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -68,12 +68,13 @@ public class ActualPlanFragment extends Fragment {
             //This is for Headers If You Needed
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> headers = new HashMap<String, String>();
                 SharedPreferences preferences = getActivity().getSharedPreferences("credentials", Context.MODE_PRIVATE);
                 String access_token = preferences.getString("access_token", null);
-                params.put("Authorization", access_token);
-                Log.i("params", params.toString());
-                return params;
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", "Bearer " + access_token);
+                Log.i("Header Request", headers.toString());
+                return headers;
             }
         };
 
