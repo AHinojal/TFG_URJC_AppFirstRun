@@ -26,6 +26,7 @@ import com.example.tfg_urjc_appfirstrun.Activities.LoginActivity.ui.login.LoginA
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment.OnFragmentInteractionListener;
+import com.example.tfg_urjc_appfirstrun.Fragments.InfoApiStravaFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.InfoFirstFragment;
 import com.example.tfg_urjc_appfirstrun.R;
 import com.google.android.material.navigation.NavigationView;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener{
 
     private View view;
-
     private String clientId = "40301";
     private String clientSecret = "cf7feabaae97e78edbd6b35e2e3a3280dc7c7fbb";
     private String code = "";
@@ -177,17 +177,8 @@ public class MainActivity extends AppCompatActivity
             fragment = new CreatePlanFragment();
             fragmentSelected = true;
         } else if (id == R.id.redirect_strava) {
-            // Nos redirecciona a Strava
-            Uri intentUri = Uri.parse("https://www.strava.com/oauth/mobile/authorize")
-                    .buildUpon()
-                    .appendQueryParameter("client_id", this.clientId)
-                    .appendQueryParameter("redirect_uri", "http://localhost/exchange_token")
-                    .appendQueryParameter("response_type", "code")
-                    .appendQueryParameter("approval_prompt", "auto")
-                    .appendQueryParameter("scope", "activity:read_all,profile:read_all,read_all")
-                    .build();
-            Intent intent = new Intent(Intent.ACTION_VIEW, intentUri);
-            startActivity(intent);
+            fragment = new InfoApiStravaFragment();
+            fragmentSelected = true;
         } else if (id == R.id.actual_plan) {
             fragment = new ActualPlanFragment();
             fragmentSelected = true;

@@ -30,4 +30,9 @@
     <string name="actual_plan">Ver plan actual</string>
     <string name="historical_plan">Historial de planes</string>
     <string name="log_out">Cerrar sesión</string>
+
+    <!-- STRINGS API STRAVA -->
+    <string name="cliente_id">ID del cliente</string>
+    <string name="secret_client">Secreto del cliente</string>
+    <string name="button_go_to_strava">Redireccionar a Strava</string>
 </resources>

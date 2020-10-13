@@ -1,19 +1,15 @@
 package com.example.tfg_urjc_appfirstrun.Activities.LoginActivity.ui.login;
 
 import android.app.Activity;
-
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -24,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.tfg_urjc_appfirstrun.Activities.MainActivity;
 import com.example.tfg_urjc_appfirstrun.R;
 
