@@ -177,8 +177,19 @@ public class MainActivity extends AppCompatActivity
             fragment = new CreatePlanFragment();
             fragmentSelected = true;
         } else if (id == R.id.redirect_strava) {
-            fragment = new InfoApiStravaFragment();
-            fragmentSelected = true;
+            /*fragment = new InfoApiStravaFragment();
+            fragmentSelected = true;*/
+            // Nos redirecciona a Strava
+            Uri intentUri = Uri.parse("https://www.strava.com/oauth/mobile/authorize")
+                    .buildUpon()
+                    .appendQueryParameter("client_id", this.clientId)
+                    .appendQueryParameter("redirect_uri", "http://localhost/exchange_token")
+                    .appendQueryParameter("response_type", "code")
+                    .appendQueryParameter("approval_prompt", "auto")
+                    .appendQueryParameter("scope", "activity:read_all,profile:read_all,read_all")
+                    .build();
+            Intent intent = new Intent(Intent.ACTION_VIEW, intentUri);
+            startActivity(intent);
         } else if (id == R.id.actual_plan) {
             fragment = new ActualPlanFragment();
             fragmentSelected = true;
