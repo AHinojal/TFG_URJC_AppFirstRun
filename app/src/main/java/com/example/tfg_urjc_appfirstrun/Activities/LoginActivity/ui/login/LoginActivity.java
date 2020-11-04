@@ -12,6 +12,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.tfg_urjc_appfirstrun.Activities.MainActivity;
 import com.example.tfg_urjc_appfirstrun.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -134,6 +137,8 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("access_token", null);
 
         editor.commit();
+
+        Log.i("UUID USER save ShaPref", preferences.getString("uuid", null) );
     }
 
 

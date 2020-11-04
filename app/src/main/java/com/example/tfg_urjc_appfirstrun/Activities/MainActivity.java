@@ -32,6 +32,8 @@ import com.example.tfg_urjc_appfirstrun.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        saveUUIDLoggedUser();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -74,6 +78,22 @@ public class MainActivity extends AppCompatActivity
 
             this.requestAccessToken();
         }
+    }
+
+    // Obtain UUID user logged
+    private void saveUUIDLoggedUser() {
+        SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
+            editor.putString("uuid", uid);
+        }
+
+        editor.commit();
+
+        Log.i("UUID USER save ShaPref", preferences.getString("uuid", null) );
     }
 
     private void checkIfIsStravaIsLogin(Menu menuNavigation) {

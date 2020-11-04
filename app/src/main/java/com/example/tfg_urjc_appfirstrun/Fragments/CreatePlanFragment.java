@@ -89,6 +89,7 @@ public class CreatePlanFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // CALCULO DEL FACTOR EN FUNCION DEL TIEMPO
                 int factor = calculateFactor(actualTime.getText().toString());
                 // tiempo 16:00 (00:01:07) + factor * tiempo 0:10 (00:00:00.800)
                 Date initialTime = new Date(800);
