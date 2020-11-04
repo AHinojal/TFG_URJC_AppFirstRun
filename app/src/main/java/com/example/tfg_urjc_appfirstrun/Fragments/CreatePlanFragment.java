@@ -2,21 +2,37 @@ package com.example.tfg_urjc_appfirstrun.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
-
 import com.example.tfg_urjc_appfirstrun.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 
 public class CreatePlanFragment extends Fragment {
 
     private Spinner spinner_durationPlan;
     private Spinner spinner_distancePlan;
+    private EditText actualTime;
+    private HashMap<String, String> dataPlan = new HashMap<String, String>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -34,6 +50,8 @@ public class CreatePlanFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_create_plan, container, false);
+
+        actualTime = (EditText) v.findViewById(R.id.editText_actualtime5km);
 
         // Inicializacion de los atributos
         spinner_durationPlan = (Spinner) v.findViewById (R.id.spinner_durationPlan);
@@ -67,7 +85,39 @@ public class CreatePlanFragment extends Fragment {
             }
         });
 
+        FloatingActionButton fab = v.findViewById(R.id.floatingActionButton_savePlan);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int factor = calculateFactor(actualTime.getText().toString());
+                // tiempo 16:00 (00:01:07) + factor * tiempo 0:10 (00:00:00.800)
+                Date initialTime = new Date(800);
+                Date baseTime = new Date(67000);
+                float time = baseTime.getTime() + (factor * initialTime.getTime());
+                Date markSectorTime = new Date(Math.round(time));
+                SimpleDateFormat formatDate = new SimpleDateFormat("mm:ss");
+                String infoData = formatDate.format(markSectorTime);
+                Snackbar.make(view, infoData, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
         return v;
+    }
+
+    // To get the time diference between
+    private int calculateFactor(String actualTime) {
+        int factor = 0;
+        try {
+            SimpleDateFormat formatDate = new SimpleDateFormat("HH:mm:ss");
+            Date dateStart = formatDate.parse("00:16:00");
+            Date dateEnd = formatDate.parse(actualTime);
+            float milliseconds = dateEnd.getTime() - dateStart.getTime();
+            factor = (int) (milliseconds / 10000);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // Log.i("Factor", Integer.toString(factor));
+        return factor;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
