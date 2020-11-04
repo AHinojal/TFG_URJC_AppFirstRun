@@ -26,13 +26,14 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class CreatePlanFragment extends Fragment {
 
     private Spinner spinner_durationPlan;
     private Spinner spinner_distancePlan;
     private EditText actualTime;
-    private HashMap<String, String> dataPlan = new HashMap<String, String>();
+    private HashMap<String, Date> dataPlan = new HashMap<String, Date>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -87,23 +88,53 @@ public class CreatePlanFragment extends Fragment {
 
         FloatingActionButton fab = v.findViewById(R.id.floatingActionButton_savePlan);
         fab.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                // CALCULO DEL FACTOR EN FUNCION DEL TIEMPO
-                int factor = calculateFactor(actualTime.getText().toString());
-                // tiempo 16:00 (00:01:07) + factor * tiempo 0:10 (00:00:00.800)
-                Date initialTime = new Date(800);
-                Date baseTime = new Date(67000);
-                float time = baseTime.getTime() + (factor * initialTime.getTime());
-                Date markSectorTime = new Date(Math.round(time));
-                SimpleDateFormat formatDate = new SimpleDateFormat("mm:ss");
-                String infoData = formatDate.format(markSectorTime);
-                Snackbar.make(view, infoData, Snackbar.LENGTH_LONG)
+                fillHashMapWithTrainingTimes();
+
+                for (Map.Entry times : dataPlan.entrySet()) {
+                    SimpleDateFormat formatDate = new SimpleDateFormat("mm:ss");
+                    Log.i("Dato " + times.getKey(), formatDate.format(times.getValue()));
+                }
+                //String infoData = formatDate.format("hiola");
+                Snackbar.make(view, "Creado", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
         return v;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void fillHashMapWithTrainingTimes() {
+        // CALCULO DEL FACTOR EN FUNCION DEL TIEMPO
+        int factor = calculateFactor(actualTime.getText().toString());
+        dataPlan.put("400", calculateTimeSector(new Date(67000),new Date(800),factor));
+        dataPlan.put("600", calculateTimeSector(new Date(103000),new Date(1200),factor));
+        dataPlan.put("800", calculateTimeSector(new Date(138000),new Date(1600),factor));
+        dataPlan.put("1000", calculateTimeSector(new Date(175000),new Date(2000),factor));
+        dataPlan.put("1200", calculateTimeSector(new Date(214000),new Date(2400),factor));
+        dataPlan.put("1600", calculateTimeSector(new Date(293000),new Date(3200),factor));
+        dataPlan.put("2000", calculateTimeSector(new Date(371000),new Date(4000),factor));
+        dataPlan.put("corto", calculateTimeSector(new Date(202000),new Date(2000),factor));
+        dataPlan.put("medio", calculateTimeSector(new Date(212000),new Date(2000),factor));
+        dataPlan.put("largo", calculateTimeSector(new Date(221000),new Date(2000),factor));
+        dataPlan.put("facil", plusTime(calculateTimeSector(new Date(221000),new Date(2000),factor), new Date (41000)));
+        dataPlan.put("mar", calculateTimeSector(new Date(221000),new Date(2300),factor));
+        dataPlan.put("mediamar", calculateTimeSector(new Date(211000),new Date(2200),factor));
+    }
+
+    private Date calculateTimeSector(Date initialTime, Date baseTime, int factor){
+        // tiempo inicial 16:00 segun distancia + factor * tiempo base 0:10 segun distancia
+        float time = initialTime.getTime() + (factor * baseTime.getTime());
+        return new Date(Math.round(time));
+    }
+
+    private Date plusTime(Date initialTime, Date extraTime) {
+        float milliseconds = initialTime.getTime() + extraTime.getTime();
+        return new Date(Math.round(milliseconds));
+    }
+
 
     // To get the time diference between
     private int calculateFactor(String actualTime) {
@@ -117,7 +148,7 @@ public class CreatePlanFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        // Log.i("Factor", Integer.toString(factor));
+        Log.i("Factor", Integer.toString(factor));
         return factor;
     }
 
