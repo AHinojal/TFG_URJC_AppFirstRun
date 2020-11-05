@@ -43,7 +43,28 @@ public class Session {
         this.sector11 = null;
         this.sector12 = null;
     }
+    // Constructor for only one session
+    public Session (int replays, ArrayList<String> distance, Date sessionDay, String recoveryTime, Sector sector){
+        this.uuid = UUID.randomUUID().toString();
+        this.replays = replays;
+        this.distance = distance;
+        this.sessionDay = sessionDay;
+        this.recoveryTime = recoveryTime;
+        this.sector1 = sector;
+        this.sector2 = null;
+        this.sector3 = null;
+        this.sector4 = null;
+        this.sector5 = null;
+        this.sector6 = null;
+        this.sector7 = null;
+        this.sector8 = null;
+        this.sector9 = null;
+        this.sector10 = null;
+        this.sector11 = null;
+        this.sector12 = null;
+    }
 
+    // Constructor for 2..N sectors
     public Session (int replays, ArrayList<String> distance, Date sessionDay, String recoveryTime, ArrayList<Sector> sectors){
         this.uuid = UUID.randomUUID().toString();
         this.replays = replays;
