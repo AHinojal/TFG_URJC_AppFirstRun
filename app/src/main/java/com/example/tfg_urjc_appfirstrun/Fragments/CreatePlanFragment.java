@@ -15,25 +15,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.example.tfg_urjc_appfirstrun.Classes.Sector;
+import com.example.tfg_urjc_appfirstrun.Classes.Session;
+import com.example.tfg_urjc_appfirstrun.Classes.Training;
+import com.example.tfg_urjc_appfirstrun.Classes.Week;
 import com.example.tfg_urjc_appfirstrun.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 public class CreatePlanFragment extends Fragment {
 
     private Spinner spinner_durationPlan;
     private Spinner spinner_distancePlan;
     private EditText actualTime;
-    private HashMap<String, Date> dataPlan = new HashMap<String, Date>();
+    private HashMap<String, Date> hashMapPlanning = new HashMap<String, Date>();
+    private Training training;
 
     private OnFragmentInteractionListener mListener;
 
@@ -91,65 +94,23 @@ public class CreatePlanFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
+                // Creamos la lista de tiempos a hacer segun la marca que nos da el usuario
                 fillHashMapWithTrainingTimes();
 
+                /* To show in log all the training times
                 for (Map.Entry times : dataPlan.entrySet()) {
                     SimpleDateFormat formatDate = new SimpleDateFormat("mm:ss");
                     Log.i("Dato " + times.getKey(), formatDate.format(times.getValue()));
-                }
-                //String infoData = formatDate.format("hiola");
+                }*/
+
+                // Creamos toda la estructura de base de datos con el entrenamiento
+                createTraining(0);
+
                 Snackbar.make(view, "Creado", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
         return v;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void fillHashMapWithTrainingTimes() {
-        // CALCULO DEL FACTOR EN FUNCION DEL TIEMPO
-        int factor = calculateFactor(actualTime.getText().toString());
-        dataPlan.put("400", calculateTimeSector(new Date(67000),new Date(800),factor));
-        dataPlan.put("600", calculateTimeSector(new Date(103000),new Date(1200),factor));
-        dataPlan.put("800", calculateTimeSector(new Date(138000),new Date(1600),factor));
-        dataPlan.put("1000", calculateTimeSector(new Date(175000),new Date(2000),factor));
-        dataPlan.put("1200", calculateTimeSector(new Date(214000),new Date(2400),factor));
-        dataPlan.put("1600", calculateTimeSector(new Date(293000),new Date(3200),factor));
-        dataPlan.put("2000", calculateTimeSector(new Date(371000),new Date(4000),factor));
-        dataPlan.put("corto", calculateTimeSector(new Date(202000),new Date(2000),factor));
-        dataPlan.put("medio", calculateTimeSector(new Date(212000),new Date(2000),factor));
-        dataPlan.put("largo", calculateTimeSector(new Date(221000),new Date(2000),factor));
-        dataPlan.put("facil", plusTime(calculateTimeSector(new Date(221000),new Date(2000),factor), new Date (41000)));
-        dataPlan.put("mar", calculateTimeSector(new Date(221000),new Date(2300),factor));
-        dataPlan.put("mediamar", calculateTimeSector(new Date(211000),new Date(2200),factor));
-    }
-
-    private Date calculateTimeSector(Date initialTime, Date baseTime, int factor){
-        // tiempo inicial 16:00 segun distancia + factor * tiempo base 0:10 segun distancia
-        float time = initialTime.getTime() + (factor * baseTime.getTime());
-        return new Date(Math.round(time));
-    }
-
-    private Date plusTime(Date initialTime, Date extraTime) {
-        float milliseconds = initialTime.getTime() + extraTime.getTime();
-        return new Date(Math.round(milliseconds));
-    }
-
-
-    // To get the time diference between
-    private int calculateFactor(String actualTime) {
-        int factor = 0;
-        try {
-            SimpleDateFormat formatDate = new SimpleDateFormat("HH:mm:ss");
-            Date dateStart = formatDate.parse("00:16:00");
-            Date dateEnd = formatDate.parse(actualTime);
-            float milliseconds = dateEnd.getTime() - dateStart.getTime();
-            factor = (int) (milliseconds / 10000);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Log.i("Factor", Integer.toString(factor));
-        return factor;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -179,5 +140,224 @@ public class CreatePlanFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    // METHODS CREATION PLANNING TRAINING
+    private void createTraining(int typeTraining){
+        switch(typeTraining){
+            case 0: // 5 km - 12 semanas
+                this.creation5km();
+                break;
+            case 1: // 10 km - 12 semanas
+                this.creation10km();
+                break;
+            case 2: // Marathon - 16 semanas
+                this.creationMarathon();
+                break;
+            default:
+                break;
+        }
+    }
+
+    // METHODS with each one CREATION TRAINING
+    private void creation5km (){
+        // Creamos los sectores y lo guardamos en un array para pasarselo a las sesiones
+        // SERIES (Xw_1s)
+        ArrayList<Sector> sectors1w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 8; i++){
+            int number = i + 1;
+            sectors1w_1s.add(new Sector(number, hashMapPlanning.get("400").getTime()));
+        }
+        ArrayList<Sector> sectors2w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 8; i++){
+            int number = i + 1;
+            sectors2w_1s.add(new Sector(number, hashMapPlanning.get("800").getTime()));
+        }
+        ArrayList<Sector> sectors3w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 3; i++){
+            int number = i + 1;
+            if (i < 2){
+                sectors3w_1s.add(new Sector(number, hashMapPlanning.get("1600").getTime()));
+            } else {
+                sectors3w_1s.add(new Sector(number, hashMapPlanning.get("800").getTime()));
+            }
+        }
+        ArrayList<Sector> sectors4w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 6; i++){
+            int number = i + 1;
+            if (i == 0 || i == 5){
+                sectors4w_1s.add(new Sector(number, hashMapPlanning.get("400").getTime()));
+            } else if (i == 1 || i == 4){
+                sectors4w_1s.add(new Sector(number, hashMapPlanning.get("600").getTime()));
+            } else {
+                sectors4w_1s.add(new Sector(number, hashMapPlanning.get("800").getTime()));
+            }
+        }
+        ArrayList<Sector> sectors5w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 4; i++){
+            int number = i + 1;
+            sectors5w_1s.add(new Sector(number, hashMapPlanning.get("1000").getTime()));
+        }
+        ArrayList<Sector> sectors6w_1s = new ArrayList<Sector>();
+        sectors6w_1s.add(new Sector(1, hashMapPlanning.get("1600").getTime()));
+        sectors6w_1s.add(new Sector(2, hashMapPlanning.get("1200").getTime()));
+        sectors6w_1s.add(new Sector(3, hashMapPlanning.get("800").getTime()));
+        sectors6w_1s.add(new Sector(4, hashMapPlanning.get("400").getTime()));
+        ArrayList<Sector> sectors7w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 10; i++){
+            int number = i + 1;
+            sectors7w_1s.add(new Sector(number, hashMapPlanning.get("400").getTime()));
+        }
+        ArrayList<Sector> sectors8w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 6; i++){
+            int number = i + 1;
+            sectors8w_1s.add(new Sector(number, hashMapPlanning.get("800").getTime()));
+        }
+        ArrayList<Sector> sectors9w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 4; i++){
+            int number = i + 1;
+            sectors9w_1s.add(new Sector(number, hashMapPlanning.get("1200").getTime()));
+        }
+        ArrayList<Sector> sectors10w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 5; i++){
+            int number = i + 1;
+            sectors10w_1s.add(new Sector(number, hashMapPlanning.get("1000").getTime()));
+        }
+        ArrayList<Sector> sectors11w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 3; i++){
+            int number = i + 1;
+            sectors11w_1s.add(new Sector(number, hashMapPlanning.get("1600").getTime()));
+        }
+        ArrayList<Sector> sectors12w_1s = new ArrayList<Sector>();
+        for (int i = 0; i < 6; i++){
+            int number = i + 1;
+            sectors12w_1s.add(new Sector(number, hashMapPlanning.get("400").getTime()));
+        }
+        // CARRERA CORTA (Xw_2s)
+        ArrayList<Sector> sectors1w_2s = new ArrayList<Sector>();
+        sectors1w_2s.add(new Sector(1, hashMapPlanning.get("corto").getTime()));
+        ArrayList<Sector> sectors2w_2s = new ArrayList<Sector>();
+        sectors2w_2s.add(new Sector(1, hashMapPlanning.get("corto").getTime()));
+        ArrayList<Sector> sectors3w_2s = new ArrayList<Sector>();
+        sectors3w_2s.add(new Sector(1, hashMapPlanning.get("corto").getTime()));
+        sectors3w_2s.add(new Sector(2, hashMapPlanning.get("facil").getTime()));
+        sectors3w_2s.add(new Sector(3, hashMapPlanning.get("corto").getTime()));
+        ArrayList<Sector> sectors4w_2s = new ArrayList<Sector>();
+        sectors4w_2s.add(new Sector(1, hashMapPlanning.get("medio").getTime()));
+        ArrayList<Sector> sectors5w_2s = new ArrayList<Sector>();
+        sectors5w_2s.add(new Sector(1, hashMapPlanning.get("corto").getTime()));
+        ArrayList<Sector> sectors6w_2s = new ArrayList<Sector>();
+        sectors6w_2s.add(new Sector(1, hashMapPlanning.get("corto").getTime()));
+        sectors6w_2s.add(new Sector(2, hashMapPlanning.get("facil").getTime()));
+        sectors6w_2s.add(new Sector(3, hashMapPlanning.get("corto").getTime()));
+        sectors6w_2s.add(new Sector(4, hashMapPlanning.get("facil").getTime()));
+        sectors6w_2s.add(new Sector(5, hashMapPlanning.get("corto").getTime()));
+        ArrayList<Sector> sectors7w_2s = new ArrayList<Sector>();
+        sectors7w_2s.add(new Sector(1, hashMapPlanning.get("medio").getTime()));
+        ArrayList<Sector> sectors8w_2s = new ArrayList<Sector>();
+        sectors8w_2s.add(new Sector(1, hashMapPlanning.get("corto").getTime()));
+        sectors8w_2s.add(new Sector(2, hashMapPlanning.get("facil").getTime()));
+        sectors8w_2s.add(new Sector(3, hashMapPlanning.get("corto").getTime()));
+        ArrayList<Sector> sectors9w_2s = new ArrayList<Sector>();
+        sectors9w_2s.add(new Sector(1, hashMapPlanning.get("corto").getTime()));
+        ArrayList<Sector> sectors10w_2s = new ArrayList<Sector>();
+        sectors10w_2s.add(new Sector(1, hashMapPlanning.get("corto").getTime()));
+        sectors10w_2s.add(new Sector(2, hashMapPlanning.get("facil").getTime()));
+        sectors10w_2s.add(new Sector(3, hashMapPlanning.get("corto").getTime()));
+        sectors10w_2s.add(new Sector(4, hashMapPlanning.get("facil").getTime()));
+        sectors10w_2s.add(new Sector(5, hashMapPlanning.get("corto").getTime()));
+        ArrayList<Sector> sectors11w_2s = new ArrayList<Sector>();
+        sectors11w_2s.add(new Sector(1, hashMapPlanning.get("corto").getTime()));
+        ArrayList<Sector> sectors12w_2s = new ArrayList<Sector>();
+        sectors12w_2s.add(new Sector(1, hashMapPlanning.get("facil").getTime()));
+        // CARRERA LARGA (Xw_3s)
+
+        // Creamos las sesiones (pasandoles sus sectores)
+        // week1
+        Session session1w_1s = new Session (sectors1w_1s.size(),"400",new Date(),"400m",sectors1w_1s);
+        Session session2w_1s = new Session (sectors1w_1s.size(),"800",new Date(),"400m",sectors2w_1s);
+        Session session3w_1s = new Session (sectors1w_1s.size(),"1600,800",new Date(),"400m",sectors3w_1s);
+        Session session4w_1s = new Session (sectors1w_1s.size(),"400,600,800",new Date(),"400m",sectors4w_1s);
+        Session session5w_1s = new Session (sectors1w_1s.size(),"1000",new Date(),"400m",sectors5w_1s);
+        Session session6w_1s = new Session (sectors1w_1s.size(),"1600,1200,800,400",new Date(),"400m",sectors6w_1s);
+        Session session7w_1s = new Session (sectors1w_1s.size(),"400",new Date(),"90seg",sectors7w_1s);
+        Session session8w_1s = new Session (sectors1w_1s.size(),"800",new Date(),"400m",sectors8w_1s);
+        Session session9w_1s = new Session (sectors1w_1s.size(),"1200",new Date(),"400m",sectors9w_1s);
+        Session session10w_1s = new Session (sectors1w_1s.size(),"1000",new Date(),"400m",sectors10w_1s);
+        Session session11w_1s = new Session (sectors1w_1s.size(),"1600",new Date(),"400m",sectors11w_1s);
+        Session session12w_1s = new Session (sectors1w_1s.size(),"400",new Date(),"400m",sectors12w_1s);
+        // week2
+        Session session1w_2s = new Session (sectors1w_1s.size(),"3km",new Date(),null,sectors1w_1s);
+        //week3
+        Session session1w_3s = new Session (sectors1w_1s.size(),"8Km",new Date(),null,sectors1w_1s);
+
+        // Creamos las semanas
+        Week week1 = new Week(session1w_1s, session1w_2s, session1w_3s);
+        // Creamos el entrenamiento
+        training = new Training();
+    }
+
+    private void creation10km() {
+        // Creamos los sectores
+
+
+        // Creamos las sesiones (pasandoles sus sectores)
+        // Creamos las semanas
+        // Creamos el entrenamiento
+    }
+
+    private void creationMarathon() {
+        // Creamos los sectores
+
+
+        // Creamos las sesiones (pasandoles sus sectores)
+        // Creamos las semanas
+        // Creamos el entrenamiento
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void fillHashMapWithTrainingTimes() {
+        // CALCULO DEL FACTOR EN FUNCION DEL TIEMPO
+        int factor = calculateFactor(actualTime.getText().toString());
+        hashMapPlanning.put("400", calculateTimeSector(new Date(67000),new Date(800),factor));
+        hashMapPlanning.put("600", calculateTimeSector(new Date(103000),new Date(1200),factor));
+        hashMapPlanning.put("800", calculateTimeSector(new Date(138000),new Date(1600),factor));
+        hashMapPlanning.put("1000", calculateTimeSector(new Date(175000),new Date(2000),factor));
+        hashMapPlanning.put("1200", calculateTimeSector(new Date(214000),new Date(2400),factor));
+        hashMapPlanning.put("1600", calculateTimeSector(new Date(293000),new Date(3200),factor));
+        hashMapPlanning.put("2000", calculateTimeSector(new Date(371000),new Date(4000),factor));
+        hashMapPlanning.put("corto", calculateTimeSector(new Date(202000),new Date(2000),factor));
+        hashMapPlanning.put("medio", calculateTimeSector(new Date(212000),new Date(2000),factor));
+        hashMapPlanning.put("largo", calculateTimeSector(new Date(221000),new Date(2000),factor));
+        hashMapPlanning.put("facil", plusTime(calculateTimeSector(new Date(221000),new Date(2000),factor), new Date (41000)));
+        hashMapPlanning.put("mar", calculateTimeSector(new Date(221000),new Date(2300),factor));
+        hashMapPlanning.put("mediamar", calculateTimeSector(new Date(211000),new Date(2200),factor));
+    }
+
+    private Date calculateTimeSector(Date initialTime, Date baseTime, int factor){
+        // tiempo inicial 16:00 segun distancia + factor * tiempo base 0:10 segun distancia
+        float time = initialTime.getTime() + (factor * baseTime.getTime());
+        return new Date(Math.round(time));
+    }
+
+    private Date plusTime(Date initialTime, Date extraTime) {
+        float milliseconds = initialTime.getTime() + extraTime.getTime();
+        return new Date(Math.round(milliseconds));
+    }
+
+    // To get the time diference between
+    private int calculateFactor(String actualTime) {
+        int factor = 0;
+        try {
+            SimpleDateFormat formatDate = new SimpleDateFormat("HH:mm:ss");
+            Date dateStart = formatDate.parse("00:16:00");
+            Date dateEnd = formatDate.parse(actualTime);
+            float milliseconds = dateEnd.getTime() - dateStart.getTime();
+            factor = (int) (milliseconds / 10000);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.i("Factor", Integer.toString(factor));
+        return factor;
     }
 }

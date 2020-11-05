@@ -9,6 +9,7 @@ public class Session {
     private int replays;
     private String distance;
     private Date sessionDay;
+    private String recoveryTime;
     private Sector sector1;
     private Sector sector2;
     private Sector sector3;
@@ -27,6 +28,7 @@ public class Session {
         this.replays = 0;
         this.distance = null;
         this.sessionDay = new Date();
+        this.recoveryTime = null;
         this.sector1 = null;
         this.sector2 = null;
         this.sector3 = null;
@@ -41,11 +43,12 @@ public class Session {
         this.sector12 = null;
     }
 
-    public Session (int replays, String distance, Date sessionDay, ArrayList<Sector> sectors){
+    public Session (int replays, String distance, Date sessionDay, String recoveryTime, ArrayList<Sector> sectors){
         this.uuid = UUID.randomUUID().toString();
         this.replays = replays;
         this.distance = distance;
         this.sessionDay = sessionDay;
+        this.recoveryTime = recoveryTime;
         this.sector1 = sectors.get(0);
         this.sector2 = sectors.get(1);
         this.sector3 = sectors.get(2);
