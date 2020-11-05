@@ -1,6 +1,7 @@
 package com.example.tfg_urjc_appfirstrun.Fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -104,7 +106,7 @@ public class CreatePlanFragment extends Fragment {
                 }*/
 
                 // Creamos toda la estructura de base de datos con el entrenamiento
-                createTraining(0);
+                //createTraining(0);
 
                 Snackbar.make(view, "Creado", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -271,30 +273,100 @@ public class CreatePlanFragment extends Fragment {
         ArrayList<Sector> sectors12w_2s = new ArrayList<Sector>();
         sectors12w_2s.add(new Sector(1, hashMapPlanning.get("facil").getTime()));
         // CARRERA LARGA (Xw_3s)
-
+        ArrayList<Sector> sectors1w_3s = new ArrayList<Sector>();
+        sectors1w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors2w_3s = new ArrayList<Sector>();
+        sectors2w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors3w_3s = new ArrayList<Sector>();
+        sectors3w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors4w_3s = new ArrayList<Sector>();
+        sectors4w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors5w_3s = new ArrayList<Sector>();
+        sectors5w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors6w_3s = new ArrayList<Sector>();
+        sectors6w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors7w_3s = new ArrayList<Sector>();
+        sectors7w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors8w_3s = new ArrayList<Sector>();
+        sectors8w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors9w_3s = new ArrayList<Sector>();
+        sectors9w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors10w_3s = new ArrayList<Sector>();
+        sectors10w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors11w_3s = new ArrayList<Sector>();
+        sectors11w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
+        ArrayList<Sector> sectors12w_3s = new ArrayList<Sector>();
+        sectors12w_3s.add(new Sector(1, hashMapPlanning.get("largo").getTime()));
         // Creamos las sesiones (pasandoles sus sectores)
         // week1
-        Session session1w_1s = new Session (sectors1w_1s.size(),"400",new Date(),"400m",sectors1w_1s);
-        Session session2w_1s = new Session (sectors1w_1s.size(),"800",new Date(),"400m",sectors2w_1s);
-        Session session3w_1s = new Session (sectors1w_1s.size(),"1600,800",new Date(),"400m",sectors3w_1s);
-        Session session4w_1s = new Session (sectors1w_1s.size(),"400,600,800",new Date(),"400m",sectors4w_1s);
-        Session session5w_1s = new Session (sectors1w_1s.size(),"1000",new Date(),"400m",sectors5w_1s);
-        Session session6w_1s = new Session (sectors1w_1s.size(),"1600,1200,800,400",new Date(),"400m",sectors6w_1s);
-        Session session7w_1s = new Session (sectors1w_1s.size(),"400",new Date(),"90seg",sectors7w_1s);
-        Session session8w_1s = new Session (sectors1w_1s.size(),"800",new Date(),"400m",sectors8w_1s);
-        Session session9w_1s = new Session (sectors1w_1s.size(),"1200",new Date(),"400m",sectors9w_1s);
-        Session session10w_1s = new Session (sectors1w_1s.size(),"1000",new Date(),"400m",sectors10w_1s);
-        Session session11w_1s = new Session (sectors1w_1s.size(),"1600",new Date(),"400m",sectors11w_1s);
-        Session session12w_1s = new Session (sectors1w_1s.size(),"400",new Date(),"400m",sectors12w_1s);
+        Session session1w_1s = new Session (sectors1w_1s.size(),new ArrayList<String>(Arrays.asList("400")),new Date(),"400m",sectors1w_1s);
+        Session session2w_1s = new Session (sectors2w_1s.size(),new ArrayList<String>(Arrays.asList("800")),new Date(),"400m",sectors2w_1s);
+        Session session3w_1s = new Session (sectors3w_1s.size(),new ArrayList<String>(Arrays.asList("1600","1600","800")),new Date(),"400m",sectors3w_1s);
+        Session session4w_1s = new Session (sectors4w_1s.size(),new ArrayList<String>(Arrays.asList("400","600","800","800","600","400")),new Date(),"400m",sectors4w_1s);
+        Session session5w_1s = new Session (sectors5w_1s.size(),new ArrayList<String>(Arrays.asList("1000")),new Date(),"400m",sectors5w_1s);
+        Session session6w_1s = new Session (sectors6w_1s.size(),new ArrayList<String>(Arrays.asList("1600","1200","800","400")),new Date(),"400m",sectors6w_1s);
+        Session session7w_1s = new Session (sectors7w_1s.size(),new ArrayList<String>(Arrays.asList("400")),new Date(),"90seg",sectors7w_1s);
+        Session session8w_1s = new Session (sectors8w_1s.size(),new ArrayList<String>(Arrays.asList("800")),new Date(),"400m",sectors8w_1s);
+        Session session9w_1s = new Session (sectors9w_1s.size(),new ArrayList<String>(Arrays.asList("1200")),new Date(),"400m",sectors9w_1s);
+        Session session10w_1s = new Session (sectors10w_1s.size(),new ArrayList<String>(Arrays.asList("1000")),new Date(),"400m",sectors10w_1s);
+        Session session11w_1s = new Session (sectors11w_1s.size(),new ArrayList<String>(Arrays.asList("1600")),new Date(),"400m",sectors11w_1s);
+        Session session12w_1s = new Session (sectors12w_1s.size(),new ArrayList<String>(Arrays.asList("400")),new Date(),"400m",sectors12w_1s);
         // week2
-        Session session1w_2s = new Session (sectors1w_1s.size(),"3km",new Date(),null,sectors1w_1s);
+        Session session1w_2s = new Session (sectors1w_2s.size(),new ArrayList<String>(Arrays.asList("3K")),new Date(),null,sectors1w_2s);
+        Session session2w_2s = new Session (sectors2w_2s.size(),new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors2w_2s);
+        Session session3w_2s = new Session (sectors3w_2s.size(),new ArrayList<String>(Arrays.asList("3K","1.5K","3K")),new Date(),null,sectors3w_2s);
+        Session session4w_2s = new Session (sectors4w_2s.size(),new ArrayList<String>(Arrays.asList("6.5K")),new Date(),null,sectors4w_2s);
+        Session session5w_2s = new Session (sectors5w_2s.size(),new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors5w_2s);
+        Session session6w_2s = new Session (sectors6w_2s.size(),new ArrayList<String>(Arrays.asList("1.5K","1.5K","1.5K","1.5K","1.5K")),new Date(),null,sectors6w_2s);
+        Session session7w_2s = new Session (sectors7w_2s.size(),new ArrayList<String>(Arrays.asList("6.5K")),new Date(),null,sectors7w_2s);
+        Session session8w_2s = new Session (sectors8w_2s.size(),new ArrayList<String>(Arrays.asList("3K","1.5K","3K")),new Date(),null,sectors8w_2s);
+        Session session9w_2s = new Session (sectors9w_2s.size(),new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors9w_2s);
+        Session session10w_2s = new Session (sectors10w_2s.size(),new ArrayList<String>(Arrays.asList("3K","1.5K","1.5K","1.5K","3K")),new Date(),null,sectors10w_2s);
+        Session session11w_2s = new Session (sectors11w_2s.size(),new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors11w_2s);
+        Session session12w_2s = new Session (sectors12w_2s.size(),new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors12w_2s);
         //week3
-        Session session1w_3s = new Session (sectors1w_1s.size(),"8Km",new Date(),null,sectors1w_1s);
-
+        Session session1w_3s = new Session (sectors1w_3s.size(),new ArrayList<String>(Arrays.asList("8K")),new Date(),null,sectors1w_3s);
+        Session session2w_3s = new Session (sectors2w_3s.size(),new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors2w_3s);
+        Session session3w_3s = new Session (sectors3w_3s.size(),new ArrayList<String>(Arrays.asList("8K")),new Date(),null,sectors3w_3s);
+        Session session4w_3s = new Session (sectors4w_3s.size(),new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors4w_3s);
+        Session session5w_3s = new Session (sectors5w_3s.size(),new ArrayList<String>(Arrays.asList("11K")),new Date(),null,sectors5w_3s);
+        Session session6w_3s = new Session (sectors6w_3s.size(),new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors6w_3s);
+        Session session7w_3s = new Session (sectors7w_3s.size(),new ArrayList<String>(Arrays.asList("13K")),new Date(),null,sectors7w_3s);
+        Session session8w_3s = new Session (sectors8w_3s.size(),new ArrayList<String>(Arrays.asList("11K")),new Date(),null,sectors8w_3s);
+        Session session9w_3s = new Session (sectors9w_3s.size(),new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors9w_3s);
+        Session session10w_3s = new Session (sectors10w_3s.size(),new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors10w_3s);
+        Session session11w_3s = new Session (sectors11w_3s.size(),new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors11w_3s);
+        Session session12w_3s = new Session (sectors12w_3s.size(),new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors12w_3s);
         // Creamos las semanas
+        ArrayList<Week> weeks = new ArrayList<Week>(12);
         Week week1 = new Week(session1w_1s, session1w_2s, session1w_3s);
+        Week week2 = new Week(session2w_1s, session2w_2s, session2w_3s);
+        Week week3 = new Week(session3w_1s, session3w_2s, session3w_3s);
+        Week week4 = new Week(session4w_1s, session4w_2s, session4w_3s);
+        Week week5 = new Week(session5w_1s, session5w_2s, session5w_3s);
+        Week week6 = new Week(session6w_1s, session6w_2s, session6w_3s);
+        Week week7 = new Week(session7w_1s, session7w_2s, session7w_3s);
+        Week week8 = new Week(session8w_1s, session8w_2s, session8w_3s);
+        Week week9 = new Week(session9w_1s, session9w_2s, session9w_3s);
+        Week week10 = new Week(session10w_1s, session10w_2s, session10w_3s);
+        Week week11 = new Week(session11w_1s, session11w_2s, session11w_3s);
+        Week week12 = new Week(session12w_1s, session12w_2s, session12w_3s);
+        weeks.add(week1);
+        weeks.add(week2);
+        weeks.add(week3);
+        weeks.add(week4);
+        weeks.add(week5);
+        weeks.add(week6);
+        weeks.add(week7);
+        weeks.add(week8);
+        weeks.add(week9);
+        weeks.add(week10);
+        weeks.add(week11);
+        weeks.add(week12);
         // Creamos el entrenamiento
-        training = new Training();
+        SharedPreferences preferences = getContext().getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        training = new Training(preferences.getString("uuidUserLogged", null),"tipoEntrenamiento",actualTime.getText().toString(),weeks);
+        Log.i("CREATION TRAINING", "Done...");
     }
 
     private void creation10km() {

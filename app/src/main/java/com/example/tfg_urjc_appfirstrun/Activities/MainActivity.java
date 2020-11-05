@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uid = user.getUid();
-            editor.putString("uuid", uid);
+            editor.putString("uuidUserLogged", uid);
         }
 
         editor.commit();

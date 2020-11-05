@@ -2,12 +2,13 @@ package com.example.tfg_urjc_appfirstrun.Classes;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class Session {
     private String uuid;
     private int replays;
-    private String distance;
+    private ArrayList<String> distance;
     private Date sessionDay;
     private String recoveryTime;
     private Sector sector1;
@@ -43,7 +44,7 @@ public class Session {
         this.sector12 = null;
     }
 
-    public Session (int replays, String distance, Date sessionDay, String recoveryTime, ArrayList<Sector> sectors){
+    public Session (int replays, ArrayList<String> distance, Date sessionDay, String recoveryTime, ArrayList<Sector> sectors){
         this.uuid = UUID.randomUUID().toString();
         this.replays = replays;
         this.distance = distance;

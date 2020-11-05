@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
         editor.commit();
 
-        Log.i("UUID USER save ShaPref", preferences.getString("uuid", null) );
+        //Log.i("UUID USER save ShaPref", preferences.getString("uuidUserLogged", null) );
     }
 
 
