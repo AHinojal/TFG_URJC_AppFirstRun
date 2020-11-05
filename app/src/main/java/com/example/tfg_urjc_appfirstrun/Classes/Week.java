@@ -5,10 +5,10 @@ import android.util.Log;
 import java.util.UUID;
 
 public class Week {
-    private String uuid;
-    private Session session1;
-    private Session session2;
-    private Session session3;
+    public String uuid;
+    public Session session1;
+    public Session session2;
+    public Session session3;
 
     public Week () {
         this.uuid = UUID.randomUUID().toString();

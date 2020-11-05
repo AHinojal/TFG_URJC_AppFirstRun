@@ -6,23 +6,23 @@ import java.util.List;
 import java.util.UUID;
 
 public class Session {
-    private String uuid;
-    private int replays;
-    private ArrayList<String> distance;
-    private Date sessionDay;
-    private String recoveryTime;
-    private Sector sector1;
-    private Sector sector2;
-    private Sector sector3;
-    private Sector sector4;
-    private Sector sector5;
-    private Sector sector6;
-    private Sector sector7;
-    private Sector sector8;
-    private Sector sector9;
-    private Sector sector10;
-    private Sector sector11;
-    private Sector sector12;
+    public String uuid;
+    public int replays;
+    public ArrayList<String> distance;
+    public Date sessionDay;
+    public String recoveryTime;
+    public Sector sector1;
+    public Sector sector2;
+    public Sector sector3;
+    public Sector sector4;
+    public Sector sector5;
+    public Sector sector6;
+    public Sector sector7;
+    public Sector sector8;
+    public Sector sector9;
+    public Sector sector10;
+    public Sector sector11;
+    public Sector sector12;
 
     public Session () {
         this.uuid = UUID.randomUUID().toString();

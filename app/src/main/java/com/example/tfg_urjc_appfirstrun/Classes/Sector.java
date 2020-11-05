@@ -3,12 +3,12 @@ package com.example.tfg_urjc_appfirstrun.Classes;
 import java.util.UUID;
 
 public class Sector {
-    private String uuid;
-    private int number;
+    public String uuid;
+    public int number;
     // Estos valores vienen en milliseconds -> En la vista hay que tranformarlos parseandolos "mm:ss"
-    private float goalTime;
-    private float registerTime;
-    private float difference;
+    public float goalTime;
+    public float registerTime;
+    public float difference;
 
     public Sector () {
         this.uuid = UUID.randomUUID().toString();
