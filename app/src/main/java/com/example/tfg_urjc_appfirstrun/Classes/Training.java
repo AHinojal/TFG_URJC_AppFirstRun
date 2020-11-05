@@ -1,11 +1,14 @@
 package com.example.tfg_urjc_appfirstrun.Classes;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 public class Training {
     private String uuid;
     private String idRunner;
+    private String name;
+    private Date startDate;
     private boolean isFinished;
     private String typeTraining;
     private String mark5Km;
@@ -28,7 +31,9 @@ public class Training {
 
     public Training () {
         this.uuid = UUID.randomUUID().toString();
+        this.name = null;
         this.idRunner = null;
+        this.startDate = null;
         this.isFinished = false;
         this.typeTraining = null;
         this.mark5Km = null;
@@ -50,9 +55,11 @@ public class Training {
         this.week16 = null;
     }
 
-    public Training(String idRunner, String typeTraining, String mark5Km, ArrayList<Week> weeks){
+    public Training(String idRunner, String name, Date startDate, String typeTraining, String mark5Km, ArrayList<Week> weeks){
         this.uuid = UUID.randomUUID().toString();
+        this.name = name;
         this.idRunner = idRunner;
+        this.startDate = startDate;
         this.isFinished = false;
         this.typeTraining = typeTraining;
         this.mark5Km = mark5Km;

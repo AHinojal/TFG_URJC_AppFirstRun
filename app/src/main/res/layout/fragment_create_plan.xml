@@ -14,7 +14,7 @@
         android:id="@+id/editText_namePlan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint= "Nombre del Plan" />
+        android:hint="Nombre del Plan" />
 
     <TextView
         android:id="@+id/textView_durationPlan"
@@ -28,7 +28,7 @@
         android:id="@+id/spinner_durationPlan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_durationPlan"/>
+        android:layout_below="@+id/textView_durationPlan" />
 
     <TextView
         android:id="@+id/textView_distancePlan"
@@ -45,19 +45,36 @@
         android:layout_below="@+id/textView_distancePlan" />
 
     <TextView
-        android:id="@+id/textView_actualtime5km"
+        android:id="@+id/textView_startDateTraining"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner_distancePlan"
+        android:layout_marginTop="30dp"
+        android:hint="Fecha de inicio del plan" />
+
+    <DatePicker
+        android:id="@+id/datePicker_startingDateTraining"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/textView_startDateTraining"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner" />
+
+    <TextView
+        android:id="@+id/textView_actualtime5km"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/datePicker_startingDateTraining"
         android:layout_marginTop="30dp"
         android:text="Marca actual 5 Km" />
 
     <EditText
         android:id="@+id/editText_actualtime5km"
-        android:layout_width="wrap_content"
+        android:layout_width="312dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_actualtime5km"
         android:ems="10"
+        android:gravity="center"
         android:hint="HH:MM:SS"
         android:inputType="time" />
 
@@ -65,9 +82,9 @@
         android:id="@+id/floatingActionButton_savePlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_btn_save"/>
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:src="@drawable/ic_btn_save" />
 
 </RelativeLayout>

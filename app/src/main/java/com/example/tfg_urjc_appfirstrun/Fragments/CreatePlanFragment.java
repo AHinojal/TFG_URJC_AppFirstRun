@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -33,12 +34,17 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class CreatePlanFragment extends Fragment {
+    private static final int DAY_IN_MILLISECONDS = 86400000;
 
     private Spinner spinner_durationPlan;
     private Spinner spinner_distancePlan;
+    private EditText trainingName;
     private EditText actualTime;
+    private DatePicker picker_startingDate;
+
     private HashMap<String, Date> hashMapPlanning = new HashMap<String, Date>();
     private Training training;
+    private Date startingDate;
 
     private OnFragmentInteractionListener mListener;
 
@@ -57,9 +63,12 @@ public class CreatePlanFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_create_plan, container, false);
 
+        // Inicializacion de los atributos basicos
+        trainingName = (EditText) v.findViewById(R.id.editText_namePlan);
+        picker_startingDate = (DatePicker) v.findViewById(R.id.datePicker_startingDateTraining);
         actualTime = (EditText) v.findViewById(R.id.editText_actualtime5km);
 
-        // Inicializacion de los atributos
+        // Inicializacion de los atributos que van en el spinner
         spinner_durationPlan = (Spinner) v.findViewById (R.id.spinner_durationPlan);
         spinner_distancePlan = (Spinner) v.findViewById (R.id.spinner_distancePlan);
 
@@ -96,6 +105,8 @@ public class CreatePlanFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
+                // Creamos variable para el dia de inicio del programa
+                startingDate = new Date(picker_startingDate.getYear()-1900,picker_startingDate.getMonth(),picker_startingDate.getDayOfMonth());
                 // Creamos la lista de tiempos a hacer segun la marca que nos da el usuario
                 fillHashMapWithTrainingTimes();
 
@@ -327,44 +338,44 @@ public class CreatePlanFragment extends Fragment {
         Sector sectors12w_3s = new Sector(1, hashMapPlanning.get("largo").getTime());
         // Creamos las sesiones (pasandoles sus sectores)
         // week1
-        Session session1w_1s = new Session (sectors1w_1s.size(),new ArrayList<String>(Arrays.asList("400")),new Date(),"400m",sectors1w_1s);
-        Session session2w_1s = new Session (sectors2w_1s.size(),new ArrayList<String>(Arrays.asList("800")),new Date(),"400m",sectors2w_1s);
-        Session session3w_1s = new Session (sectors3w_1s.size(),new ArrayList<String>(Arrays.asList("1600","1600","800")),new Date(),"400m",sectors3w_1s);
-        Session session4w_1s = new Session (sectors4w_1s.size(),new ArrayList<String>(Arrays.asList("400","600","800","800","600","400")),new Date(),"400m",sectors4w_1s);
-        Session session5w_1s = new Session (sectors5w_1s.size(),new ArrayList<String>(Arrays.asList("1000")),new Date(),"400m",sectors5w_1s);
-        Session session6w_1s = new Session (sectors6w_1s.size(),new ArrayList<String>(Arrays.asList("1600","1200","800","400")),new Date(),"400m",sectors6w_1s);
-        Session session7w_1s = new Session (sectors7w_1s.size(),new ArrayList<String>(Arrays.asList("400")),new Date(),"90seg",sectors7w_1s);
-        Session session8w_1s = new Session (sectors8w_1s.size(),new ArrayList<String>(Arrays.asList("800")),new Date(),"400m",sectors8w_1s);
-        Session session9w_1s = new Session (sectors9w_1s.size(),new ArrayList<String>(Arrays.asList("1200")),new Date(),"400m",sectors9w_1s);
-        Session session10w_1s = new Session (sectors10w_1s.size(),new ArrayList<String>(Arrays.asList("1000")),new Date(),"400m",sectors10w_1s);
-        Session session11w_1s = new Session (sectors11w_1s.size(),new ArrayList<String>(Arrays.asList("1600")),new Date(),"400m",sectors11w_1s);
-        Session session12w_1s = new Session (sectors12w_1s.size(),new ArrayList<String>(Arrays.asList("400")),new Date(),"400m",sectors12w_1s);
+        Session session1w_1s = new Session (sectors1w_1s.size(),new ArrayList<String>(Arrays.asList("400")),new Date (startingDate.getTime() + (DAY_IN_MILLISECONDS * 1)),"400m",sectors1w_1s);
+        Session session2w_1s = new Session (sectors2w_1s.size(),new ArrayList<String>(Arrays.asList("800")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 8)),"400m",sectors2w_1s);
+        Session session3w_1s = new Session (sectors3w_1s.size(),new ArrayList<String>(Arrays.asList("1600","1600","800")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 15)),"400m",sectors3w_1s);
+        Session session4w_1s = new Session (sectors4w_1s.size(),new ArrayList<String>(Arrays.asList("400","600","800","800","600","400")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 22)),"400m",sectors4w_1s);
+        Session session5w_1s = new Session (sectors5w_1s.size(),new ArrayList<String>(Arrays.asList("1000")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 29)),"400m",sectors5w_1s);
+        Session session6w_1s = new Session (sectors6w_1s.size(),new ArrayList<String>(Arrays.asList("1600","1200","800","400")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 36)),"400m",sectors6w_1s);
+        Session session7w_1s = new Session (sectors7w_1s.size(),new ArrayList<String>(Arrays.asList("400")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 43)),"90seg",sectors7w_1s);
+        Session session8w_1s = new Session (sectors8w_1s.size(),new ArrayList<String>(Arrays.asList("800")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 50)),"400m",sectors8w_1s);
+        Session session9w_1s = new Session (sectors9w_1s.size(),new ArrayList<String>(Arrays.asList("1200")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 57)),"400m",sectors9w_1s);
+        Session session10w_1s = new Session (sectors10w_1s.size(),new ArrayList<String>(Arrays.asList("1000")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 64)),"400m",sectors10w_1s);
+        Session session11w_1s = new Session (sectors11w_1s.size(),new ArrayList<String>(Arrays.asList("1600")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 71)),"400m",sectors11w_1s);
+        Session session12w_1s = new Session (sectors12w_1s.size(),new ArrayList<String>(Arrays.asList("400")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 78)),"400m",sectors12w_1s);
         // week2
-        Session session1w_2s = new Session (1,new ArrayList<String>(Arrays.asList("3K")),new Date(),null,sectors1w_2s);
-        Session session2w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors2w_2s);
-        Session session3w_2s = new Session (sectors3w_2s.size(),new ArrayList<String>(Arrays.asList("3K","1.5K","3K")),new Date(),null,sectors3w_2s);
-        Session session4w_2s = new Session (1,new ArrayList<String>(Arrays.asList("6.5K")),new Date(),null,sectors4w_2s);
-        Session session5w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors5w_2s);
-        Session session6w_2s = new Session (sectors6w_2s.size(),new ArrayList<String>(Arrays.asList("1.5K","1.5K","1.5K","1.5K","1.5K")),new Date(),null,sectors6w_2s);
-        Session session7w_2s = new Session (1,new ArrayList<String>(Arrays.asList("6.5K")),new Date(),null,sectors7w_2s);
-        Session session8w_2s = new Session (sectors8w_2s.size(),new ArrayList<String>(Arrays.asList("3K","1.5K","3K")),new Date(),null,sectors8w_2s);
-        Session session9w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors9w_2s);
-        Session session10w_2s = new Session (sectors10w_2s.size(),new ArrayList<String>(Arrays.asList("3K","1.5K","1.5K","1.5K","3K")),new Date(),null,sectors10w_2s);
-        Session session11w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors11w_2s);
-        Session session12w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors12w_2s);
+        Session session1w_2s = new Session (1,new ArrayList<String>(Arrays.asList("3K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 4)),null,sectors1w_2s);
+        Session session2w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 11)),null,sectors2w_2s);
+        Session session3w_2s = new Session (sectors3w_2s.size(),new ArrayList<String>(Arrays.asList("3K","1.5K","3K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 18)),null,sectors3w_2s);
+        Session session4w_2s = new Session (1,new ArrayList<String>(Arrays.asList("6.5K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 25)),null,sectors4w_2s);
+        Session session5w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 1)),null,sectors5w_2s);
+        Session session6w_2s = new Session (sectors6w_2s.size(),new ArrayList<String>(Arrays.asList("1.5K","1.5K","1.5K","1.5K","1.5K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 32)),null,sectors6w_2s);
+        Session session7w_2s = new Session (1,new ArrayList<String>(Arrays.asList("6.5K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 39)),null,sectors7w_2s);
+        Session session8w_2s = new Session (sectors8w_2s.size(),new ArrayList<String>(Arrays.asList("3K","1.5K","3K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 46)),null,sectors8w_2s);
+        Session session9w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 53)),null,sectors9w_2s);
+        Session session10w_2s = new Session (sectors10w_2s.size(),new ArrayList<String>(Arrays.asList("3K","1.5K","1.5K","1.5K","3K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 60)),null,sectors10w_2s);
+        Session session11w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 67)),null,sectors11w_2s);
+        Session session12w_2s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 74)),null,sectors12w_2s);
         //week3
-        Session session1w_3s = new Session (1,new ArrayList<String>(Arrays.asList("8K")),new Date(),null,sectors1w_3s);
-        Session session2w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors2w_3s);
-        Session session3w_3s = new Session (1,new ArrayList<String>(Arrays.asList("8K")),new Date(),null,sectors3w_3s);
-        Session session4w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors4w_3s);
-        Session session5w_3s = new Session (1,new ArrayList<String>(Arrays.asList("11K")),new Date(),null,sectors5w_3s);
-        Session session6w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors6w_3s);
-        Session session7w_3s = new Session (1,new ArrayList<String>(Arrays.asList("13K")),new Date(),null,sectors7w_3s);
-        Session session8w_3s = new Session (1,new ArrayList<String>(Arrays.asList("11K")),new Date(),null,sectors8w_3s);
-        Session session9w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors9w_3s);
-        Session session10w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors10w_3s);
-        Session session11w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(),null,sectors11w_3s);
-        Session session12w_3s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(),null,sectors12w_3s);
+        Session session1w_3s = new Session (1,new ArrayList<String>(Arrays.asList("8K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 6)),null,sectors1w_3s);
+        Session session2w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 13)),null,sectors2w_3s);
+        Session session3w_3s = new Session (1,new ArrayList<String>(Arrays.asList("8K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 20)),null,sectors3w_3s);
+        Session session4w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 27)),null,sectors4w_3s);
+        Session session5w_3s = new Session (1,new ArrayList<String>(Arrays.asList("11K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 34)),null,sectors5w_3s);
+        Session session6w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 41)),null,sectors6w_3s);
+        Session session7w_3s = new Session (1,new ArrayList<String>(Arrays.asList("13K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 48)),null,sectors7w_3s);
+        Session session8w_3s = new Session (1,new ArrayList<String>(Arrays.asList("11K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 55)),null,sectors8w_3s);
+        Session session9w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 62)),null,sectors9w_3s);
+        Session session10w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 69)),null,sectors10w_3s);
+        Session session11w_3s = new Session (1,new ArrayList<String>(Arrays.asList("10K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 76)),null,sectors11w_3s);
+        Session session12w_3s = new Session (1,new ArrayList<String>(Arrays.asList("5K")),new Date(startingDate.getTime() + (DAY_IN_MILLISECONDS * 83)),null,sectors12w_3s);
         // Creamos las semanas
         ArrayList<Week> weeks = new ArrayList<Week>(12);
         Week week1 = new Week(session1w_1s, session1w_2s, session1w_3s);
@@ -396,7 +407,7 @@ public class CreatePlanFragment extends Fragment {
         }
         // Creamos el entrenamiento
         SharedPreferences preferences = getContext().getSharedPreferences("credentials", Context.MODE_PRIVATE);
-        training = new Training(preferences.getString("uuidUserLogged", null),"tipoEntrenamiento",actualTime.getText().toString(),weeks);
+        training = new Training(preferences.getString("uuidUserLogged", null), trainingName.getText().toString(), startingDate, "tipoEntrenamiento",actualTime.getText().toString(),weeks);
         Log.i("CREATION TRAINING", "Done...");
     }
 
