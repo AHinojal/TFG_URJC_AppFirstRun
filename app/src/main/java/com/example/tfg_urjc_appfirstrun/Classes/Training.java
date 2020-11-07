@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Training {
-    public String uuid;
+    public String _id;
     public String idRunner;
     public String name;
     public Date startDate;
@@ -30,7 +30,7 @@ public class Training {
     public Week week16;
 
     public Training () {
-        this.uuid = UUID.randomUUID().toString();
+        this._id = UUID.randomUUID().toString();
         this.name = null;
         this.idRunner = null;
         this.startDate = null;
@@ -56,7 +56,7 @@ public class Training {
     }
 
     public Training(String idRunner, String name, Date startDate, String typeTraining, String mark5Km, ArrayList<Week> weeks){
-        this.uuid = UUID.randomUUID().toString();
+        this._id = UUID.randomUUID().toString();
         this.name = name;
         this.idRunner = idRunner;
         this.startDate = startDate;
@@ -80,4 +80,5 @@ public class Training {
         this.week15 = weeks.get(14);
         this.week16 = weeks.get(15);
     }
+
 }

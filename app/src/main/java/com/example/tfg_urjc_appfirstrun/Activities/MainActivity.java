@@ -40,7 +40,6 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener{
 
-    private View view;
     private String clientId = "40301";
     private String clientSecret = "cf7feabaae97e78edbd6b35e2e3a3280dc7c7fbb";
     private String code = "";
@@ -54,7 +53,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        saveUUIDLoggedUser();
+        preloadBD();
+        //saveUUIDLoggedUser();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -94,6 +94,19 @@ public class MainActivity extends AppCompatActivity
         editor.commit();
 
         Log.i("UUID USER save ShaPref", preferences.getString("uuid", null) );
+    }
+
+    private void preloadBD() {
+        SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("isStravaLogin", true); // Es FALSE. TRUE es para test
+        editor.putString("access_token", null);
+
+        editor.commit();
+
+        //Log.i("UUID USER save ShaPref", preferences.getString("uuidUserLogged", null) );
     }
 
     private void checkIfIsStravaIsLogin(Menu menuNavigation) {
@@ -177,7 +190,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Snackbar.make(view,"App diseñada y creada por Álvaro Hinojal Blanco como TFG para la URJC",Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(findViewById(android.R.id.content),"App diseñada y creada por Álvaro Hinojal Blanco como TFG para la URJC",Snackbar.LENGTH_LONG).setAction("Action", null).show();
             return true;
         }
 
@@ -220,9 +233,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.info_first){
             fragment = new InfoFirstFragment();
             fragmentSelected = true;
-        } else if (id == R.id.log_out) {
+        } /*else if (id == R.id.log_out) {
             logout();
-        }
+        }*/
 
         if(fragmentSelected){
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();

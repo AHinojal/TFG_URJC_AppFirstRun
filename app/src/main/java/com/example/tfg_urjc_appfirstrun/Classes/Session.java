@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Session {
-    public String uuid;
+    public String _id;
     public int replays;
     public ArrayList<String> distance;
     public Date sessionDay;
@@ -25,7 +25,7 @@ public class Session {
     public Sector sector12;
 
     public Session () {
-        this.uuid = UUID.randomUUID().toString();
+        this._id = UUID.randomUUID().toString();
         this.replays = 0;
         this.distance = null;
         this.sessionDay = new Date();
@@ -45,7 +45,7 @@ public class Session {
     }
     // Constructor for only one session
     public Session (int replays, ArrayList<String> distance, Date sessionDay, String recoveryTime, Sector sector){
-        this.uuid = UUID.randomUUID().toString();
+        this._id = UUID.randomUUID().toString();
         this.replays = replays;
         this.distance = distance;
         this.sessionDay = sessionDay;
@@ -66,7 +66,7 @@ public class Session {
 
     // Constructor for 2..N sectors
     public Session (int replays, ArrayList<String> distance, Date sessionDay, String recoveryTime, ArrayList<Sector> sectors){
-        this.uuid = UUID.randomUUID().toString();
+        this._id = UUID.randomUUID().toString();
         this.replays = replays;
         this.distance = distance;
         this.sessionDay = sessionDay;
@@ -85,7 +85,7 @@ public class Session {
         this.sector12 = sectors.get(11);
     }
 
-    public String getUuid() {
-        return uuid;
+    public String get_id() {
+        return _id;
     }
 }

@@ -25,8 +25,6 @@ import com.example.tfg_urjc_appfirstrun.Classes.Week;
 import com.example.tfg_urjc_appfirstrun.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,9 +45,6 @@ public class CreatePlanFragment extends Fragment {
     private HashMap<String, Date> hashMapPlanning = new HashMap<String, Date>();
     private Training training;
     private Date startingDate;
-
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference("training");
 
     private OnFragmentInteractionListener mListener;
 
@@ -126,6 +121,9 @@ public class CreatePlanFragment extends Fragment {
 
                 Snackbar.make(view, "Creado", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                // Volver a la anterior vista
+                getActivity().onBackPressed();
             }
         });
         return v;
@@ -415,7 +413,7 @@ public class CreatePlanFragment extends Fragment {
         training = new Training(preferences.getString("uuidUserLogged", null), trainingName.getText().toString(), startingDate, "tipoEntrenamiento",actualTime.getText().toString(),weeks);
         Log.i("CREATION TRAINING", "Done...");
         // Guardar en Firebase
-        myRef.push().setValue(training);
+
     }
 
     private void creation10km() {

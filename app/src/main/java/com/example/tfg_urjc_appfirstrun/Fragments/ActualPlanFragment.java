@@ -9,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.fragment.app.Fragment;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,8 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.tfg_urjc_appfirstrun.Classes.Training;
 import com.example.tfg_urjc_appfirstrun.R;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,6 +26,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ActualPlanFragment extends Fragment {
+
+    // To recovery info from Firebase
+    // private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    // DatabaseReference ref = database.getReference();
 
     private OnFragmentInteractionListener mListener;
     private String idActivity = "2857978398";
@@ -40,7 +42,12 @@ public class ActualPlanFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        doPetition();
+        //doPetition();
+        loadTrainingPlan();
+    }
+
+    private void loadTrainingPlan() {
+
     }
 
     private void doPetition() {

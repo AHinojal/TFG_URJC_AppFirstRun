@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putBoolean("isStravaLogin", true); // Es FALSE. TRUE es para test
+        editor.putBoolean("isStravaLogin", false); // Es FALSE. TRUE es para test
         editor.putString("access_token", null);
 
         editor.commit();

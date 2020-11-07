@@ -23,10 +23,10 @@
             android:id="@+id/historical_plan"
             android:icon="@drawable/ic_nav_list"
             android:title="@string/historical_plan" />
-        <item
+        <!--<item
             android:id="@+id/log_out"
             android:icon="@drawable/ic_logout"
-            android:title="@string/log_out" />
+            android:title="@string/log_out" />-->
     </group>
 
 </menu>
