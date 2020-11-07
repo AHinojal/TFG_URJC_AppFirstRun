@@ -16,6 +16,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tfg_urjc_appfirstrun.Activities.LoginActivity.ui.login.LoginActivity;
+import com.example.tfg_urjc_appfirstrun.Database.TrainingDatabase;
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment;
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment.OnFragmentInteractionListener;
@@ -39,6 +42,9 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener{
+
+    /*public TrainingDatabase db = Room.databaseBuilder(getApplicationContext(),
+            TrainingDatabase.class, "tfg_database").build();*/
 
     private String clientId = "40301";
     private String clientSecret = "cf7feabaae97e78edbd6b35e2e3a3280dc7c7fbb";

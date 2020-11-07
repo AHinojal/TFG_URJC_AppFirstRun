@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
@@ -17,9 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tfg_urjc_appfirstrun.Classes.Training;
 import com.example.tfg_urjc_appfirstrun.R;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import java.util.HashMap;
