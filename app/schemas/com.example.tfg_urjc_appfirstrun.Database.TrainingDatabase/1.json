@@ -1,0 +1,202 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "d979498831944c1b222936e4c1de42ce",
+    "entities": [
+      {
+        "tableName": "trainings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`trainingId` TEXT NOT NULL, `name` TEXT, `start_date` INTEGER, `is_Finished` INTEGER NOT NULL, `type_training` TEXT, `mark_5km` TEXT, PRIMARY KEY(`trainingId`))",
+        "fields": [
+          {
+            "fieldPath": "trainingId",
+            "columnName": "trainingId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "start_date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isFinished",
+            "columnName": "is_Finished",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "typeTraining",
+            "columnName": "type_training",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mark5Km",
+            "columnName": "mark_5km",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "trainingId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "weeks",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`weekId` TEXT NOT NULL, `training_owner_Id` TEXT, `number_week` INTEGER NOT NULL, PRIMARY KEY(`weekId`))",
+        "fields": [
+          {
+            "fieldPath": "weekId",
+            "columnName": "weekId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trainingOwnerId",
+            "columnName": "training_owner_Id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "numberWeek",
+            "columnName": "number_week",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "weekId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sessions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` TEXT NOT NULL, `week_owner_id` TEXT, `number_session` INTEGER NOT NULL, `replays` INTEGER NOT NULL, `distance` TEXT, `session_day` INTEGER, `recovery_time` TEXT, PRIMARY KEY(`sessionId`))",
+        "fields": [
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weekOwnerId",
+            "columnName": "week_owner_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "numberSession",
+            "columnName": "number_session",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "replays",
+            "columnName": "replays",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distance",
+            "columnName": "distance",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sessionDay",
+            "columnName": "session_day",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "recoveryTime",
+            "columnName": "recovery_time",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "sessionId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sectors",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sectorId` TEXT NOT NULL, `sessionOwnerId` TEXT, `number_sector` INTEGER NOT NULL, `goal_time` REAL NOT NULL, `register_time` REAL NOT NULL, `difference` REAL NOT NULL, PRIMARY KEY(`sectorId`))",
+        "fields": [
+          {
+            "fieldPath": "sectorId",
+            "columnName": "sectorId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionOwnerId",
+            "columnName": "sessionOwnerId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "numberSector",
+            "columnName": "number_sector",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "goalTime",
+            "columnName": "goal_time",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "registerTime",
+            "columnName": "register_time",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "difference",
+            "columnName": "difference",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "sectorId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd979498831944c1b222936e4c1de42ce')"
+    ]
+  }
+}

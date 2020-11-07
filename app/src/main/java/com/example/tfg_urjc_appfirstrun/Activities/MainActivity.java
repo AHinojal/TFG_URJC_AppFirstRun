@@ -43,9 +43,6 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener{
 
-    /*public TrainingDatabase db = Room.databaseBuilder(getApplicationContext(),
-            TrainingDatabase.class, "tfg_database").build();*/
-
     private String clientId = "40301";
     private String clientSecret = "cf7feabaae97e78edbd6b35e2e3a3280dc7c7fbb";
     private String code = "";
