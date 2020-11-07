@@ -35,4 +35,6 @@
     <string name="cliente_id">ID del cliente</string>
     <string name="secret_client">Secreto del cliente</string>
     <string name="button_go_to_strava">Redireccionar a Strava</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
