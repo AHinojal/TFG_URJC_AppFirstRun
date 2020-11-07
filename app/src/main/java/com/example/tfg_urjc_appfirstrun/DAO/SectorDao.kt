@@ -9,11 +9,11 @@ import com.example.tfg_urjc_appfirstrun.Entities.Sector
 @Dao
 interface SectorDao {
     @Query("SELECT * FROM sectors")
-    suspend fun getAll(): MutableList<Sector?>?
+    open fun getAll(): MutableList<Sector?>?
     @Query("SELECT * FROM sectors WHERE sectorId = :sectorId")
-    suspend fun getById(sectorId: String?): Sector?
+    open fun getById(sectorId: String?): Sector?
     @Insert
-    suspend fun insertAll(vararg sector: Sector?)
+    open fun insertAll(vararg sector: Sector?)
     @Delete
-    suspend fun delete(sector: Sector?)
+    open fun delete(sector: Sector?)
 }

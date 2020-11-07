@@ -12,7 +12,7 @@ class Sector(sessionOwnerId: String?, numberSector: Int, goalTime: Long) {
     @NotNull
     var sectorId: String
 
-    @ColumnInfo(name = "session_owner_")
+    @ColumnInfo(name = "session_owner_id")
     var sessionOwnerId: String?
 
     @ColumnInfo(name = "number_sector")
@@ -20,7 +20,7 @@ class Sector(sessionOwnerId: String?, numberSector: Int, goalTime: Long) {
 
     // Estos valores vienen en milliseconds -> En la vista hay que tranformarlos parseandolos "mm:ss"
     @ColumnInfo(name = "goal_time")
-    var goalTime: Float
+    var goalTime: Long
 
     @ColumnInfo(name = "register_time")
     var registerTime: Float
@@ -32,7 +32,7 @@ class Sector(sessionOwnerId: String?, numberSector: Int, goalTime: Long) {
         sectorId = UUID.randomUUID().toString()
         this.sessionOwnerId = sessionOwnerId
         this.numberSector = numberSector
-        this.goalTime = goalTime.toFloat()
+        this.goalTime = goalTime.toLong()
         registerTime = 0f
         difference = 0f
     }

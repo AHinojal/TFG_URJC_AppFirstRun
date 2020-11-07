@@ -9,22 +9,22 @@ import com.example.tfg_urjc_appfirstrun.Entities.Session
 
 class SessionLab private constructor(context: Context?) {
     private val mSessionDao: SessionDao?
-    suspend fun getSession(): MutableList<Session?>? {
+    fun getSession(): MutableList<Session?>? {
         return mSessionDao?.getAll()
     }
 
-    suspend fun getSessionById(id: String?): Session? {
+    fun getSessionById(id: String?): Session? {
         return mSessionDao?.getById(id)
     }
 
-    suspend fun addSession(session: Session?) {
+    fun addSession(session: Session?) {
         mSessionDao?.insertAll(session)
     }
 
     /*public void updateTraining(Training training) {
         mNotaDao.updateNota(training);
     }*/
-    suspend fun deleteSession(session: Session?) {
+    fun deleteSession(session: Session?) {
         mSessionDao?.delete(session)
     }
 

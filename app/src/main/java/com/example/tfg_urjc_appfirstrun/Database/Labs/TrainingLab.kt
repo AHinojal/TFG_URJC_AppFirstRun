@@ -40,11 +40,12 @@ class TrainingLab private constructor(context: Context?) {
     }
 
     init {
-        val appContext = context?.getApplicationContext()
-        val db = appContext?.let {
-            Room.databaseBuilder(it,
-                TrainingDatabase::class.java, "tfg_database").build()
-        }
-        mTrainingDao = db?.trainingDao()
+
+        val appContext = context!!.applicationContext
+        val database: TrainingDatabase = Room.databaseBuilder(
+                appContext,
+                TrainingDatabase::class.java, "tfg-urjc-strava"
+        ).build()
+        mTrainingDao = database.trainingDao()
     }
 }

@@ -9,22 +9,22 @@ import com.example.tfg_urjc_appfirstrun.Entities.Sector
 
 class SectorLab private constructor(context: Context?) {
     private val mSectorDao: SectorDao?
-    suspend fun getSector(): MutableList<Sector?>? {
+    fun getSector(): MutableList<Sector?>? {
         return mSectorDao?.getAll()
     }
 
-    suspend fun getSectorById(id: String?): Sector? {
+    fun getSectorById(id: String?): Sector? {
         return mSectorDao?.getById(id)
     }
 
-    suspend fun addSector(sector: Sector?) {
+    fun addSector(sector: Sector?) {
         mSectorDao?.insertAll(sector)
     }
 
     /*public void updateTraining(Training training) {
         mNotaDao.updateNota(training);
     }*/
-    suspend fun deleteSector(sector: Sector?) {
+    fun deleteSector(sector: Sector?) {
         mSectorDao?.delete(sector)
     }
 

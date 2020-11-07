@@ -10,7 +10,7 @@ import java.util.*
 class Training(name: String?, startDate: Date?, typeTraining: String?, mark5Km: String?){
     @PrimaryKey
     @NotNull
-    var trainingId: String?
+    var trainingId: String
 
     @ColumnInfo(name = "name")
     var name: String?

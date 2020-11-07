@@ -12,7 +12,10 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.tfg_urjc_appfirstrun.Database.Labs.SectorLab
+import com.example.tfg_urjc_appfirstrun.Database.Labs.SessionLab
 import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
+import com.example.tfg_urjc_appfirstrun.Database.Labs.WeekLab
 import com.example.tfg_urjc_appfirstrun.Entities.Sector
 import com.example.tfg_urjc_appfirstrun.Entities.Session
 import com.example.tfg_urjc_appfirstrun.Entities.Training
@@ -36,7 +39,7 @@ class CreatePlanFragment : Fragment() {
     private val hashMapPlanning: HashMap<String?, Date?>? = HashMap()
     private var training: Training? = null
 
-    private var trainingDbInstrance: TrainingLab? = null
+    var trainingDbInstance: TrainingLab? = null
 
     private var startingDate: Date? = null
 
@@ -48,6 +51,9 @@ class CreatePlanFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v = inflater?.inflate(R.layout.fragment_create_plan, container, false)
+
+        // Instancia de TrainingDB para inicialr la bd
+        trainingDbInstance = TrainingLab.get(context)
 
         // Inicializacion de los atributos basicos
         trainingName = v.findViewById<View?>(R.id.editText_namePlan) as EditText
@@ -292,9 +298,9 @@ class CreatePlanFragment : Fragment() {
         val sectors10w_3s = Sector(session10w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
         val sectors11w_3s = Sector(session11w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
         val sectors12w_3s = Sector(session12w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        // Guardar en Firebase
+        // Guardar en Room
         lifecycleScope.launch {
-            trainingDbInstrance?.addTraining(training)
+            trainingDbInstance?.addTraining(training)
             Log.i("CREATION TRAINING", "Done...")
         }
     }

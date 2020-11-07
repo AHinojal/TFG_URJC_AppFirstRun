@@ -37,8 +37,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<View?>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
+
         preloadBD()
-        //saveUUIDLoggedUser();
+
         val drawer = findViewById<View?>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -59,27 +60,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    // Obtain UUID user logged
-    private fun saveUUIDLoggedUser() {
-        val preferences = getSharedPreferences("credentials", MODE_PRIVATE)
-        val editor = preferences.edit()
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            val uid = user.uid
-            editor.putString("uuidUserLogged", uid)
-        }
-        editor.commit()
-        Log.i("UUID USER save ShaPref", preferences.getString("uuid", null))
-    }
-
     private fun preloadBD() {
         val preferences = getSharedPreferences("credentials", MODE_PRIVATE)
         val editor = preferences.edit()
         editor.putBoolean("isStravaLogin", true) // Es FALSE. TRUE es para test
         editor.putString("access_token", null)
         editor.commit()
-
-        //Log.i("UUID USER save ShaPref", preferences.getString("uuidUserLogged", null) );
     }
 
     private fun checkIfIsStravaIsLogin(menuNavigation: Menu?) {

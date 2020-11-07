@@ -9,11 +9,11 @@ import com.example.tfg_urjc_appfirstrun.Entities.Week
 @Dao
 interface WeekDao {
     @Query("SELECT * FROM weeks")
-    suspend fun getAll(): MutableList<Week?>?
+    open fun getAll(): MutableList<Week?>?
     @Query("SELECT * FROM weeks WHERE weekId = :weekId")
-    suspend fun getById(weekId: String?): Week?
+    open fun getById(weekId: String?): Week?
     @Insert
-    suspend fun insertAll(vararg week: Week?)
+    open fun insertAll(vararg week: Week?)
     @Delete
-    suspend fun delete(week: Week?)
+    open fun delete(week: Week?)
 }
