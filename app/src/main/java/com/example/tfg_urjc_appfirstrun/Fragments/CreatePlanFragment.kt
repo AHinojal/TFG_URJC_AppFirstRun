@@ -40,6 +40,9 @@ class CreatePlanFragment : Fragment() {
     private var training: Training? = null
 
     var trainingDbInstance: TrainingLab? = null
+    var weekDbInstance: WeekLab? = null
+    var sessionDbInstance: SessionLab? = null
+    var sectorDbInstance: SectorLab? = null
 
     private var startingDate: Date? = null
 
@@ -54,6 +57,9 @@ class CreatePlanFragment : Fragment() {
 
         // Instancia de TrainingDB para inicialr la bd
         trainingDbInstance = TrainingLab.get(context)
+        weekDbInstance = WeekLab.get(context)
+        sessionDbInstance = SessionLab.get(context)
+        sectorDbInstance = SectorLab.get(context)
 
         // Inicializacion de los atributos basicos
         trainingName = v.findViewById<View?>(R.id.editText_namePlan) as EditText
@@ -144,6 +150,8 @@ class CreatePlanFragment : Fragment() {
         val week10 = Week(training!!.trainingId, 10)
         val week11 = Week(training!!.trainingId, 11)
         val week12 = Week(training!!.trainingId, 12)
+        val weekList = arrayListOf(week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12)
+
         // Creamos las sesiones
         // week1
         val session1w_1s = Session(week1.weekId, 1, 8, ArrayList(Arrays.asList("400")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 1), "400m")
@@ -158,6 +166,7 @@ class CreatePlanFragment : Fragment() {
         val session10w_1s = Session(week10.weekId, 1, 5, ArrayList(Arrays.asList("1000")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 64), "400m")
         val session11w_1s = Session(week11.weekId, 1, 3, ArrayList(Arrays.asList("1600")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 71), "400m")
         val session12w_1s = Session(week12.weekId, 1, 6, ArrayList(Arrays.asList("400")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 78), "400m")
+        val session1s_List = arrayListOf(session1w_1s, session2w_1s, session3w_1s, session4w_1s, session5w_1s, session6w_1s, session7w_1s, session8w_1s, session9w_1s, session10w_1s, session11w_1s, session12w_1s)
         // week2
         val session1w_2s = Session(week1.weekId, 2, 1, ArrayList(Arrays.asList("3K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 4), null)
         val session2w_2s = Session(week2.weekId, 2, 1, ArrayList(Arrays.asList("5K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 11), null)
@@ -171,6 +180,7 @@ class CreatePlanFragment : Fragment() {
         val session10w_2s = Session(week10.weekId, 2, 5, ArrayList(Arrays.asList("3K", "1.5K", "1.5K", "1.5K", "3K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 60), null)
         val session11w_2s = Session(week11.weekId, 2, 1, ArrayList(Arrays.asList("5K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 67), null)
         val session12w_2s = Session(week12.weekId, 2, 1, ArrayList(Arrays.asList("5K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 74), null)
+        val session2s_List = arrayListOf(session1w_2s, session2w_2s, session3w_2s, session4w_2s, session5w_2s, session6w_2s, session7w_2s, session8w_2s, session9w_2s, session10w_2s, session11w_2s, session12w_2s)
         //week3
         val session1w_3s = Session(week1.weekId, 3, 1, ArrayList(Arrays.asList("8K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 6), null)
         val session2w_3s = Session(week2.weekId, 3, 1, ArrayList(Arrays.asList("10K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 13), null)
@@ -184,19 +194,21 @@ class CreatePlanFragment : Fragment() {
         val session10w_3s = Session(week10.weekId, 3, 1, ArrayList(Arrays.asList("10K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 69), null)
         val session11w_3s = Session(week11.weekId, 3, 1, ArrayList(Arrays.asList("10K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 76), null)
         val session12w_3s = Session(week12.weekId, 3, 1, ArrayList(Arrays.asList("5K")), Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 83), null)
+        val session3s_List = arrayListOf(session1w_3s, session2w_3s, session3w_3s, session4w_3s, session5w_3s, session6w_3s, session7w_3s,
+                session8w_3s, session9w_3s, session10w_3s, session11w_3s, session12w_3s)
         // Creamos los sectores y lo guardamos en un array para pasarselo a las sesiones
         // SERIES (Xw_1s)
-        val sectors1w_1s = ArrayList<Sector?>()
+        val sectors1w_1s = arrayListOf<Sector>()
         for (i in 0..7) {
             val number = i + 1
             sectors1w_1s.add(Sector(session1w_1s.sessionId, number, hashMapPlanning!!.get("400")!!.getTime()))
         }
-        val sectors2w_1s = ArrayList<Sector?>()
+        val sectors2w_1s = arrayListOf<Sector>()
         for (i in 0..7) {
             val number = i + 1
             sectors2w_1s.add(Sector(session2w_1s.sessionId, number, hashMapPlanning!!.get("800")!!.getTime()))
         }
-        val sectors3w_1s = ArrayList<Sector?>()
+        val sectors3w_1s = arrayListOf<Sector>()
         for (i in 0..2) {
             val number = i + 1
             if (i < 2) {
@@ -205,7 +217,7 @@ class CreatePlanFragment : Fragment() {
                 sectors3w_1s.add(Sector(session3w_1s.sessionId, number, hashMapPlanning!!.get("800")!!.getTime()))
             }
         }
-        val sectors4w_1s = ArrayList<Sector?>()
+        val sectors4w_1s = arrayListOf<Sector>()
         for (i in 0..5) {
             val number = i + 1
             if (i == 0 || i == 5) {
@@ -216,68 +228,68 @@ class CreatePlanFragment : Fragment() {
                 sectors4w_1s.add(Sector(session4w_1s.sessionId, number, hashMapPlanning!!.get("800")!!.getTime()))
             }
         }
-        val sectors5w_1s = ArrayList<Sector?>()
+        val sectors5w_1s = arrayListOf<Sector>()
         for (i in 0..3) {
             val number = i + 1
             sectors5w_1s.add(Sector(session5w_1s.sessionId, number, hashMapPlanning!!.get("1000")!!.getTime()))
         }
-        val sectors6w_1s = ArrayList<Sector?>()
+        val sectors6w_1s = arrayListOf<Sector>()
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 1, hashMapPlanning!!.get("1600")!!.getTime()))
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 2, hashMapPlanning!!.get("1200")!!.getTime()))
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning!!.get("800")!!.getTime()))
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning!!.get("400")!!.getTime()))
-        val sectors7w_1s = ArrayList<Sector?>()
+        val sectors7w_1s = arrayListOf<Sector>()
         for (i in 0..9) {
             val number = i + 1
             sectors7w_1s.add(Sector(session7w_1s.sessionId, number, hashMapPlanning.get("400")!!.getTime()))
         }
-        val sectors8w_1s = ArrayList<Sector?>()
+        val sectors8w_1s = arrayListOf<Sector>()
         for (i in 0..5) {
             val number = i + 1
             sectors8w_1s.add(Sector(session8w_1s.sessionId, number, hashMapPlanning.get("800")!!.getTime()))
         }
-        val sectors9w_1s = ArrayList<Sector?>()
+        val sectors9w_1s = arrayListOf<Sector>()
         for (i in 0..3) {
             val number = i + 1
             sectors9w_1s.add(Sector(session9w_1s.sessionId, number, hashMapPlanning.get("1200")!!.getTime()))
         }
-        val sectors10w_1s = ArrayList<Sector?>()
+        val sectors10w_1s = arrayListOf<Sector>()
         for (i in 0..4) {
             val number = i + 1
             sectors10w_1s.add(Sector(session10w_1s.sessionId, number, hashMapPlanning.get("1000")!!.getTime()))
         }
-        val sectors11w_1s = ArrayList<Sector?>()
+        val sectors11w_1s = arrayListOf<Sector>()
         for (i in 0..2) {
             val number = i + 1
             sectors11w_1s.add(Sector(session11w_1s.sessionId, number, hashMapPlanning.get("1600")!!.getTime()))
         }
-        val sectors12w_1s = ArrayList<Sector?>()
+        val sectors12w_1s = arrayListOf<Sector>()
         for (i in 0..5) {
             val number = i + 1
             sectors12w_1s.add(Sector(session12w_1s.sessionId, number, hashMapPlanning.get("400")!!.getTime()))
         }
         // CARRERA CORTA (Xw_2s)
         val sectors1w_2s = Sector(session1w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
-        val sectors2w_2s = Sector(session12w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
-        val sectors3w_2s = ArrayList<Sector?>()
+        val sectors2w_2s = Sector(session2w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
+        val sectors3w_2s = arrayListOf<Sector>()
         sectors3w_2s.add(Sector(session3w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime()))
         sectors3w_2s.add(Sector(session3w_2s.sessionId, 2, hashMapPlanning.get("facil")!!.getTime()))
         sectors3w_2s.add(Sector(session3w_2s.sessionId, 3, hashMapPlanning.get("corto")!!.getTime()))
         val sectors4w_2s = Sector(session4w_2s.sessionId, 1, hashMapPlanning.get("medio")!!.getTime())
         val sectors5w_2s = Sector(session5w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
-        val sectors6w_2s = ArrayList<Sector?>()
+        val sectors6w_2s = arrayListOf<Sector>()
         sectors6w_2s.add(Sector(session6w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime()))
         sectors6w_2s.add(Sector(session6w_2s.sessionId, 2, hashMapPlanning.get("facil")!!.getTime()))
         sectors6w_2s.add(Sector(session6w_2s.sessionId, 3, hashMapPlanning.get("corto")!!.getTime()))
         sectors6w_2s.add(Sector(session6w_2s.sessionId, 4, hashMapPlanning.get("facil")!!.getTime()))
         sectors6w_2s.add(Sector(session6w_2s.sessionId, 5, hashMapPlanning.get("corto")!!.getTime()))
         val sectors7w_2s = Sector(session7w_2s.sessionId, 1, hashMapPlanning.get("medio")!!.getTime())
-        val sectors8w_2s = ArrayList<Sector?>()
+        val sectors8w_2s = arrayListOf<Sector>()
         sectors8w_2s.add(Sector(session8w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime()))
         sectors8w_2s.add(Sector(session8w_2s.sessionId, 2, hashMapPlanning.get("facil")!!.getTime()))
         sectors8w_2s.add(Sector(session8w_2s.sessionId, 3, hashMapPlanning.get("corto")!!.getTime()))
         val sectors9w_2s = Sector(session9w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
-        val sectors10w_2s = ArrayList<Sector?>()
+        val sectors10w_2s = arrayListOf<Sector>()
         sectors10w_2s.add(Sector(session10w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime()))
         sectors10w_2s.add(Sector(session10w_2s.sessionId, 2, hashMapPlanning.get("facil")!!.getTime()))
         sectors10w_2s.add(Sector(session10w_2s.sessionId, 3, hashMapPlanning.get("corto")!!.getTime()))
@@ -298,9 +310,82 @@ class CreatePlanFragment : Fragment() {
         val sectors10w_3s = Sector(session10w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
         val sectors11w_3s = Sector(session11w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
         val sectors12w_3s = Sector(session12w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
+        val sectors3s_List = arrayListOf(sectors1w_3s, sectors2w_3s, sectors3w_3s, sectors4w_3s, sectors5w_3s, sectors6w_3s, sectors7w_3s,
+                sectors8w_3s, sectors9w_3s, sectors10w_3s, sectors11w_3s, sectors12w_3s)
         // Guardar en Room
         lifecycleScope.launch {
             trainingDbInstance?.addTraining(training)
+            for (week: Week in weekList) {
+                weekDbInstance?.addWeek(week)
+            }
+            for (session: Session in session1s_List) {
+                sessionDbInstance?.addSession(session)
+            }
+            for (session: Session in session2s_List) {
+                sessionDbInstance?.addSession(session)
+            }
+            for (session: Session in session3s_List) {
+                sessionDbInstance?.addSession(session)
+            }
+            for (sector: Sector in sectors1w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors2w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors3w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors4w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors5w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors6w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors7w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors8w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors9w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors10w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors11w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            for (sector: Sector in sectors12w_1s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            sectorDbInstance?.addSector(sectors1w_2s)
+            sectorDbInstance?.addSector(sectors2w_2s)
+            for (sector: Sector in sectors3w_2s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            sectorDbInstance?.addSector(sectors4w_2s)
+            sectorDbInstance?.addSector(sectors5w_2s)
+            for (sector: Sector in sectors6w_2s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            sectorDbInstance?.addSector(sectors7w_2s)
+            for (sector: Sector in sectors8w_2s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            sectorDbInstance?.addSector(sectors9w_2s)
+            for (sector: Sector in sectors10w_2s) {
+                sectorDbInstance?.addSector(sector)
+            }
+            sectorDbInstance?.addSector(sectors11w_2s)
+            sectorDbInstance?.addSector(sectors12w_2s)
+            for (sector: Sector in sectors3s_List) {
+                sectorDbInstance?.addSector(sector)
+            }
             Log.i("CREATION TRAINING", "Done...")
         }
     }

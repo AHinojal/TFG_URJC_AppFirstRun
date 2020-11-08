@@ -9,22 +9,22 @@ import com.example.tfg_urjc_appfirstrun.Entities.Sector
 
 class SectorLab private constructor(context: Context?) {
     private val mSectorDao: SectorDao?
-    fun getSector(): MutableList<Sector?>? {
+    suspend fun getSector(): MutableList<Sector?>? {
         return mSectorDao?.getAll()
     }
 
-    fun getSectorById(id: String?): Sector? {
+    suspend fun getSectorById(id: String?): Sector? {
         return mSectorDao?.getById(id)
     }
 
-    fun addSector(sector: Sector?) {
+    suspend fun addSector(sector: Sector?) {
         mSectorDao?.insertAll(sector)
     }
 
     /*public void updateTraining(Training training) {
         mNotaDao.updateNota(training);
     }*/
-    fun deleteSector(sector: Sector?) {
+    suspend fun deleteSector(sector: Sector?) {
         mSectorDao?.delete(sector)
     }
 
@@ -40,11 +40,11 @@ class SectorLab private constructor(context: Context?) {
     }
 
     init {
-        val appContext = context?.getApplicationContext()
-        val db = appContext?.let {
-            Room.databaseBuilder(it,
-                TrainingDatabase::class.java, "tfg_database").build()
-        }
-        mSectorDao = db?.sectorDao()
+        val appContext = context!!.applicationContext
+        val database: TrainingDatabase = Room.databaseBuilder(
+                appContext,
+                TrainingDatabase::class.java, "tfg-urjc-strava"
+        ).build()
+        mSectorDao = database.sectorDao()
     }
 }

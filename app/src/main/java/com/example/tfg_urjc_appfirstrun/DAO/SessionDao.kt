@@ -9,11 +9,11 @@ import com.example.tfg_urjc_appfirstrun.Entities.Session
 @Dao
 interface SessionDao {
     @Query("SELECT * FROM sessions")
-    open fun getAll(): MutableList<Session?>?
+    suspend fun getAll(): MutableList<Session?>?
     @Query("SELECT * FROM sessions WHERE sessionId = :sessionId")
-    open fun getById(sessionId: String?): Session?
+    suspend fun getById(sessionId: String?): Session?
     @Insert
-    open fun insertAll(vararg session: Session?)
+    suspend fun insertAll(vararg session: Session?)
     @Delete
-    open fun delete(session: Session?)
+    suspend fun delete(session: Session?)
 }

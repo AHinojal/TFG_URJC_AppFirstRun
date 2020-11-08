@@ -9,22 +9,22 @@ import com.example.tfg_urjc_appfirstrun.Entities.Session
 
 class SessionLab private constructor(context: Context?) {
     private val mSessionDao: SessionDao?
-    fun getSession(): MutableList<Session?>? {
+    suspend fun getSession(): MutableList<Session?>? {
         return mSessionDao?.getAll()
     }
 
-    fun getSessionById(id: String?): Session? {
+    suspend fun getSessionById(id: String?): Session? {
         return mSessionDao?.getById(id)
     }
 
-    fun addSession(session: Session?) {
+    suspend fun addSession(session: Session?) {
         mSessionDao?.insertAll(session)
     }
 
     /*public void updateTraining(Training training) {
         mNotaDao.updateNota(training);
     }*/
-    fun deleteSession(session: Session?) {
+    suspend fun deleteSession(session: Session?) {
         mSessionDao?.delete(session)
     }
 
@@ -40,11 +40,11 @@ class SessionLab private constructor(context: Context?) {
     }
 
     init {
-        val appContext = context?.getApplicationContext()
-        val db = appContext?.let {
-            Room.databaseBuilder(it,
-                TrainingDatabase::class.java, "tfg_database").build()
-        }
-        mSessionDao = db?.sessionDao()
+        val appContext = context!!.applicationContext
+        val database: TrainingDatabase = Room.databaseBuilder(
+                appContext,
+                TrainingDatabase::class.java, "tfg-urjc-strava"
+        ).build()
+        mSessionDao = database.sessionDao()
     }
 }
