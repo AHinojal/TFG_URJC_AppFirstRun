@@ -9,7 +9,7 @@ import com.example.tfg_urjc_appfirstrun.Entities.Training
 
 class TrainingLab private constructor(context: Context?) {
     private val mTrainingDao: TrainingDao?
-    suspend fun getTraining(): MutableList<Training?>? {
+    fun getTraining(): List<Training?>? {
         return mTrainingDao?.getAll()
     }
 
@@ -45,7 +45,9 @@ class TrainingLab private constructor(context: Context?) {
         val database: TrainingDatabase = Room.databaseBuilder(
                 appContext,
                 TrainingDatabase::class.java, "tfg-urjc-strava"
-        ).build()
+        )
+        .allowMainThreadQueries()
+        .build()
         mTrainingDao = database.trainingDao()
     }
 }

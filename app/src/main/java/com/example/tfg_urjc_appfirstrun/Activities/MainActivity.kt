@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -17,13 +16,10 @@ import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment
-import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment
-import com.example.tfg_urjc_appfirstrun.Fragments.InfoFirstTrainingFragment
+import com.example.tfg_urjc_appfirstrun.Fragments.*
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import org.json.JSONException
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, CreatePlanFragment.OnFragmentInteractionListener {
@@ -162,15 +158,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             fragment = ActualPlanFragment()
             fragmentSelected = true
         } else if (id == R.id.historical_plan) {
-            // fragment = new HistoricalPlanFragment();
-            // TODO: Crear RecyclerView para mostrar la lista de entrenamientos realizados
-            fragmentSelected = false
+            fragment = HistoricalTrainingFragment();
+            fragmentSelected = true
         } else if (id == R.id.info_first) {
             fragment = InfoFirstTrainingFragment()
             fragmentSelected = true
-        } /*else if (id == R.id.log_out) {
-            logout();
-        }*/
+        }
         if (fragmentSelected) {
             fragment?.let { supportFragmentManager.beginTransaction().replace(R.id.content_main, it).commit() }
             p0.setChecked(true)

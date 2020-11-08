@@ -10,7 +10,7 @@ import com.example.tfg_urjc_appfirstrun.Entities.Training
 @Dao
 interface TrainingDao {
     @Query("SELECT * FROM trainings")
-    suspend fun getAll(): MutableList<Training?>?
+    fun getAll(): List<Training?>?
     @Query("SELECT * FROM trainings WHERE trainingId = :trainingId")
     suspend fun getById(trainingId: String?): Training?
     @Insert
