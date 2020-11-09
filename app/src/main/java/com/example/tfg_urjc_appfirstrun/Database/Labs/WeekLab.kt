@@ -13,6 +13,10 @@ class WeekLab private constructor(context: Context?) {
         return mWeekDao?.getAll()
     }
 
+    suspend fun getWeeksByTrainingId(trainingId: String): List<Week?>? {
+        return mWeekDao?.getWeekByTrainingId(trainingId)
+    }
+
     suspend fun getWeekById(id: String?): Week? {
         return mWeekDao?.getById(id)
     }

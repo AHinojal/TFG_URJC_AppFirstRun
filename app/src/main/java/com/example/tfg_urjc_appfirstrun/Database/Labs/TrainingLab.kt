@@ -17,6 +17,10 @@ class TrainingLab private constructor(context: Context?) {
         return mTrainingDao?.getById(id)
     }
 
+    fun getActualTraining(): Training? {
+        return mTrainingDao?.getActualTraining()
+    }
+
     suspend fun addTraining(training: Training?) {
         mTrainingDao?.insert(training)
     }

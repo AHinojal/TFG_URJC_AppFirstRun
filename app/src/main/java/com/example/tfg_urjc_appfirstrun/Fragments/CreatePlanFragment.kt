@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.tfg_urjc_appfirstrun.Database.Labs.SectorLab
@@ -111,6 +112,11 @@ class CreatePlanFragment : Fragment() {
             Snackbar.make(view, "Creado", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
 
+            // Indicar ID de entrenamiento actual
+            val preferences = context?.getSharedPreferences("credentials", AppCompatActivity.MODE_PRIVATE)
+            val editor = preferences?.edit()
+            editor!!.putString("actualIdTraining", training?.trainingId)
+            editor!!.commit()
             // Volver a la anterior vista
             // getActivity().onBackPressed();
         }
@@ -386,8 +392,8 @@ class CreatePlanFragment : Fragment() {
             for (sector: Sector in sectors3s_List) {
                 sectorDbInstance?.addSector(sector)
             }
-            Log.i("CREATION TRAINING", "Done...")
         }
+        Log.i("CREATION TRAINING", "Done...")
     }
 
     private fun creation10km() {}

@@ -7,15 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
-import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment
+import com.example.tfg_urjc_appfirstrun.Entities.Session
+import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.R
+import kotlin.collections.ArrayList
 
-class ExpandableListAdapter(context: Context, listDataHeader: List<String>, listChildData: HashMap<String, List<String>>) : BaseExpandableListAdapter() {
+class ExpandableListAdapter(context: Context, listDataHeader: ArrayList<Week>, listChildData: java.util.HashMap<String, ArrayList<Session>>) : BaseExpandableListAdapter() {
     private var _context: Context? = context
     // header titles
-    private var _listDataHeader : List<String>? = listDataHeader
+    private var _listDataHeader : ArrayList<Week> = listDataHeader
     // child data in format of header title, child title
-    private var _listDataChild: HashMap<String, List<String>>? = listChildData
+    private var _listDataChild: HashMap<String, ArrayList<Session>>? = listChildData
 
 
     override fun getChild(groupPosition: Int, childPosititon: Int): Any? {

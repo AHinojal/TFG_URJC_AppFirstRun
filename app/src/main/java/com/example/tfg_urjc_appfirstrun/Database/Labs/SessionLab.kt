@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.example.tfg_urjc_appfirstrun.DAO.SessionDao
 import com.example.tfg_urjc_appfirstrun.Database.TrainingDatabase
 import com.example.tfg_urjc_appfirstrun.Entities.Session
+import com.example.tfg_urjc_appfirstrun.Entities.Week
 
 class SessionLab private constructor(context: Context?) {
     private val mSessionDao: SessionDao?
@@ -16,6 +17,11 @@ class SessionLab private constructor(context: Context?) {
     suspend fun getSessionById(id: String?): Session? {
         return mSessionDao?.getById(id)
     }
+
+    suspend fun getSessionByWeekId(weekId: String): List<Session?>? {
+        return mSessionDao?.getSessionByWeekId(weekId)
+    }
+
 
     suspend fun addSession(session: Session?) {
         mSessionDao?.insertAll(session)

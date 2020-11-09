@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.tfg_urjc_appfirstrun.Entities.Sector
 import com.example.tfg_urjc_appfirstrun.R
-
-import com.example.tfg_urjc_appfirstrun.Fragments.dummy.DummyContent.DummyItem
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem].
  * TODO: Replace the implementation with code for your data type.
  */
 class MySectorRecyclerViewAdapter(
-        private val values: List<DummyItem>)
+        private val values: List<Sector>)
     : RecyclerView.Adapter<MySectorRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,8 +24,8 @@ class MySectorRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.idView.text = item.numberSector.toString()
+        holder.contentView.text = item.goalTime.toString()
     }
 
     override fun getItemCount(): Int = values.size

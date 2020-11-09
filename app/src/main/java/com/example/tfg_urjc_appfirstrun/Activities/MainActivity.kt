@@ -13,28 +13,34 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
+import com.example.tfg_urjc_appfirstrun.Entities.Training
 import com.example.tfg_urjc_appfirstrun.Fragments.*
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import org.json.JSONException
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, CreatePlanFragment.OnFragmentInteractionListener {
+
     private val clientId: String? = "40301"
     private val clientSecret: String? = "cf7feabaae97e78edbd6b35e2e3a3280dc7c7fbb"
     private var code: String? = ""
     private val grantType: String? = "authorization_code"
     private var navigationView: NavigationView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<View?>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        preloadBD()
+        preloadSharedPreferences()
 
         val drawer = findViewById<View?>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
@@ -56,7 +62,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun preloadBD() {
+    private fun preloadSharedPreferences() {
         val preferences = getSharedPreferences("credentials", MODE_PRIVATE)
         val editor = preferences.edit()
         editor.putBoolean("isStravaLogin", true) // Es FALSE. TRUE es para test
