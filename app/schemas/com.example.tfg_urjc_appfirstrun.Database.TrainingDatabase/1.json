@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "917768bb8f2382740ed125abe649ed80",
+    "identityHash": "16800bbf6d0a51364ece4886a363ca12",
     "entities": [
       {
         "tableName": "trainings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`trainingId` TEXT NOT NULL, `name` TEXT, `start_date` INTEGER, `is_Finished` INTEGER NOT NULL, `type_training` TEXT, `mark_5km` TEXT, PRIMARY KEY(`trainingId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`trainingId` TEXT NOT NULL, `name` TEXT, `start_date` INTEGER, `is_Finished` INTEGER NOT NULL, `is_Actual_Training` INTEGER NOT NULL, `type_training` TEXT, `mark_5km` TEXT, PRIMARY KEY(`trainingId`))",
         "fields": [
           {
             "fieldPath": "trainingId",
@@ -29,6 +29,12 @@
           {
             "fieldPath": "isFinished",
             "columnName": "is_Finished",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isActualTraining",
+            "columnName": "is_Actual_Training",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -196,7 +202,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '917768bb8f2382740ed125abe649ed80')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16800bbf6d0a51364ece4886a363ca12')"
     ]
   }
 }

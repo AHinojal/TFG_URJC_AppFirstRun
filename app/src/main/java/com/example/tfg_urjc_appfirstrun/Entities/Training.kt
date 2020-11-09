@@ -21,6 +21,9 @@ class Training(name: String?, startDate: Date?, typeTraining: String?, mark5Km: 
     @ColumnInfo(name = "is_Finished")
     var isFinished: Boolean
 
+    @ColumnInfo(name = "is_Actual_Training")
+    var isActualTraining: Boolean
+
     @ColumnInfo(name = "type_training")
     var typeTraining: String?
 
@@ -32,6 +35,7 @@ class Training(name: String?, startDate: Date?, typeTraining: String?, mark5Km: 
         this.name = name
         this.startDate = startDate
         isFinished = false
+        isActualTraining = true
         this.typeTraining = typeTraining
         this.mark5Km = mark5Km
     }

@@ -1,7 +1,6 @@
 package com.example.tfg_urjc_appfirstrun.Fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,26 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.tfg_urjc_appfirstrun.Adapters.MyTrainingRecyclerViewAdapter
-import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
-import com.example.tfg_urjc_appfirstrun.Entities.Training
+import com.example.tfg_urjc_appfirstrun.Adapters.MySectorRecyclerViewAdapter
 import com.example.tfg_urjc_appfirstrun.R
+import com.example.tfg_urjc_appfirstrun.Fragments.dummy.DummyContent
 
 /**
- * A fragment representing a list of Trainings.
+ * A fragment representing a list of Items.
  */
-class HistoricalTrainingFragment : Fragment() {
+class InfoSessionFragment : Fragment() {
 
     private var columnCount = 1
 
-    var trainingDbInstance: TrainingLab? = null
-    var trainingList = ArrayList<Training>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Instancia de TrainingDB para inicialr la bd
-        trainingDbInstance = TrainingLab.get(context)
 
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
@@ -37,9 +29,7 @@ class HistoricalTrainingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_historical_training_list, container, false)
-
-        loadTrainingList()
+        val view = inflater.inflate(R.layout.fragment_info_session_list, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -48,20 +38,10 @@ class HistoricalTrainingFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyTrainingRecyclerViewAdapter(trainingList)
+                adapter = MySectorRecyclerViewAdapter(DummyContent.ITEMS)
             }
         }
         return view
-    }
-
-    private fun loadTrainingList() {
-        var trainings = trainingDbInstance?.getTraining()
-        if (trainings != null) {
-            for (t in trainings){
-                trainingList.add(t!!)
-                Log.i("Trainings", t!!.name)
-            }
-        }
     }
 
     companion object {
@@ -72,7 +52,7 @@ class HistoricalTrainingFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-                HistoricalTrainingFragment().apply {
+                InfoSessionFragment().apply {
                     arguments = Bundle().apply {
                         putInt(ARG_COLUMN_COUNT, columnCount)
                     }
