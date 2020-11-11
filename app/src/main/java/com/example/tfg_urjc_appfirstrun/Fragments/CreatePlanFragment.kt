@@ -38,6 +38,7 @@ class CreatePlanFragment : Fragment() {
 
     private var picker_startingDate: DatePicker? = null
     private val hashMapPlanning: HashMap<String?, Date?>? = HashMap()
+    private val hashMapTraining: HashMap<String, Int?>? = HashMap()
     private var training: Training? = null
 
     var trainingDbInstance: TrainingLab? = null
@@ -108,9 +109,8 @@ class CreatePlanFragment : Fragment() {
                 }*/
 
             // Creamos toda la estructura de base de datos con el entrenamiento
-            createTraining(0)
-            Snackbar.make(view, "Creado", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            hashMapTrainings()
+            createTraining(hashMapTraining!!.get(spinner_distancePlan?.getSelectedItem().toString())!!, v)
 
             // Indicar ID de entrenamiento actual
             val preferences = context?.getSharedPreferences("credentials", AppCompatActivity.MODE_PRIVATE)
@@ -123,24 +123,19 @@ class CreatePlanFragment : Fragment() {
         return v
     }
 
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        open fun onFragmentInteraction(uri: Uri?)
-    }
-
     // METHODS CREATION PLANNING TRAINING
-    private fun createTraining(typeTraining: Int) {
+    private fun createTraining(typeTraining: Int, view: View) {
         when (typeTraining) {
-                0 -> creation5km()
-                1 -> creation10km()
-                2 -> creationMarathon()
+                0 -> creation5km(view)
+                1 -> creation10km(view)
+                2 -> creationMarathon(view)
             else -> {
             }
         }
     }
 
     // METHODS with each one CREATION TRAINING
-    private fun creation5km() {
+    private fun creation5km(view: View) {
         // Creamos el entrenamiento
         training = Training(trainingName!!.getText().toString(), startingDate, spinner_distancePlan?.getSelectedItem().toString(), actualTime!!.getText().toString())
         // Creamos las semanas, agregandoles el id del entrenamiento y el numero de semana que es
@@ -394,10 +389,16 @@ class CreatePlanFragment : Fragment() {
             }
         }
         Log.i("CREATION TRAINING", "Done...")
+        Snackbar.make(view, "¡Entrenamiento creado!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
     }
 
-    private fun creation10km() {}
-    private fun creationMarathon() {}
+    private fun creation10km(view: View) {
+        Snackbar.make(view, "No ha sido disponible crear este tipo de entrenamiento. Lo sentimos", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+
+    }
+    private fun creationMarathon(view: View) {
+        Snackbar.make(view, "No ha sido disponible crear este tipo de entrenamiento. Lo sentimos", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private fun fillHashMapWithTrainingTimes() {
@@ -443,6 +444,19 @@ class CreatePlanFragment : Fragment() {
         }
         Log.i("Factor", Integer.toString(factor))
         return factor
+    }
+
+    private fun hashMapTrainings() {
+        hashMapTraining?.set("5 Kilómetros", 0)
+        hashMapTraining?.set("10 Kilómetros", 1)
+        hashMapTraining?.set("Marathon", 2)
+        hashMapTraining?.set("Media Marathon", 3)
+        hashMapTraining?.set("Marathon para principiantes", 4)
+    }
+
+    interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        open fun onFragmentInteraction(uri: Uri?)
     }
 
     companion object {

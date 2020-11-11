@@ -11,8 +11,8 @@
     </string-array>
 
     <string-array name="distance_16w_plan">
-        <item>Media Marathon</item>
-        <item>Marathon para principiantes</item>
+       <!-- <item>Media Marathon</item>
+        <item>Marathon para principiantes</item> -->
         <item>Marathon</item>
     </string-array>
 </resources>
