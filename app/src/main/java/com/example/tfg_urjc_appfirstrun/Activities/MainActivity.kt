@@ -17,14 +17,19 @@ import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.tfg_urjc_appfirstrun.Database.Labs.SessionLab
 import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
+import com.example.tfg_urjc_appfirstrun.Database.Labs.WeekLab
+import com.example.tfg_urjc_appfirstrun.Entities.Session
 import com.example.tfg_urjc_appfirstrun.Entities.Training
+import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.Fragments.*
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.json.JSONException
+import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, CreatePlanFragment.OnFragmentInteractionListener {
 
@@ -34,6 +39,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val grantType: String? = "authorization_code"
     private var navigationView: NavigationView? = null
 
+    // Database Instances
+    var trainingDbInstance: TrainingLab? = null
+    var weekDbInstance: WeekLab? = null
+    var sessionDbInstance: SessionLab? = null
+    // Variables
+    var actualTraining: Training? = null
+    var actualIdTraining: String? = null
+    var listDataWeeks = ArrayList<Week>()
+    val listDataSession: HashMap<String, ArrayList<Session>> = HashMap()
+    var haveActualTraining: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,6 +57,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         preloadSharedPreferences()
+
+        // Instancia de TrainingDB para inicialr la bd
+        trainingDbInstance = TrainingLab.get(this)
+        weekDbInstance = WeekLab.get(this)
+        sessionDbInstance = SessionLab.get(this)
+
+        // preparing list data
+        getActualTrainingFromDB()
+        loadTrainingPlan()
 
         val drawer = findViewById<View?>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
@@ -111,6 +136,36 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         queue.add(jsonObjectRequest)
     }
 
+    private fun getActualTrainingFromDB() {
+        actualTraining = trainingDbInstance?.getActualTraining()
+        if (actualTraining != null){
+            actualIdTraining = actualTraining?.trainingId
+            haveActualTraining = true
+            Log.i("ActualTraining", actualIdTraining)
+        }
+    }
+
+    private fun loadTrainingPlan() {
+        lifecycleScope.launch {
+            var weeks = weekDbInstance?.getWeeksByTrainingId(actualIdTraining!!)
+            if (weeks != null) {
+                for (w in weeks){
+                    listDataWeeks.add(w!!)
+                    Log.i("Week", w!!.numberWeek.toString())
+                    var sessions = sessionDbInstance?.getSessionByWeekId(w.weekId!!)
+                    if (sessions != null) {
+                        var listDataSessionByWeek = ArrayList<Session>()
+                        for (s in sessions){
+                            listDataSessionByWeek.add(s!!)
+                            Log.i("Session", s!!.sessionId)
+                        }
+                        listDataSession.set(w!!.numberWeek.toString(),listDataSessionByWeek)
+                    }
+                }
+            }
+        }
+    }
+
     override fun onBackPressed() {
         val drawer = findViewById<View?>(R.id.drawer_layout) as DrawerLayout
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -161,8 +216,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val intent = Intent(Intent.ACTION_VIEW, intentUri)
             startActivity(intent)
         } else if (id == R.id.actual_plan) {
-            fragment = ActualPlanFragment()
-            fragmentSelected = true
+            if (haveActualTraining){
+                fragment = ActualPlanFragment(listDataWeeks,listDataSession)
+                fragmentSelected = true
+            }else{
+                Snackbar.make(findViewById(android.R.id.content), "¡No hay ningun entrenamiento actualmente!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+
+            }
         } else if (id == R.id.historical_plan) {
             fragment = HistoricalTrainingFragment();
             fragmentSelected = true

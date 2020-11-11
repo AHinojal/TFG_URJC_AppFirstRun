@@ -142,7 +142,7 @@ class CreatePlanFragment : Fragment() {
     // METHODS with each one CREATION TRAINING
     private fun creation5km() {
         // Creamos el entrenamiento
-        training = Training(trainingName!!.getText().toString(), startingDate, "tipoEntrenamiento", actualTime!!.getText().toString())
+        training = Training(trainingName!!.getText().toString(), startingDate, spinner_distancePlan?.getSelectedItem().toString(), actualTime!!.getText().toString())
         // Creamos las semanas, agregandoles el id del entrenamiento y el numero de semana que es
         val week1 = Week(training!!.trainingId, 1)
         val week2 = Week(training!!.trainingId, 2)

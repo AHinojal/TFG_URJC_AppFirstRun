@@ -27,17 +27,19 @@ class MyTrainingRecyclerViewAdapter(
         Log.i("Data Recycler View", values.toString())
         val item = values[position]
         holder.idView.text = item.name
-        holder.contentView.text = item.mark5Km
+        holder.nameView.text = item.mark5Km
+        holder.typeView.text = item.typeTraining
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val idView: TextView = view.findViewById(R.id.item_number)
-        val contentView: TextView = view.findViewById(R.id.content)
+        val nameView: TextView = view.findViewById(R.id.nameTraining)
+        val typeView: TextView = view.findViewById(R.id.typeTraining)
 
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return super.toString() + " '" + nameView.text + "'" + typeView.text
         }
     }
 }

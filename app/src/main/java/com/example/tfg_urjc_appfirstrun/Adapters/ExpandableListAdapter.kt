@@ -10,9 +10,10 @@ import android.widget.TextView
 import com.example.tfg_urjc_appfirstrun.Entities.Session
 import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.R
+import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
 
-class ExpandableListAdapter(context: Context, listDataHeader: ArrayList<Week>, listChildData: java.util.HashMap<String, ArrayList<Session>>) : BaseExpandableListAdapter() {
+class ExpandableListAdapter(context: Context, listDataHeader: ArrayList<Week>, listChildData: HashMap<String, ArrayList<Session>>) : BaseExpandableListAdapter() {
     private var _context: Context? = context
     // header titles
     private var _listDataHeader : ArrayList<Week> = listDataHeader
@@ -20,8 +21,9 @@ class ExpandableListAdapter(context: Context, listDataHeader: ArrayList<Week>, l
     private var _listDataChild: HashMap<String, ArrayList<Session>>? = listChildData
 
 
+
     override fun getChild(groupPosition: Int, childPosititon: Int): Any? {
-        return _listDataChild!![_listDataHeader!![groupPosition]]
+        return _listDataChild!![_listDataHeader!![groupPosition].numberWeek.toString()]
                 ?.get(childPosititon)
     }
 
@@ -32,18 +34,19 @@ class ExpandableListAdapter(context: Context, listDataHeader: ArrayList<Week>, l
     override fun getChildView(groupPosition: Int, childPosition: Int,
                               isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View? {
         var convertView: View? = convertView
-        val childText = getChild(groupPosition, childPosition) as String?
+        val childText = getChild(groupPosition, childPosition) as Session?
         if (convertView == null) {
             val infalInflater = _context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = infalInflater.inflate(R.layout.session_list_cplan, null)
         }
         val txtListChild = convertView?.findViewById(R.id.lblListItem) as TextView
-        txtListChild.text = childText
+        val formatDate = SimpleDateFormat("dd/MM/yyyy")
+        txtListChild.text = "Sesión " + childText?.numberSession.toString() + " - " + formatDate.format(childText?.sessionDay)
         return convertView
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        return _listDataChild!![_listDataHeader!![groupPosition]]?.size!!
+        return _listDataChild!![_listDataHeader!![groupPosition].numberWeek.toString()]?.size!!;
     }
 
     override fun getGroup(groupPosition: Int): Any? {
@@ -61,14 +64,14 @@ class ExpandableListAdapter(context: Context, listDataHeader: ArrayList<Week>, l
     override fun getGroupView(groupPosition: Int, isExpanded: Boolean,
                               convertView: View?, parent: ViewGroup?): View? {
         var convertView: View? = convertView
-        val headerTitle = getGroup(groupPosition) as String?
+        val headerTitle = getGroup(groupPosition) as Week?
         if (convertView == null) {
             val infalInflater = _context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = infalInflater.inflate(R.layout.week_list_cplan, null)
         }
         val lblListHeader = convertView?.findViewById(R.id.lblListHeader) as TextView
         lblListHeader.setTypeface(null, Typeface.BOLD)
-        lblListHeader.text = headerTitle
+        lblListHeader.text = "Semana "+ headerTitle?.numberWeek
         return convertView
     }
 
