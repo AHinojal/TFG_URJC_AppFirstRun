@@ -9,9 +9,6 @@ import android.view.ViewGroup
 import android.widget.ExpandableListView
 import androidx.fragment.app.Fragment
 import com.example.tfg_urjc_appfirstrun.Adapters.ExpandableListAdapter
-import com.example.tfg_urjc_appfirstrun.Database.Labs.SessionLab
-import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
-import com.example.tfg_urjc_appfirstrun.Database.Labs.WeekLab
 import com.example.tfg_urjc_appfirstrun.Entities.Session
 import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.R
@@ -49,7 +46,7 @@ class ActualPlanFragment(listDataWeeks: ArrayList<Week>, listDataSession: HashMa
             var selectedSession : Session? = obtainSession(groupPosition+1,childPosition)
             Log.i("Session Seleccionada", selectedSession?.sessionId.toString())
             val transaction = activity?.supportFragmentManager?.beginTransaction()
-            transaction?.replace(R.id.content_main, InfoSessionFragment(selectedSession))
+            transaction?.replace(R.id.content_main, InfoSessionFragment(selectedSession, groupPosition+1, childPosition+1))
             transaction?.disallowAddToBackStack()
             transaction?.commit()
             false

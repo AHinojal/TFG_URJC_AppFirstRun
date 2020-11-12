@@ -1,15 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="25dp"
     tools:context=".Fragments.InfoSessionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/tv_sessionDay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/titleSession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="INFORMACIÓN"
+        android:layout_centerHorizontal="true"
         />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_session"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/titleSession">
+        <TextView
+            android:id="@+id/et_weekDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SEMANA: "
+            android:layout_below="@+id/et_sessionDay"/>
+        <TextView
+            android:id="@+id/tv_numberWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XX"
+            android:layout_below="@+id/tv_sessionDay"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/et_sessionNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SESIÓN: "
+            android:layout_below="@+id/et_sessionDay"/>
+        <TextView
+            android:id="@+id/tv_sessionNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_sessionDay"
+            android:text="XX" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/linearLayout_session">
+        <TextView
+            android:id="@+id/et_sessionDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DÍA: "
+            android:layout_below="@+id/titleSession"/>
+        <TextView
+            android:id="@+id/tv_sessionDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XX/XX/XXXX"
+            android:layout_below="@+id/titleSession"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/titleTraining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="ENTRENO"
+        android:layout_below="@+id/linearLayout_date"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/titleResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_below="@+id/titleTraining"
+        android:text="RESULTADOS"
+        android:layout_centerHorizontal="true"
+        />
+
+    <!--<ListView
+        android:id="@+id/lv_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleTraining"/>-->
+
+    <Spinner
+        android:id="@+id/spinner_activities"
+        android:layout_width="305dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton_addData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        android:src="@drawable/ic_btn_add" />
+
+
+</RelativeLayout>

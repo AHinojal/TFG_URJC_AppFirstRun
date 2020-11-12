@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun preloadSharedPreferences() {
         val preferences = getSharedPreferences("credentials", MODE_PRIVATE)
         val editor = preferences.edit()
-        editor.putBoolean("isStravaLogin", true) // Es FALSE. TRUE es para test
+        editor.putBoolean("isStravaLogin", false) // Es FALSE. TRUE es para test en creacion pantalla tras login
         editor.putString("access_token", null)
         editor.commit()
     }
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         e.printStackTrace()
                     }
                 }
-        ) { error -> Log.i("Request Auth", "That didn't work!: $error") }
+        ) { error -> Log.e("Request Auth", "That didn't work!: $error") }
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest)
