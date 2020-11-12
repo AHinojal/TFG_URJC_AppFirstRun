@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.tfg_urjc_appfirstrun.Entities.Sector
+import com.example.tfg_urjc_appfirstrun.Entities.Session
 
 @Dao
 interface SectorDao {
@@ -12,6 +13,8 @@ interface SectorDao {
     suspend fun getAll(): MutableList<Sector?>?
     @Query("SELECT * FROM sectors WHERE sectorId = :sectorId")
     suspend fun getById(sectorId: String?): Sector?
+    @Query("SELECT * FROM sectors WHERE session_owner_id = :sessionId ORDER BY number_sector ASC")
+    suspend fun getSectorBySessionId(sessionId: String): List<Sector?>?
     @Insert
     suspend fun insertAll(vararg sector: Sector?)
     @Delete

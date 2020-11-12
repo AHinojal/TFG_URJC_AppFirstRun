@@ -17,6 +17,10 @@ class SectorLab private constructor(context: Context?) {
         return mSectorDao?.getById(id)
     }
 
+    suspend fun getSectorBySessionId(sessionId: String): List<Sector?>? {
+        return mSectorDao?.getSectorBySessionId(sessionId)
+    }
+
     suspend fun addSector(sector: Sector?) {
         mSectorDao?.insertAll(sector)
     }

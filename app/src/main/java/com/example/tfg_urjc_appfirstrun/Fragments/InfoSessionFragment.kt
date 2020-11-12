@@ -10,15 +10,23 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.tfg_urjc_appfirstrun.Database.Labs.SectorLab
+import com.example.tfg_urjc_appfirstrun.Database.Labs.SessionLab
+import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
+import com.example.tfg_urjc_appfirstrun.Database.Labs.WeekLab
 import com.example.tfg_urjc_appfirstrun.Entities.Activity
+import com.example.tfg_urjc_appfirstrun.Entities.Sector
 import com.example.tfg_urjc_appfirstrun.Entities.Session
+import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 /**
@@ -32,12 +40,15 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
     private var _actualWeekNumber = actualWeekNumber
     private var _actualSessionNumber = actualSessionNumber
 
+    var sectorDbInstance: SectorLab? = null
+
     // Format Date (millis to Date)
     val formatDateCalender = SimpleDateFormat("dd/MM/yyyy")
     val formatDateTimer = SimpleDateFormat("mm:ss")
 
     // Data variables
     var listActivities = ArrayList<Activity>()
+    var listDataSectors = ArrayList<Sector?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +58,12 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var v: View = inflater?.inflate(R.layout.fragment_info_session, container, false)
+
+        // Instancia de TrainingDB para inicialr la bd
+        sectorDbInstance = SectorLab.get(context)
+
+        // Get list of sectors
+        fillSectorList()
 
         // All info session variables
         val sessionDay = v.findViewById(R.id.tv_sessionDay) as TextView
@@ -70,6 +87,8 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         val adapter = ArrayAdapter(activity, android.R.layout.simple_spinner_item, listActivities)
         spinner_activities?.setAdapter(adapter)
 
+
+
         val fab: FloatingActionButton = v.findViewById(R.id.floatingActionButton_addData)
         fab.setOnClickListener { view ->
             // addInfoToDatabase()
@@ -77,6 +96,18 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
             Log.i("Selected Activity", act.toString())
         }
         return v
+    }
+
+    private fun fillSectorList() {
+        lifecycleScope.launch {
+            var sectors = sectorDbInstance?.getSectorBySessionId(_session?.sessionId!!)
+            if (sectors != null) {
+                for (sect in sectors){
+                    listDataSectors.add(sect!!)
+                    Log.i("Sector", sect!!.numberSector.toString())
+                }
+            }
+        }
     }
 
     private fun getActivitiesStrava() {
@@ -145,7 +176,6 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                 return headers
             }
         }
-
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest)
