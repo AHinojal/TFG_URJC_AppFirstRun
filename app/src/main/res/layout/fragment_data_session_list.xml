@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="25dp"
+    android:padding="20dp"
     tools:context=".Fragments.DataSessionFragment">
 
     <TextView
@@ -14,7 +14,6 @@
         android:textStyle="bold"
         android:text="INFORMACIÓN"
         android:layout_marginBottom="10dp"
-
         android:layout_centerHorizontal="true"
         />
 
@@ -153,63 +152,12 @@
         />
 
     <LinearLayout
-        android:id="@+id/linearLayout_infoResults"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_below="@id/titleResults">
-        <TextView
-            android:id="@+id/et_sectorNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SECTOR" />
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-        <TextView
-            android:id="@+id/tv_goalTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OBJ."/>
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-        <TextView
-            android:id="@+id/et_registerTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MARCA" />
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-        <TextView
-            android:id="@+id/tv_difference"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DIF" />
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_resultsList"
-        android:name="com.example.tfg_urjc_appfirstrun.Fragments.DataSessionFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="385dp"
-        android:layout_below="@+id/linearLayout_infoResults"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".Fragments.DataSessionFragment"
-        tools:listitem="@layout/fragment_data_session" />
-
-    <LinearLayout
         android:id="@+id/spinnerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_below="@id/rv_resultsList">
+        android:layout_below="@id/titleResults">
         <Spinner
             android:id="@+id/spinner_activities"
             android:layout_width="303dp"
@@ -229,6 +177,55 @@
             android:src="@drawable/ic_btn_add" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout_infoResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/spinnerButton">
+        <TextView
+            android:id="@+id/et_sectorNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SECTOR" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tv_goalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T. OBJETIVO"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/et_registerTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T. REGISTRO" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tv_difference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DIFERENCIA" />
+    </LinearLayout>
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_resultsList"
+        android:name="com.example.tfg_urjc_appfirstrun.Fragments.DataSessionFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_infoResults"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".Fragments.DataSessionFragment"
+        tools:listitem="@layout/fragment_data_session" />
 </RelativeLayout>
