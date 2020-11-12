@@ -46,7 +46,7 @@ class ActualPlanFragment(listDataWeeks: ArrayList<Week>, listDataSession: HashMa
             var selectedSession : Session? = obtainSession(groupPosition+1,childPosition)
             Log.i("Session Seleccionada", selectedSession?.sessionId.toString())
             val transaction = activity?.supportFragmentManager?.beginTransaction()
-            transaction?.replace(R.id.content_main, InfoSessionFragment(selectedSession, groupPosition+1, childPosition+1))
+            transaction?.replace(R.id.content_main, DataSessionFragment(selectedSession, groupPosition+1, childPosition+1))
             transaction?.disallowAddToBackStack()
             transaction?.commit()
             false

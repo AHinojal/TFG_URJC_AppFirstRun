@@ -17,7 +17,7 @@ class SectorLab private constructor(context: Context?) {
         return mSectorDao?.getById(id)
     }
 
-    suspend fun getSectorBySessionId(sessionId: String): List<Sector?>? {
+    fun getSectorBySessionId(sessionId: String): List<Sector?>? {
         return mSectorDao?.getSectorBySessionId(sessionId)
     }
 
@@ -48,7 +48,9 @@ class SectorLab private constructor(context: Context?) {
         val database: TrainingDatabase = Room.databaseBuilder(
                 appContext,
                 TrainingDatabase::class.java, "tfg-urjc-strava"
-        ).build()
+        )
+                .allowMainThreadQueries()
+                .build()
         mSectorDao = database.sectorDao()
     }
 }

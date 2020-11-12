@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    tools:context=".Fragments.InfoSessionFragment">
+    tools:context=".Fragments.DataSessionFragment">
 
     <TextView
         android:id="@+id/titleSession"
@@ -12,6 +13,8 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:text="INFORMACIÓN"
+        android:layout_marginBottom="10dp"
+
         android:layout_centerHorizontal="true"
         />
 
@@ -80,6 +83,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:text="ENTRENO"
+        android:padding="10dp"
         android:layout_below="@+id/linearLayout_date"
         android:layout_centerHorizontal="true"
         />
@@ -96,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="REPETICIONES: "
-/>
+            />
         <TextView
             android:id="@+id/tv_replays"
             android:layout_width="wrap_content"
@@ -144,31 +148,87 @@
         android:textStyle="bold"
         android:layout_below="@+id/linearLayout_distance"
         android:text="RESULTADOS"
+        android:padding="10dp"
         android:layout_centerHorizontal="true"
         />
 
-    <!--<ListView
-        android:id="@+id/lv_results"
+    <LinearLayout
+        android:id="@+id/linearLayout_infoResults"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/titleTraining"/>-->
-
-    <Spinner
-        android:id="@+id/spinner_activities"
-        android:layout_width="305dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton_addData"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/colorPrimary"
-        android:clickable="true"
-        android:src="@drawable/ic_btn_add" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/titleResults">
+        <TextView
+            android:id="@+id/et_sectorNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SECTOR" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tv_goalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OBJ."/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/et_registerTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MARCA" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tv_difference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DIF" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_resultsList"
+        android:name="com.example.tfg_urjc_appfirstrun.Fragments.DataSessionFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="385dp"
+        android:layout_below="@+id/linearLayout_infoResults"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".Fragments.DataSessionFragment"
+        tools:listitem="@layout/fragment_data_session" />
+
+    <LinearLayout
+        android:id="@+id/spinnerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/rv_resultsList">
+        <Spinner
+            android:id="@+id/spinner_activities"
+            android:layout_width="303dp"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:layout_below="@id/rv_resultsList"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton_addData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:clickable="true"
+            android:src="@drawable/ic_btn_add" />
+    </LinearLayout>
+
 
 
 </RelativeLayout>

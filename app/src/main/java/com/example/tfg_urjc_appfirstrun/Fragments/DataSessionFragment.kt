@@ -3,38 +3,36 @@ package com.example.tfg_urjc_appfirstrun.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.tfg_urjc_appfirstrun.Adapters.MySectorRecyclerViewAdapter
 import com.example.tfg_urjc_appfirstrun.Database.Labs.SectorLab
-import com.example.tfg_urjc_appfirstrun.Database.Labs.SessionLab
-import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
-import com.example.tfg_urjc_appfirstrun.Database.Labs.WeekLab
 import com.example.tfg_urjc_appfirstrun.Entities.Activity
 import com.example.tfg_urjc_appfirstrun.Entities.Sector
 import com.example.tfg_urjc_appfirstrun.Entities.Session
-import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 /**
- * A simple [Fragment] subclass.
- * Use the [InfoSessionFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A fragment representing a list of Items.
  */
-class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, actualSessionNumber: Int?) : Fragment() {
+class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, actualSessionNumber: Int?): Fragment() {
 
     private var _session = selectedSession
     private var _actualWeekNumber = actualWeekNumber
@@ -50,14 +48,20 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
     var listActivities = ArrayList<Activity>()
     var listDataSectors = ArrayList<Sector?>()
 
+    private var columnCount = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            columnCount = it.getInt(HistoricalTrainingFragment.ARG_COLUMN_COUNT)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        var v: View = inflater?.inflate(R.layout.fragment_info_session, container, false)
+        val view = inflater.inflate(R.layout.fragment_data_session_list, container, false)
+
 
         // Instancia de TrainingDB para inicialr la bd
         sectorDbInstance = SectorLab.get(context)
@@ -66,46 +70,55 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         fillSectorList()
 
         // All info session variables
-        val sessionDay = v.findViewById(R.id.tv_sessionDay) as TextView
+        val sessionDay = view.findViewById(R.id.tv_sessionDay) as TextView
         sessionDay.text = formatDateCalender.format(_session!!.sessionDay)
-        val actualWeekNumber = v.findViewById(R.id.tv_numberWeek) as TextView
+        val actualWeekNumber = view.findViewById(R.id.tv_numberWeek) as TextView
         actualWeekNumber.text = _actualWeekNumber.toString()
-        val actualSessionNumber = v.findViewById(R.id.tv_sessionNumber) as TextView
+        val actualSessionNumber = view.findViewById(R.id.tv_sessionNumber) as TextView
         actualSessionNumber.text = _actualSessionNumber.toString()
         // All training info variables
-        val replays = v.findViewById(R.id.tv_replays) as TextView
+        val replays = view.findViewById(R.id.tv_replays) as TextView
         replays.text = _session!!.replays.toString()
-        val recoveryTime = v.findViewById(R.id.tv_recoveryTime) as TextView
+        val recoveryTime = view.findViewById(R.id.tv_recoveryTime) as TextView
         recoveryTime.text = _session!!.recoveryTime
-        val distance = v.findViewById(R.id.tv_distance) as TextView
+        val distance = view.findViewById(R.id.tv_distance) as TextView
         distance.text = _session!!.distance
 
+        // Set the adapter list Sectors
+        val recyclerView = view.findViewById(R.id.rv_resultsList) as RecyclerView
+        with(recyclerView) {
+            layoutManager = when {
+                columnCount <= 1 -> LinearLayoutManager(context)
+                else -> GridLayoutManager(context, columnCount)
+            }
+            adapter = MySectorRecyclerViewAdapter(listDataSectors)
+        }
+
         // Get activities from Strava
-        getActivitiesStrava();
+        //getActivitiesStrava();
+
         // Load spinner
-        var spinner_activities = v.findViewById<View?>(R.id.spinner_activities) as Spinner
-        val adapter = ArrayAdapter(activity, android.R.layout.simple_spinner_item, listActivities)
-        spinner_activities?.setAdapter(adapter)
+        var spinner_activities = view.findViewById<View?>(R.id.spinner_activities) as Spinner
+        val adapterSpinner = ArrayAdapter(activity, android.R.layout.simple_spinner_item, listActivities)
+        spinner_activities?.setAdapter(adapterSpinner)
 
-
-
-        val fab: FloatingActionButton = v.findViewById(R.id.floatingActionButton_addData)
+        val fab: FloatingActionButton = view.findViewById(R.id.floatingActionButton_addData)
         fab.setOnClickListener { view ->
             // addInfoToDatabase()
             val act: Activity = spinner_activities.getSelectedItem() as Activity
             Log.i("Selected Activity", act.toString())
         }
-        return v
+
+        return view
     }
 
+
     private fun fillSectorList() {
-        lifecycleScope.launch {
-            var sectors = sectorDbInstance?.getSectorBySessionId(_session?.sessionId!!)
-            if (sectors != null) {
-                for (sect in sectors){
-                    listDataSectors.add(sect!!)
-                    Log.i("Sector", sect!!.numberSector.toString())
-                }
+        var sectors = sectorDbInstance?.getSectorBySessionId(_session?.sessionId!!)
+        if (sectors != null) {
+            for (sect in sectors){
+                listDataSectors.add(sect!!)
+                Log.i("Sector", sect!!.numberSector.toString())
             }
         }
     }
@@ -181,5 +194,7 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         queue.add(jsonObjectRequest)
     }
 
-
+    companion object {
+        const val ARG_COLUMN_COUNT: String = "column-count"
+    }
 }
