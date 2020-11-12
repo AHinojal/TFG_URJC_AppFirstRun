@@ -65,7 +65,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // preparing list data
         getActualTrainingFromDB()
-        loadTrainingPlan()
+        if (actualIdTraining != null) {
+            loadTrainingPlan()
+        }
 
         val drawer = findViewById<View?>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(

@@ -35,6 +35,7 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
     // Format Date (millis to Date)
     val formatDateCalender = SimpleDateFormat("dd/MM/yyyy")
     val formatDateTimer = SimpleDateFormat("mm:ss")
+
     // Data variables
     var listActivities = ArrayList<Activity>()
 
@@ -54,6 +55,13 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         actualWeekNumber.text = _actualWeekNumber.toString()
         val actualSessionNumber = v.findViewById(R.id.tv_sessionNumber) as TextView
         actualSessionNumber.text = _actualSessionNumber.toString()
+        // All training info variables
+        val replays = v.findViewById(R.id.tv_replays) as TextView
+        replays.text = _session!!.replays.toString()
+        val recoveryTime = v.findViewById(R.id.tv_recoveryTime) as TextView
+        recoveryTime.text = _session!!.recoveryTime
+        val distance = v.findViewById(R.id.tv_distance) as TextView
+        distance.text = _session!!.distance
 
         // Get activities from Strava
         getActivitiesStrava();
@@ -61,7 +69,6 @@ class InfoSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         var spinner_activities = v.findViewById<View?>(R.id.spinner_activities) as Spinner
         val adapter = ArrayAdapter(activity, android.R.layout.simple_spinner_item, listActivities)
         spinner_activities?.setAdapter(adapter)
-
 
         val fab: FloatingActionButton = v.findViewById(R.id.floatingActionButton_addData)
         fab.setOnClickListener { view ->
