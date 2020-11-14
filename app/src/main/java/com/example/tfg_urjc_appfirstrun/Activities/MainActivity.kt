@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun preloadSharedPreferences() {
         val preferences = getSharedPreferences("credentials", MODE_PRIVATE)
         val editor = preferences.edit()
-        editor.putBoolean("isStravaLogin", true) // Es FALSE. TRUE es para test en creacion pantalla tras login
+        editor.putBoolean("isStravaLogin", false) // Es FALSE. TRUE es para test en creacion pantalla tras login
         editor.putString("access_token", null)
         editor.commit()
     }

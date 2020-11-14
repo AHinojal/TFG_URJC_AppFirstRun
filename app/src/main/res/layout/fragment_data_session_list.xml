@@ -227,5 +227,5 @@
         android:layout_below="@+id/linearLayout_infoResults"
         app:layoutManager="LinearLayoutManager"
         tools:context=".Fragments.DataSessionFragment"
-        tools:listitem="@layout/fragment_data_session" />
+        tools:listitem="@layout/fragment_data_session"/>
 </RelativeLayout>

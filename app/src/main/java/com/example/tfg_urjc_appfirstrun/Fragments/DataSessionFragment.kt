@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.lifecycleScope
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
@@ -32,11 +30,12 @@ import java.text.SimpleDateFormat
 /**
  * A fragment representing a list of Items.
  */
-class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, actualSessionNumber: Int?): Fragment() {
+class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, actualSessionNumber: Int?, listActivities: ArrayList<Activity>): Fragment() {
 
     private var _session = selectedSession
     private var _actualWeekNumber = actualWeekNumber
     private var _actualSessionNumber = actualSessionNumber
+    private var _listActivities = listActivities
 
     var sectorDbInstance: SectorLab? = null
 
@@ -45,9 +44,9 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
     val formatDateTimer = SimpleDateFormat("mm:ss")
 
     // Data variables
-    var listActivities = ArrayList<Activity>()
     var listDataSectors = ArrayList<Sector?>()
-
+    private lateinit var mySpinner: Spinner
+    private lateinit var adapter: ArrayAdapter<Activity>
     private var columnCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,19 +93,30 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
             adapter = MySectorRecyclerViewAdapter(listDataSectors)
         }
 
-        // Get activities from Strava
-        //getActivitiesStrava();
-
         // Load spinner
-        var spinner_activities = view.findViewById<View?>(R.id.spinner_activities) as Spinner
-        val adapterSpinner = ArrayAdapter(activity, android.R.layout.simple_spinner_item, listActivities)
-        spinner_activities?.setAdapter(adapterSpinner)
+        mySpinner = view.findViewById<View?>(R.id.spinner_activities) as Spinner
+        adapter = ArrayAdapter<Activity>(context, android.R.layout.simple_spinner_item, _listActivities)
+        mySpinner?.adapter = adapter
+        mySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                // You can define you actions as you want
+            }
 
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+
+                val selectedObject = mySpinner.selectedItem as Activity
+                Toast.makeText(
+                        context,
+                        "ID: ${selectedObject.id} Name: ${selectedObject.name}",
+                        Toast.LENGTH_SHORT
+                ).show()
+
+            }
+        }
         val fab: FloatingActionButton = view.findViewById(R.id.floatingActionButton_addData)
         fab.setOnClickListener { view ->
             // addInfoToDatabase()
-            val act: Activity = spinner_activities.getSelectedItem() as Activity
-            Log.i("Selected Activity", act.toString())
+
         }
 
         return view
@@ -121,45 +131,6 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                 Log.i("Sector", sect!!.numberSector.toString())
             }
         }
-    }
-
-    private fun getActivitiesStrava() {
-        // REQUEST TO OBTAIN ACCESS TOKEN
-        val queue = Volley.newRequestQueue(this.context)
-        // URL which return the access token
-        val url = "https://www.strava.com/api/v3/athlete/activities"
-        Log.i("URL Activity Test", url)
-        // Request a JSON response from the provided URL.
-        val jsonArrayRequest: JsonArrayRequest = object : JsonArrayRequest(Method.GET, url, null,
-                Response.Listener { response ->
-                    //Log.i("Request Auth", "Response is: $response")
-                    for (i in 0 until response.length()) {
-                        val item = response.getJSONObject(i)
-                        //Log.i("Activity", item.get("id").toString())
-                        var activity = Activity(item.get("id").toString(), item.get("name").toString(), item.get("start_date").toString())
-                        listActivities.add(activity)
-                    }
-                },
-                Response.ErrorListener { error ->
-                    Log.e("Request Error", "That didn't work!: $error")
-                }
-        ) {
-            //This is for Headers If You Needed
-            @Throws(AuthFailureError::class)
-            override fun getHeaders(): MutableMap<String?, String?>? {
-                val headers: MutableMap<String?, String?> = HashMap()
-                val preferences = activity?.getSharedPreferences("credentials", Context.MODE_PRIVATE)
-                val access_token = preferences?.getString("access_token", null)
-                headers["ContentType"] = "application/json; charset=utf8"
-                headers["Authorization"] = "Bearer $access_token"
-                Log.i("Header Request", headers.toString())
-                return headers
-            }
-        }
-
-
-        // Add the request to the RequestQueue.
-        queue.add(jsonArrayRequest)
     }
 
     private fun addInfoToDatabase() {

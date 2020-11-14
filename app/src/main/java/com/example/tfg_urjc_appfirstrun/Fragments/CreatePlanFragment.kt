@@ -75,8 +75,8 @@ class CreatePlanFragment : Fragment() {
         // Adaptadores para los spinner que indica la duracion del plan de entrenamiento
         val adapter = ArrayAdapter.createFromResource(this.context, R.array.duration_plan, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_durationPlan?.setAdapter(adapter)
-        spinner_durationPlan?.setOnItemSelectedListener(object : OnItemSelectedListener {
+        spinner_durationPlan?.adapter = adapter
+        spinner_durationPlan?.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 //Si selecciona 12 semanas
                 if (spinner_durationPlan?.getSelectedItem() == "12 semanas") {
@@ -93,7 +93,7 @@ class CreatePlanFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
-        })
+        }
         val fab: FloatingActionButton = v.findViewById(R.id.floatingActionButton_savePlan)
         fab.setOnClickListener { view ->
             // Creamos variable para el dia de inicio del programa
