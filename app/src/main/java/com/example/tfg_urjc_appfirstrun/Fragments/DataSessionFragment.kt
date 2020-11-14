@@ -3,23 +3,27 @@ package com.example.tfg_urjc_appfirstrun.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.tfg_urjc_appfirstrun.Adapters.MySectorRecyclerViewAdapter
 import com.example.tfg_urjc_appfirstrun.Database.Labs.SectorLab
 import com.example.tfg_urjc_appfirstrun.Entities.Activity
+import com.example.tfg_urjc_appfirstrun.Entities.Lap
 import com.example.tfg_urjc_appfirstrun.Entities.Sector
 import com.example.tfg_urjc_appfirstrun.Entities.Session
 import com.example.tfg_urjc_appfirstrun.R
@@ -45,6 +49,10 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
 
     // Data variables
     var listDataSectors = ArrayList<Sector?>()
+    var selectedActivityId: String = ""
+    var listLaps: ArrayList<Lap> = arrayListOf()
+
+    // For spinner
     private lateinit var mySpinner: Spinner
     private lateinit var adapter: ArrayAdapter<Activity>
     private var columnCount = 1
@@ -103,20 +111,15 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-
-                val selectedObject = mySpinner.selectedItem as Activity
-                Toast.makeText(
-                        context,
-                        "ID: ${selectedObject.id} Name: ${selectedObject.name}",
-                        Toast.LENGTH_SHORT
-                ).show()
-
+                var activity = mySpinner.selectedItem as Activity
+                selectedActivityId = activity.id
+                Log.i("Selected Activity", selectedActivityId)
             }
         }
         val fab: FloatingActionButton = view.findViewById(R.id.floatingActionButton_addData)
         fab.setOnClickListener { view ->
-            // addInfoToDatabase()
-
+            Log.i("Floating Button", selectedActivityId)
+            infoLapsRequest(selectedActivityId)
         }
 
         return view
@@ -133,16 +136,26 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         }
     }
 
-    private fun addInfoToDatabase() {
+    private fun infoLapsRequest(idActivity: String){
         // REQUEST TO OBTAIN ACCESS TOKEN
         val queue = Volley.newRequestQueue(this.context)
         // URL which return the access token
-        val url = "https://www.strava.com/api/v3/athlete/activities"
+        val url = "https://www.strava.com/api/v3/activities/$idActivity/laps"
         Log.i("URL Activity Test", url)
         // Request a JSON response from the provided URL.
-        val jsonObjectRequest: JsonObjectRequest = object : JsonObjectRequest(Method.GET, url, null,
+        val jsonArrayRequest: JsonArrayRequest = object : JsonArrayRequest(Method.GET, url, null,
                 Response.Listener { response ->
-                    Log.i("Request Actitivites", "Response is: $response")
+                    //Log.i("Request Actitivites", "Response is: $response")
+                    for (i in 0 until response.length()) {
+                        val item = response.getJSONObject(i)
+                        //Log.i("Activity", item.get("id").toString())
+                        var lap = Lap(item?.get("id").toString(), item?.get("lap_index") as Int, item?.get("elapsed_time") as Int, item?.get("moving_time") as Int, item?.get("distance") as Double)
+                        Log.i("Lap", lap.toString())
+                        listLaps.add(lap)
+                    }
+                    Log.i("List Laps", listLaps.toString())
+                    addDataLapsToDatabase(_session!!.numberSession)
+                    //reloadFragment()
                 },
                 Response.ErrorListener { error ->
                     Log.e("Request Error", "That didn't work!: $error")
@@ -162,7 +175,73 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         }
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest)
+        queue.add(jsonArrayRequest)
+    }
+
+    private fun reloadFragment() {
+        val currentFragment = activity!!.supportFragmentManager.findFragmentById(R.id.content_main)
+        val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+        fragmentTransaction.detach(currentFragment!!)
+        fragmentTransaction.attach(currentFragment!!)
+        fragmentTransaction.commit()
+    }
+
+    private fun addDataLapsToDatabase(numberSession: Int) {
+        when (numberSession) {
+                1 -> updateDataSeries()
+                2 -> updateDataShortRun()
+                3 -> updateDataLongRun()
+            else -> {
+            }
+        }
+    }
+
+    private fun updateDataSeries() {
+        lifecycleScope.launch(){
+            var posLap: Int = 1;
+            for (sector: Sector? in listDataSectors) {
+                var updateSector: Sector = sector!!
+                var goalTime = updateSector!!.goalTime
+                var registerTime = listLaps[posLap]!!.elapsed_time.toLong() // Lo transformamos a Long
+                updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
+                updateSector.difference = (registerTime - goalTime).toFloat()
+                Log.i("Update Sector", updateSector.toString())
+                sectorDbInstance?.updateSector(updateSector)
+                posLap += 2
+            }
+        }
+    }
+
+    private fun updateDataShortRun() {
+        lifecycleScope.launch(){
+            var posLap: Int = 1;
+            for (sector: Sector? in listDataSectors) {
+                var updateSector: Sector = sector!!
+                var goalTime = updateSector!!.goalTime
+                var registerTime = (listLaps[posLap]!!.moving_time / (listLaps[posLap]!!.distance / 1000)).toLong() // Lo transformamos a Long
+                updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
+                updateSector.difference = (registerTime - goalTime).toFloat()
+                Log.i("Update Sector", updateSector.toString())
+                sectorDbInstance?.updateSector(updateSector)
+                posLap++
+            }
+        }
+    }
+
+    private fun updateDataLongRun() {
+        lifecycleScope.launch(){
+            var acuRegisterTime: Float = 0f
+            for (lap: Lap? in listLaps) {
+                acuRegisterTime += (lap!!.moving_time / (lap!!.distance / 1000)).toFloat()
+            }
+            var updateSector: Sector = listDataSectors[0]!!
+            var goalTime = updateSector!!.goalTime
+            var registerTime = acuRegisterTime.toLong() // Lo transformamos a Long
+            updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
+            updateSector.difference = (registerTime - goalTime).toFloat()
+            Log.i("Update Sector", updateSector.toString())
+            sectorDbInstance?.updateSector(updateSector)
+        }
     }
 
     companion object {

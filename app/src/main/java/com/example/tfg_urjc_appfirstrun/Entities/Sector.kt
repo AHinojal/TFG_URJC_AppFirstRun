@@ -22,6 +22,7 @@ class Sector(sessionOwnerId: String?, numberSector: Int, goalTime: Long) {
     @ColumnInfo(name = "goal_time")
     var goalTime: Long
 
+    // Estos valores vienen en milliseconds -> En la vista hay que tranformarlos parseandolos "mm:ss"
     @ColumnInfo(name = "register_time")
     var registerTime: Float
 
@@ -29,11 +30,17 @@ class Sector(sessionOwnerId: String?, numberSector: Int, goalTime: Long) {
     var difference: Float
 
     init {
-        sectorId = UUID.randomUUID().toString()
+        this.sectorId = UUID.randomUUID().toString()
         this.sessionOwnerId = sessionOwnerId
         this.numberSector = numberSector
         this.goalTime = goalTime.toLong()
-        registerTime = 0f
-        difference = 0f
+        this.registerTime = 0f
+        this.difference = 0f
     }
+
+    override fun toString(): String {
+        return "Sector(sectorId='$sectorId', sessionOwnerId=$sessionOwnerId, numberSector=$numberSector, goalTime=$goalTime, registerTime=$registerTime, difference=$difference)"
+    }
+
+
 }

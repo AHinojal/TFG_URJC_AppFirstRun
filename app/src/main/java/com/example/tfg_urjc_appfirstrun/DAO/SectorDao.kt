@@ -1,9 +1,6 @@
 package com.example.tfg_urjc_appfirstrun.DAO
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.tfg_urjc_appfirstrun.Entities.Sector
 import com.example.tfg_urjc_appfirstrun.Entities.Session
 
@@ -17,6 +14,10 @@ interface SectorDao {
     open fun getSectorBySessionId(sessionId: String): List<Sector?>?
     @Insert
     suspend fun insertAll(vararg sector: Sector?)
+
+    @Update
+    suspend fun update(sector: Sector)
+
     @Delete
     suspend fun delete(sector: Sector?)
 }

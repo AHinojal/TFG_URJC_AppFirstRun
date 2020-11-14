@@ -25,9 +25,10 @@ class SectorLab private constructor(context: Context?) {
         mSectorDao?.insertAll(sector)
     }
 
-    /*public void updateTraining(Training training) {
-        mNotaDao.updateNota(training);
-    }*/
+    suspend fun updateSector(sector: Sector) {
+        mSectorDao?.update(sector);
+    }
+
     suspend fun deleteSector(sector: Sector?) {
         mSectorDao?.delete(sector)
     }

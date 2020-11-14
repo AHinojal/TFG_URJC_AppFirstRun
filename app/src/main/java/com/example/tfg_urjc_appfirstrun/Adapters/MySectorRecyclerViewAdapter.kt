@@ -32,7 +32,7 @@ class MySectorRecyclerViewAdapter(
         holder.goalTime.text = formatDateTimer.format(item?.goalTime)
         holder.registerTime.text = formatDateTimer.format(item?.registerTime)
         holder.difference.text = formatDateTimer.format(item?.difference)
-        if (item?.difference!! == 0f) {
+        if (item?.difference!!.toFloat() == 0f) {
             holder.difference.setBackgroundColor(Color.YELLOW)
         } else if (item?.difference!! < 0f){
             holder.difference.setBackgroundColor(Color.GREEN)
