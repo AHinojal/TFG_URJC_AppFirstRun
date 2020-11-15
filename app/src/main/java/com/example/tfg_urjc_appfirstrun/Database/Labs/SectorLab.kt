@@ -48,7 +48,7 @@ class SectorLab private constructor(context: Context?) {
         val appContext = context!!.applicationContext
         val database: TrainingDatabase = Room.databaseBuilder(
                 appContext,
-                TrainingDatabase::class.java, "tfg-urjc-strava"
+                TrainingDatabase::class.java, "tfg-urjc-strava-2"
         )
                 .allowMainThreadQueries()
                 .build()

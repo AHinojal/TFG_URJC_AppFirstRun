@@ -155,7 +155,6 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                     }
                     Log.i("List Laps", listLaps.toString())
                     addDataLapsToDatabase(_session!!.numberSession)
-                    //reloadFragment()
                 },
                 Response.ErrorListener { error ->
                     Log.e("Request Error", "That didn't work!: $error")
@@ -179,7 +178,8 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
     }
 
     private fun reloadFragment() {
-        val currentFragment = activity!!.supportFragmentManager.findFragmentById(R.id.content_main)
+        listDataSectors.clear()
+        val currentFragment = fragmentManager!!.findFragmentByTag("infoDataFragment")
         val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
         fragmentTransaction.detach(currentFragment!!)
         fragmentTransaction.attach(currentFragment!!)
@@ -188,9 +188,9 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
 
     private fun addDataLapsToDatabase(numberSession: Int) {
         when (numberSession) {
-                1 -> updateDataSeries()
-                2 -> updateDataShortRun()
-                3 -> updateDataLongRun()
+            1 -> updateDataSeries()
+            2 -> updateDataShortRun()
+            3 -> updateDataLongRun()
             else -> {
             }
         }
@@ -204,11 +204,12 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                 var goalTime = updateSector!!.goalTime
                 var registerTime = listLaps[posLap]!!.elapsed_time.toLong() // Lo transformamos a Long
                 updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
-                updateSector.difference = (registerTime - goalTime).toFloat()
+                updateSector.difference = updateSector.registerTime - goalTime
                 Log.i("Update Sector", updateSector.toString())
                 sectorDbInstance?.updateSector(updateSector)
                 posLap += 2
             }
+            reloadFragment()
         }
     }
 
@@ -220,11 +221,12 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                 var goalTime = updateSector!!.goalTime
                 var registerTime = (listLaps[posLap]!!.moving_time / (listLaps[posLap]!!.distance / 1000)).toLong() // Lo transformamos a Long
                 updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
-                updateSector.difference = (registerTime - goalTime).toFloat()
+                updateSector.difference = (updateSector.registerTime - goalTime).toFloat()
                 Log.i("Update Sector", updateSector.toString())
                 sectorDbInstance?.updateSector(updateSector)
                 posLap++
             }
+            reloadFragment()
         }
     }
 
@@ -238,9 +240,10 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
             var goalTime = updateSector!!.goalTime
             var registerTime = acuRegisterTime.toLong() // Lo transformamos a Long
             updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
-            updateSector.difference = (registerTime - goalTime).toFloat()
+            updateSector.difference = (updateSector.registerTime - goalTime).toFloat()
             Log.i("Update Sector", updateSector.toString())
             sectorDbInstance?.updateSector(updateSector)
+            reloadFragment()
         }
     }
 

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -29,6 +30,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.json.JSONException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, CreatePlanFragment.OnFragmentInteractionListener {
@@ -56,9 +58,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar = findViewById<View?>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
+        /*val formatDateTimer = SimpleDateFormat("mm:ss")
+        val seconds: Int = 109 * 1000
+        var test = findViewById<View?>(R.id.test) as TextView
+        test.text = formatDateTimer.format(seconds)*/
+
         preloadSharedPreferences()
 
-        // Instancia de TrainingDB para inicialr la bd
+        // Instancia de TrainingDB para iniciar la bd
         trainingDbInstance = TrainingLab.get(this)
         weekDbInstance = WeekLab.get(this)
         sessionDbInstance = SessionLab.get(this)

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "16800bbf6d0a51364ece4886a363ca12",
+    "identityHash": "f4f664973a32e5f654f95ce3a3af9733",
     "entities": [
       {
         "tableName": "trainings",
@@ -150,7 +150,7 @@
       },
       {
         "tableName": "sectors",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sectorId` TEXT NOT NULL, `session_owner_id` TEXT, `number_sector` INTEGER NOT NULL, `goal_time` INTEGER NOT NULL, `register_time` REAL NOT NULL, `difference` REAL NOT NULL, PRIMARY KEY(`sectorId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sectorId` TEXT NOT NULL, `session_owner_id` TEXT, `number_sector` INTEGER NOT NULL, `goal_time` REAL NOT NULL, `register_time` REAL NOT NULL, `difference` REAL NOT NULL, PRIMARY KEY(`sectorId`))",
         "fields": [
           {
             "fieldPath": "sectorId",
@@ -173,7 +173,7 @@
           {
             "fieldPath": "goalTime",
             "columnName": "goal_time",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -202,7 +202,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16800bbf6d0a51364ece4886a363ca12')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f4f664973a32e5f654f95ce3a3af9733')"
     ]
   }
 }

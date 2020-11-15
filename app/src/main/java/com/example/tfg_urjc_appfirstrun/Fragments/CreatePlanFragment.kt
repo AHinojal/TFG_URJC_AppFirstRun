@@ -37,7 +37,7 @@ class CreatePlanFragment : Fragment() {
     private var actualTime: EditText? = null
 
     private var picker_startingDate: DatePicker? = null
-    private val hashMapPlanning: HashMap<String?, Date?>? = HashMap()
+    private val hashMapPlanning: HashMap<String?, Float?>? = HashMap()
     private val hashMapTraining: HashMap<String, Int?>? = HashMap()
     private var training: Training? = null
 
@@ -202,115 +202,115 @@ class CreatePlanFragment : Fragment() {
         val sectors1w_1s = arrayListOf<Sector>()
         for (i in 0..7) {
             val number = i + 1
-            sectors1w_1s.add(Sector(session1w_1s.sessionId, number, hashMapPlanning!!.get("400")!!.getTime()))
+            sectors1w_1s.add(Sector(session1w_1s.sessionId, number, hashMapPlanning!!.get("400")!!))
         }
         val sectors2w_1s = arrayListOf<Sector>()
-        for (i in 0..7) {
+        for (i in 0..4) {
             val number = i + 1
-            sectors2w_1s.add(Sector(session2w_1s.sessionId, number, hashMapPlanning!!.get("800")!!.getTime()))
+            sectors2w_1s.add(Sector(session2w_1s.sessionId, number, hashMapPlanning!!.get("800")!!))
         }
         val sectors3w_1s = arrayListOf<Sector>()
         for (i in 0..2) {
             val number = i + 1
             if (i < 2) {
-                sectors3w_1s.add(Sector(session3w_1s.sessionId, number, hashMapPlanning!!.get("1600")!!.getTime()))
+                sectors3w_1s.add(Sector(session3w_1s.sessionId, number, hashMapPlanning!!.get("1600")!!))
             } else {
-                sectors3w_1s.add(Sector(session3w_1s.sessionId, number, hashMapPlanning!!.get("800")!!.getTime()))
+                sectors3w_1s.add(Sector(session3w_1s.sessionId, number, hashMapPlanning!!.get("800")!!))
             }
         }
         val sectors4w_1s = arrayListOf<Sector>()
         for (i in 0..5) {
             val number = i + 1
             if (i == 0 || i == 5) {
-                sectors4w_1s.add(Sector(session4w_1s.sessionId, number, hashMapPlanning!!.get("400")!!.getTime()))
+                sectors4w_1s.add(Sector(session4w_1s.sessionId, number, hashMapPlanning!!.get("400")!!))
             } else if (i == 1 || i == 4) {
-                sectors4w_1s.add(Sector(session4w_1s.sessionId, number, hashMapPlanning!!.get("600")!!.getTime()))
+                sectors4w_1s.add(Sector(session4w_1s.sessionId, number, hashMapPlanning!!.get("600")!!))
             } else {
-                sectors4w_1s.add(Sector(session4w_1s.sessionId, number, hashMapPlanning!!.get("800")!!.getTime()))
+                sectors4w_1s.add(Sector(session4w_1s.sessionId, number, hashMapPlanning!!.get("800")!!))
             }
         }
         val sectors5w_1s = arrayListOf<Sector>()
         for (i in 0..3) {
             val number = i + 1
-            sectors5w_1s.add(Sector(session5w_1s.sessionId, number, hashMapPlanning!!.get("1000")!!.getTime()))
+            sectors5w_1s.add(Sector(session5w_1s.sessionId, number, hashMapPlanning!!.get("1000")!!))
         }
         val sectors6w_1s = arrayListOf<Sector>()
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 1, hashMapPlanning!!.get("1600")!!.getTime()))
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 2, hashMapPlanning!!.get("1200")!!.getTime()))
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning!!.get("800")!!.getTime()))
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning!!.get("400")!!.getTime()))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 1, hashMapPlanning!!.get("1600")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 2, hashMapPlanning!!.get("1200")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning!!.get("800")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning!!.get("400")!!))
         val sectors7w_1s = arrayListOf<Sector>()
         for (i in 0..9) {
             val number = i + 1
-            sectors7w_1s.add(Sector(session7w_1s.sessionId, number, hashMapPlanning.get("400")!!.getTime()))
+            sectors7w_1s.add(Sector(session7w_1s.sessionId, number, hashMapPlanning.get("400")!!))
         }
         val sectors8w_1s = arrayListOf<Sector>()
         for (i in 0..5) {
             val number = i + 1
-            sectors8w_1s.add(Sector(session8w_1s.sessionId, number, hashMapPlanning.get("800")!!.getTime()))
+            sectors8w_1s.add(Sector(session8w_1s.sessionId, number, hashMapPlanning.get("800")!!))
         }
         val sectors9w_1s = arrayListOf<Sector>()
         for (i in 0..3) {
             val number = i + 1
-            sectors9w_1s.add(Sector(session9w_1s.sessionId, number, hashMapPlanning.get("1200")!!.getTime()))
+            sectors9w_1s.add(Sector(session9w_1s.sessionId, number, hashMapPlanning.get("1200")!!))
         }
         val sectors10w_1s = arrayListOf<Sector>()
         for (i in 0..4) {
             val number = i + 1
-            sectors10w_1s.add(Sector(session10w_1s.sessionId, number, hashMapPlanning.get("1000")!!.getTime()))
+            sectors10w_1s.add(Sector(session10w_1s.sessionId, number, hashMapPlanning.get("1000")!!))
         }
         val sectors11w_1s = arrayListOf<Sector>()
         for (i in 0..2) {
             val number = i + 1
-            sectors11w_1s.add(Sector(session11w_1s.sessionId, number, hashMapPlanning.get("1600")!!.getTime()))
+            sectors11w_1s.add(Sector(session11w_1s.sessionId, number, hashMapPlanning.get("1600")!!))
         }
         val sectors12w_1s = arrayListOf<Sector>()
         for (i in 0..5) {
             val number = i + 1
-            sectors12w_1s.add(Sector(session12w_1s.sessionId, number, hashMapPlanning.get("400")!!.getTime()))
+            sectors12w_1s.add(Sector(session12w_1s.sessionId, number, hashMapPlanning.get("400")!!))
         }
         // CARRERA CORTA (Xw_2s)
-        val sectors1w_2s = Sector(session1w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
-        val sectors2w_2s = Sector(session2w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
+        val sectors1w_2s = Sector(session1w_2s.sessionId, 1, hashMapPlanning.get("corto")!!)
+        val sectors2w_2s = Sector(session2w_2s.sessionId, 1, hashMapPlanning.get("corto")!!)
         val sectors3w_2s = arrayListOf<Sector>()
-        sectors3w_2s.add(Sector(session3w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime()))
-        sectors3w_2s.add(Sector(session3w_2s.sessionId, 2, hashMapPlanning.get("facil")!!.getTime()))
-        sectors3w_2s.add(Sector(session3w_2s.sessionId, 3, hashMapPlanning.get("corto")!!.getTime()))
-        val sectors4w_2s = Sector(session4w_2s.sessionId, 1, hashMapPlanning.get("medio")!!.getTime())
-        val sectors5w_2s = Sector(session5w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
+        sectors3w_2s.add(Sector(session3w_2s.sessionId, 1, hashMapPlanning.get("corto")!!))
+        sectors3w_2s.add(Sector(session3w_2s.sessionId, 2, hashMapPlanning.get("facil")!!))
+        sectors3w_2s.add(Sector(session3w_2s.sessionId, 3, hashMapPlanning.get("corto")!!))
+        val sectors4w_2s = Sector(session4w_2s.sessionId, 1, hashMapPlanning.get("medio")!!)
+        val sectors5w_2s = Sector(session5w_2s.sessionId, 1, hashMapPlanning.get("corto")!!)
         val sectors6w_2s = arrayListOf<Sector>()
-        sectors6w_2s.add(Sector(session6w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime()))
-        sectors6w_2s.add(Sector(session6w_2s.sessionId, 2, hashMapPlanning.get("facil")!!.getTime()))
-        sectors6w_2s.add(Sector(session6w_2s.sessionId, 3, hashMapPlanning.get("corto")!!.getTime()))
-        sectors6w_2s.add(Sector(session6w_2s.sessionId, 4, hashMapPlanning.get("facil")!!.getTime()))
-        sectors6w_2s.add(Sector(session6w_2s.sessionId, 5, hashMapPlanning.get("corto")!!.getTime()))
-        val sectors7w_2s = Sector(session7w_2s.sessionId, 1, hashMapPlanning.get("medio")!!.getTime())
+        sectors6w_2s.add(Sector(session6w_2s.sessionId, 1, hashMapPlanning.get("corto")!!))
+        sectors6w_2s.add(Sector(session6w_2s.sessionId, 2, hashMapPlanning.get("facil")!!))
+        sectors6w_2s.add(Sector(session6w_2s.sessionId, 3, hashMapPlanning.get("corto")!!))
+        sectors6w_2s.add(Sector(session6w_2s.sessionId, 4, hashMapPlanning.get("facil")!!))
+        sectors6w_2s.add(Sector(session6w_2s.sessionId, 5, hashMapPlanning.get("corto")!!))
+        val sectors7w_2s = Sector(session7w_2s.sessionId, 1, hashMapPlanning.get("medio")!!)
         val sectors8w_2s = arrayListOf<Sector>()
-        sectors8w_2s.add(Sector(session8w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime()))
-        sectors8w_2s.add(Sector(session8w_2s.sessionId, 2, hashMapPlanning.get("facil")!!.getTime()))
-        sectors8w_2s.add(Sector(session8w_2s.sessionId, 3, hashMapPlanning.get("corto")!!.getTime()))
-        val sectors9w_2s = Sector(session9w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
+        sectors8w_2s.add(Sector(session8w_2s.sessionId, 1, hashMapPlanning.get("corto")!!))
+        sectors8w_2s.add(Sector(session8w_2s.sessionId, 2, hashMapPlanning.get("facil")!!))
+        sectors8w_2s.add(Sector(session8w_2s.sessionId, 3, hashMapPlanning.get("corto")!!))
+        val sectors9w_2s = Sector(session9w_2s.sessionId, 1, hashMapPlanning.get("corto")!!)
         val sectors10w_2s = arrayListOf<Sector>()
-        sectors10w_2s.add(Sector(session10w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime()))
-        sectors10w_2s.add(Sector(session10w_2s.sessionId, 2, hashMapPlanning.get("facil")!!.getTime()))
-        sectors10w_2s.add(Sector(session10w_2s.sessionId, 3, hashMapPlanning.get("corto")!!.getTime()))
-        sectors10w_2s.add(Sector(session10w_2s.sessionId, 4, hashMapPlanning.get("facil")!!.getTime()))
-        sectors10w_2s.add(Sector(session10w_2s.sessionId, 5, hashMapPlanning.get("corto")!!.getTime()))
-        val sectors11w_2s = Sector(session11w_2s.sessionId, 1, hashMapPlanning.get("corto")!!.getTime())
-        val sectors12w_2s = Sector(session12w_2s.sessionId, 1, hashMapPlanning.get("facil")!!.getTime())
+        sectors10w_2s.add(Sector(session10w_2s.sessionId, 1, hashMapPlanning.get("corto")!!))
+        sectors10w_2s.add(Sector(session10w_2s.sessionId, 2, hashMapPlanning.get("facil")!!))
+        sectors10w_2s.add(Sector(session10w_2s.sessionId, 3, hashMapPlanning.get("corto")!!))
+        sectors10w_2s.add(Sector(session10w_2s.sessionId, 4, hashMapPlanning.get("facil")!!))
+        sectors10w_2s.add(Sector(session10w_2s.sessionId, 5, hashMapPlanning.get("corto")!!))
+        val sectors11w_2s = Sector(session11w_2s.sessionId, 1, hashMapPlanning.get("corto")!!)
+        val sectors12w_2s = Sector(session12w_2s.sessionId, 1, hashMapPlanning.get("facil")!!)
         // CARRERA LARGA (Xw_3s)
-        val sectors1w_3s = Sector(session1w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors2w_3s = Sector(session2w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors3w_3s = Sector(session3w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors4w_3s = Sector(session4w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors5w_3s = Sector(session5w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors6w_3s = Sector(session6w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors7w_3s = Sector(session7w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors8w_3s = Sector(session8w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors9w_3s = Sector(session9w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors10w_3s = Sector(session10w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors11w_3s = Sector(session11w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
-        val sectors12w_3s = Sector(session12w_3s.sessionId, 1, hashMapPlanning.get("largo")!!.getTime())
+        val sectors1w_3s = Sector(session1w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors2w_3s = Sector(session2w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors3w_3s = Sector(session3w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors4w_3s = Sector(session4w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors5w_3s = Sector(session5w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors6w_3s = Sector(session6w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors7w_3s = Sector(session7w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors8w_3s = Sector(session8w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors9w_3s = Sector(session9w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors10w_3s = Sector(session10w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors11w_3s = Sector(session11w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
+        val sectors12w_3s = Sector(session12w_3s.sessionId, 1, hashMapPlanning.get("largo")!!)
         val sectors3s_List = arrayListOf(sectors1w_3s, sectors2w_3s, sectors3w_3s, sectors4w_3s, sectors5w_3s, sectors6w_3s, sectors7w_3s,
                 sectors8w_3s, sectors9w_3s, sectors10w_3s, sectors11w_3s, sectors12w_3s)
         // Guardar en Room
@@ -404,30 +404,30 @@ class CreatePlanFragment : Fragment() {
     private fun fillHashMapWithTrainingTimes() {
         // CALCULO DEL FACTOR EN FUNCION DEL TIEMPO
         val factor = calculateFactor(actualTime!!.getText().toString())
-        hashMapPlanning?.set("400", calculateTimeSector(Date(67000), Date(800), factor))
-        hashMapPlanning?.set("600", calculateTimeSector(Date(103000), Date(1200), factor))
-        hashMapPlanning?.set("800", calculateTimeSector(Date(138000), Date(1600), factor))
-        hashMapPlanning?.set("1000", calculateTimeSector(Date(175000), Date(2000), factor))
-        hashMapPlanning?.set("1200", calculateTimeSector(Date(214000), Date(2400), factor))
-        hashMapPlanning?.set("1600", calculateTimeSector(Date(293000), Date(3200), factor))
-        hashMapPlanning?.set("2000", calculateTimeSector(Date(371000), Date(4000), factor))
-        hashMapPlanning?.set("corto", calculateTimeSector(Date(202000), Date(2000), factor))
-        hashMapPlanning?.set("medio", calculateTimeSector(Date(212000), Date(2000), factor))
-        hashMapPlanning?.set("largo", calculateTimeSector(Date(221000), Date(2000), factor))
-        hashMapPlanning?.set("facil", plusTime(calculateTimeSector(Date(221000), Date(2000), factor), Date(41000)))
-        hashMapPlanning?.set("mar", calculateTimeSector(Date(221000), Date(2300), factor))
-        hashMapPlanning?.set("mediamar", calculateTimeSector(Date(211000), Date(2200), factor))
+        hashMapPlanning?.set("400", calculateTimeSector(67000f, 800f, factor))
+        hashMapPlanning?.set("600", calculateTimeSector(103000f,1200f, factor))
+        hashMapPlanning?.set("800", calculateTimeSector(138000f, 1600f, factor))
+        hashMapPlanning?.set("1000", calculateTimeSector(175000f, 2000f, factor))
+        hashMapPlanning?.set("1200", calculateTimeSector(214000f, 2400f, factor))
+        hashMapPlanning?.set("1600", calculateTimeSector(293000f, 3200f, factor))
+        hashMapPlanning?.set("2000", calculateTimeSector(371000f, 4000f, factor))
+        hashMapPlanning?.set("corto", calculateTimeSector(202000f, 2000f, factor))
+        hashMapPlanning?.set("medio", calculateTimeSector(212000f, 2000f, factor))
+        hashMapPlanning?.set("largo", calculateTimeSector(221000f, 2000f, factor))
+        hashMapPlanning?.set("facil", plusTime(calculateTimeSector(221000f, 2000f, factor), 41000f))
+        hashMapPlanning?.set("mar", calculateTimeSector(221000f, 2300f, factor))
+        hashMapPlanning?.set("mediamar", calculateTimeSector(211000f, 2200f, factor))
     }
 
-    private fun calculateTimeSector(initialTime: Date?, baseTime: Date?, factor: Int): Date? {
+    private fun calculateTimeSector(initialTime: Float?, baseTime: Float?, factor: Int): Float? {
         // tiempo inicial 16:00 segun distancia + factor * tiempo base 0:10 segun distancia
-        val time = initialTime!!.getTime() + (factor * baseTime!!.getTime()).toFloat()
-        return Date(Math.round(time).toLong())
+        val time: Float = initialTime!! + (factor * baseTime!!).toFloat()
+        return time
     }
 
-    private fun plusTime(initialTime: Date?, extraTime: Date?): Date? {
-        val milliseconds = initialTime!!.getTime() + extraTime!!.getTime().toFloat()
-        return Date(Math.round(milliseconds).toLong())
+    private fun plusTime(initialTime: Float?, extraTime: Float?): Float? {
+        val milliseconds = initialTime!! + extraTime!!
+        return milliseconds
     }
 
     // To get the time diference between
