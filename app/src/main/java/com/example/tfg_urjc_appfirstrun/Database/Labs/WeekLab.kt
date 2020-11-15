@@ -47,7 +47,7 @@ class WeekLab private constructor(context: Context?) {
         val appContext = context!!.applicationContext
         val database: TrainingDatabase = Room.databaseBuilder(
                 appContext,
-                TrainingDatabase::class.java, "tfg-urjc-strava-2"
+                TrainingDatabase::class.java, "tfg-urjc-strava"
         ).build()
         mWeekDao = database.weekDao()
     }
