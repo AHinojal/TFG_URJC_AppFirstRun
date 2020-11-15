@@ -233,12 +233,14 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
     private fun updateDataLongRun() {
         lifecycleScope.launch(){
             var acuRegisterTime: Float = 0f
+            var acuDistance: Float = 0f
             for (lap: Lap? in listLaps) {
-                acuRegisterTime += (lap!!.moving_time / (lap!!.distance / 1000)).toFloat()
+                acuRegisterTime += lap!!.moving_time
+                acuDistance += (lap!!.distance / 1000).toFloat()
             }
             var updateSector: Sector = listDataSectors[0]!!
             var goalTime = updateSector!!.goalTime
-            var registerTime = acuRegisterTime.toLong() // Lo transformamos a Long
+            var registerTime = (acuRegisterTime / acuDistance).toLong() // Lo transformamos a Long
             updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
             updateSector.difference = (updateSector.registerTime - goalTime).toFloat()
             Log.i("Update Sector", updateSector.toString())
