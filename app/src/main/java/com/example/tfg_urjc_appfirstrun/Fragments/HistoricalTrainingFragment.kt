@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +16,6 @@ import com.example.tfg_urjc_appfirstrun.Adapters.SwipeToUpdateActualTrainingCall
 import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
 import com.example.tfg_urjc_appfirstrun.Entities.Training
 import com.example.tfg_urjc_appfirstrun.R
-
 
 /**
  * A fragment representing a list of Trainings.

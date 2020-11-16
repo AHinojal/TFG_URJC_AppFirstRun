@@ -26,7 +26,6 @@ import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment
 import com.example.tfg_urjc_appfirstrun.Fragments.HistoricalTrainingFragment
-import com.example.tfg_urjc_appfirstrun.Fragments.InfoFirstTrainingFragment
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -241,9 +240,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         } else if (id == R.id.historical_plan) {
             fragment = HistoricalTrainingFragment();
-            fragmentSelected = true
-        } else if (id == R.id.info_first) {
-            fragment = InfoFirstTrainingFragment()
             fragmentSelected = true
         }
         if (fragmentSelected) {

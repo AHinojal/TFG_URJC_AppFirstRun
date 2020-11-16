@@ -4,10 +4,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/info_first"
-            android:icon="@drawable/ic_nav_info"
-            android:title="@string/info_first"/>
-        <item
             android:id="@+id/redirect_strava"
             android:icon="@drawable/ic_launch"
             android:title="@string/redirect_strava" />
@@ -23,10 +19,6 @@
             android:id="@+id/historical_plan"
             android:icon="@drawable/ic_nav_list"
             android:title="@string/historical_plan" />
-        <!--<item
-            android:id="@+id/log_out"
-            android:icon="@drawable/ic_logout"
-            android:title="@string/log_out" />-->
     </group>
 
 </menu>
