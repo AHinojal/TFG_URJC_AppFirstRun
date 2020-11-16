@@ -35,6 +35,7 @@ class CreatePlanFragment : Fragment() {
     private var spinner_distancePlan: Spinner? = null
     private var trainingName: EditText? = null
     private var actualTime: EditText? = null
+    private var newIdTraining: String = ""
 
     private var picker_startingDate: DatePicker? = null
     private val hashMapPlanning: HashMap<String?, Float?>? = HashMap()
@@ -130,6 +131,20 @@ class CreatePlanFragment : Fragment() {
                 1 -> creation10km(view)
                 2 -> creationMarathon(view)
             else -> {
+            }
+        }
+        updateActualTraining()
+    }
+
+    private fun updateActualTraining() {
+        var trainings = trainingDbInstance?.getTraining()
+        if (trainings != null) {
+            for (t in trainings){
+                if (t!!.trainingId != newIdTraining) {
+                    var auxTraining = t
+                    auxTraining.isActualTraining = false
+                    trainingDbInstance?.updateTraining(auxTraining)
+                }
             }
         }
     }
@@ -389,6 +404,7 @@ class CreatePlanFragment : Fragment() {
             }
         }
         Log.i("CREATION TRAINING", "Done...")
+        newIdTraining = training!!.trainingId
         Snackbar.make(view, "¡Entrenamiento de 5 Kilómetros creado!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
     }
 
@@ -641,6 +657,7 @@ class CreatePlanFragment : Fragment() {
             }
         }
         Log.i("CREATION TRAINING", "Done...")
+        newIdTraining = training!!.trainingId
         Snackbar.make(view, "¡Entrenamiento de 10 Kilómetros creado!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
     }
 
