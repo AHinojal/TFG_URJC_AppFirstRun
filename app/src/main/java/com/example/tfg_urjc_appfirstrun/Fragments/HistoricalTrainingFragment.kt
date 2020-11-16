@@ -5,13 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tfg_urjc_appfirstrun.Adapters.MyTrainingRecyclerViewAdapter
+import com.example.tfg_urjc_appfirstrun.Adapters.SwipeToDeleteCallback
+import com.example.tfg_urjc_appfirstrun.Adapters.SwipeToUpdateActualTrainingCallback
 import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
 import com.example.tfg_urjc_appfirstrun.Entities.Training
 import com.example.tfg_urjc_appfirstrun.R
@@ -51,7 +53,11 @@ class HistoricalTrainingFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyTrainingRecyclerViewAdapter(trainingList)
+                adapter = MyTrainingRecyclerViewAdapter(trainingList, fragmentManager!!.findFragmentByTag("nextFragment"), fragmentManager!!.beginTransaction() )
+                var itemTouchHelperDelete = ItemTouchHelper(SwipeToDeleteCallback(adapter as MyTrainingRecyclerViewAdapter, context))
+                itemTouchHelperDelete.attachToRecyclerView(view)
+                var itemTouchHelperUpdateActualTraining = ItemTouchHelper(SwipeToUpdateActualTrainingCallback(adapter as MyTrainingRecyclerViewAdapter, context))
+                itemTouchHelperUpdateActualTraining.attachToRecyclerView(view)
             }
         }
         return view

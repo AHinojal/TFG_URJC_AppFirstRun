@@ -127,7 +127,6 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         return view
     }
 
-
     private fun fillSectorList() {
         var sectors = sectorDbInstance?.getSectorBySessionId(_session?.sessionId!!)
         if (sectors != null) {
@@ -217,6 +216,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
             }
         } else {
             Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).setAction("Action", null).show()
+            listLaps.clear()
         }
     }
 
@@ -238,6 +238,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
             }
         } else {
             Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).setAction("Action", null).show()
+            listLaps.clear()
         }
     }
 
@@ -261,8 +262,8 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
             }
         } else {
             Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).setAction("Action", null).show()
+            listLaps.clear()
         }
-
     }
 
     companion object {

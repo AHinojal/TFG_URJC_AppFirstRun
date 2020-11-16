@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -24,13 +23,15 @@ import com.example.tfg_urjc_appfirstrun.Database.Labs.WeekLab
 import com.example.tfg_urjc_appfirstrun.Entities.Session
 import com.example.tfg_urjc_appfirstrun.Entities.Training
 import com.example.tfg_urjc_appfirstrun.Entities.Week
-import com.example.tfg_urjc_appfirstrun.Fragments.*
+import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment
+import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment
+import com.example.tfg_urjc_appfirstrun.Fragments.HistoricalTrainingFragment
+import com.example.tfg_urjc_appfirstrun.Fragments.InfoFirstTrainingFragment
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.json.JSONException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, CreatePlanFragment.OnFragmentInteractionListener {
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun preloadSharedPreferences() {
         val preferences = getSharedPreferences("credentials", MODE_PRIVATE)
         val editor = preferences.edit()
-        editor.putBoolean("isStravaLogin", false) // Es FALSE. TRUE es para test en creacion pantalla tras login
+        editor.putBoolean("isStravaLogin", true) // Es FALSE. TRUE es para test en creacion pantalla tras login
         editor.putString("access_token", null)
         editor.commit()
     }
@@ -168,17 +169,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             listDataSessionByWeek.add(s!!)
                             Log.i("Session", s!!.sessionId)
                         }
-                        listDataSession.set(w!!.numberWeek.toString(),listDataSessionByWeek)
+                        listDataSession.set(w!!.numberWeek.toString(), listDataSessionByWeek)
                     }
                 }
             }
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        finish()
+        startActivity(intent)
+    }
+
     override fun onBackPressed() {
-        val drawer = findViewById<View?>(R.id.drawer_layout) as DrawerLayout
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStackImmediate()
         } else {
             super.onBackPressed()
         }
@@ -226,7 +232,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         } else if (id == R.id.actual_plan) {
             if (haveActualTraining){
-                fragment = ActualPlanFragment(listDataWeeks,listDataSession)
+                fragment = ActualPlanFragment(listDataWeeks, listDataSession)
                 fragmentSelected = true
             }else{
                 Snackbar.make(findViewById(android.R.id.content), "¡No hay ningun entrenamiento actualmente!", Snackbar.LENGTH_LONG)
@@ -241,7 +247,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             fragmentSelected = true
         }
         if (fragmentSelected) {
-            fragment?.let { supportFragmentManager.beginTransaction().replace(R.id.content_main, it).commit() }
+            fragment?.let { supportFragmentManager.beginTransaction().replace(R.id.content_main, it, "nextFragment").addToBackStack("").commit() }
             p0.setChecked(true)
             supportActionBar?.setTitle(p0.getTitle())
         }

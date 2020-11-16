@@ -25,9 +25,10 @@ class TrainingLab private constructor(context: Context?) {
         mTrainingDao?.insert(training)
     }
 
-    /*public void updateTraining(Training training) {
-        mNotaDao.updateNota(training);
-    }*/
+    fun updateTraining(training: Training) {
+        mTrainingDao?.update(training);
+    }
+
     suspend fun deleteTraining(training: Training?) {
         mTrainingDao?.delete(training)
     }
