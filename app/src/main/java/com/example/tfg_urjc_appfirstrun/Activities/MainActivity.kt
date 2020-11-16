@@ -231,7 +231,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         } else if (id == R.id.actual_plan) {
             if (haveActualTraining){
-                fragment = ActualPlanFragment(listDataWeeks, listDataSession)
+                fragment = ActualPlanFragment(actualTraining!!, listDataWeeks, listDataSession)
                 fragmentSelected = true
             }else{
                 Snackbar.make(findViewById(android.R.id.content), "¡No hay ningun entrenamiento actualmente!", Snackbar.LENGTH_LONG)

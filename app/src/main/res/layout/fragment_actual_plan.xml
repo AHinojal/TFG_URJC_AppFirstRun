@@ -7,9 +7,48 @@
     android:background="#f4f4f4"
     tools:context=".Fragments.ActualPlanFragment">
 
+    <LinearLayout
+        android:id="@+id/infoTraining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_nameTraining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="bold"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tv_typeTraining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textAppearance="?attr/textAppearanceListItem" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tv_personalMark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textAppearance="?attr/textAppearanceListItem" />
+    </LinearLayout>
+
     <ExpandableListView
         android:id="@+id/lvExp"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        android:layout_below="@+id/infoTraining"
+    />
+
 
 </LinearLayout>

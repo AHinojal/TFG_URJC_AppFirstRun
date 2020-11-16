@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
@@ -16,14 +17,16 @@ import com.android.volley.toolbox.Volley
 import com.example.tfg_urjc_appfirstrun.Adapters.ExpandableListAdapter
 import com.example.tfg_urjc_appfirstrun.Entities.Activity
 import com.example.tfg_urjc_appfirstrun.Entities.Session
+import com.example.tfg_urjc_appfirstrun.Entities.Training
 import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.R
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ActualPlanFragment(listDataWeeks: ArrayList<Week>, listDataSession: HashMap<String, ArrayList<Session>>) : Fragment() {
+class ActualPlanFragment(training: Training, listDataWeeks: ArrayList<Week>, listDataSession: HashMap<String, ArrayList<Session>>) : Fragment() {
 
+    var _training: Training = training
     // Load lists
     var listDataWeeks: ArrayList<Week> = listDataWeeks
     var listDataSession: HashMap<String, ArrayList<Session>> = listDataSession
@@ -40,6 +43,14 @@ class ActualPlanFragment(listDataWeeks: ArrayList<Week>, listDataSession: HashMa
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v = inflater?.inflate(R.layout.fragment_actual_plan, container, false)
+
+        // textView
+        val nameView: TextView = v.findViewById(R.id.tv_nameTraining)
+        nameView.text = _training.name
+        val typeView: TextView = v.findViewById(R.id.tv_typeTraining)
+        typeView.text = _training.typeTraining
+        val personalMark: TextView = v.findViewById(R.id.tv_personalMark)
+        personalMark.text = _training.mark5Km
 
         // get the listview
         expListView = v.findViewById(R.id.lvExp)
