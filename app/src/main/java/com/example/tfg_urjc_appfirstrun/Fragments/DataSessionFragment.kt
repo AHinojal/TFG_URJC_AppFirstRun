@@ -1,6 +1,7 @@
 package com.example.tfg_urjc_appfirstrun.Fragments
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ import com.example.tfg_urjc_appfirstrun.Entities.Sector
 import com.example.tfg_urjc_appfirstrun.Entities.Session
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
@@ -119,7 +121,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         val fab: FloatingActionButton = view.findViewById(R.id.floatingActionButton_addData)
         fab.setOnClickListener { view ->
             Log.i("Floating Button", selectedActivityId)
-            infoLapsRequest(selectedActivityId)
+            infoLapsRequest(selectedActivityId, view)
         }
 
         return view
@@ -136,7 +138,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         }
     }
 
-    private fun infoLapsRequest(idActivity: String){
+    private fun infoLapsRequest(idActivity: String, view: View){
         // REQUEST TO OBTAIN ACCESS TOKEN
         val queue = Volley.newRequestQueue(this.context)
         // URL which return the access token
@@ -154,7 +156,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                         listLaps.add(lap)
                     }
                     Log.i("List Laps", listLaps.toString())
-                    addDataLapsToDatabase(_session!!.numberSession)
+                    addDataLapsToDatabase(_session!!.numberSession, view)
                 },
                 Response.ErrorListener { error ->
                     Log.e("Request Error", "That didn't work!: $error")
@@ -179,6 +181,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
 
     private fun reloadFragment() {
         listDataSectors.clear()
+        listLaps.clear()
         val currentFragment = fragmentManager!!.findFragmentByTag("infoDataFragment")
         val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
         fragmentTransaction.detach(currentFragment!!)
@@ -186,67 +189,80 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         fragmentTransaction.commit()
     }
 
-    private fun addDataLapsToDatabase(numberSession: Int) {
+    private fun addDataLapsToDatabase(numberSession: Int, view: View) {
         when (numberSession) {
-            1 -> updateDataSeries()
-            2 -> updateDataShortRun()
-            3 -> updateDataLongRun()
+            1 -> updateDataSeries(view)
+            2 -> updateDataShortRun(view)
+            3 -> updateDataLongRun(view)
             else -> {
             }
         }
     }
 
-    private fun updateDataSeries() {
-        lifecycleScope.launch(){
-            var posLap: Int = 1;
-            for (sector: Sector? in listDataSectors) {
-                var updateSector: Sector = sector!!
-                var goalTime = updateSector!!.goalTime
-                var registerTime = listLaps[posLap]!!.elapsed_time.toLong() // Lo transformamos a Long
-                updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
-                updateSector.difference = updateSector.registerTime - goalTime
-                Log.i("Update Sector", updateSector.toString())
-                sectorDbInstance?.updateSector(updateSector)
-                posLap += 2
+    private fun updateDataSeries(view: View) {
+        if (listDataSectors.size == (listLaps.size-2)/2) { // Si las vueltas-2/2 es distinto que el numero de sectores, no es una serie correcta
+            lifecycleScope.launch(){
+                var posLap: Int = 1;
+                for (sector: Sector? in listDataSectors) {
+                    var updateSector: Sector = sector!!
+                    var goalTime = updateSector!!.goalTime
+                    var registerTime = listLaps[posLap]!!.elapsed_time.toLong() // Lo transformamos a Long
+                    updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
+                    updateSector.difference = updateSector.registerTime - goalTime
+                    Log.i("Update Sector", updateSector.toString())
+                    sectorDbInstance?.updateSector(updateSector)
+                    posLap += 2
+                }
+                reloadFragment()
             }
-            reloadFragment()
+        } else {
+            Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).setAction("Action", null).show()
         }
     }
 
-    private fun updateDataShortRun() {
-        lifecycleScope.launch(){
-            var posLap: Int = 1;
-            for (sector: Sector? in listDataSectors) {
-                var updateSector: Sector = sector!!
+    private fun updateDataShortRun(view: View) {
+        if (listDataSectors.size == (listLaps.size-2)) { // Si el numero de vueltas - 2 no es el mismo que el de sectores, no es una carrera corta válida
+            lifecycleScope.launch(){
+                var posLap: Int = 1;
+                for (sector: Sector? in listDataSectors) {
+                    var updateSector: Sector = sector!!
+                    var goalTime = updateSector!!.goalTime
+                    var registerTime = (listLaps[posLap]!!.moving_time / (listLaps[posLap]!!.distance / 1000)).toLong() // Lo transformamos a Long
+                    updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
+                    updateSector.difference = (updateSector.registerTime - goalTime).toFloat()
+                    Log.i("Update Sector", updateSector.toString())
+                    sectorDbInstance?.updateSector(updateSector)
+                    posLap++
+                }
+                reloadFragment()
+            }
+        } else {
+            Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).setAction("Action", null).show()
+        }
+    }
+
+    private fun updateDataLongRun(view: View) {
+        if (listLaps.size < 2) { // Si hay mas de dos vueltas, no es un carrera larga
+            lifecycleScope.launch(){
+                var acuRegisterTime: Float = 0f
+                var acuDistance: Float = 0f
+                for (lap: Lap? in listLaps) {
+                    acuRegisterTime += lap!!.moving_time
+                    acuDistance += (lap!!.distance / 1000).toFloat()
+                }
+                var updateSector: Sector = listDataSectors[0]!!
                 var goalTime = updateSector!!.goalTime
-                var registerTime = (listLaps[posLap]!!.moving_time / (listLaps[posLap]!!.distance / 1000)).toLong() // Lo transformamos a Long
+                var registerTime = (acuRegisterTime / acuDistance).toLong() // Lo transformamos a Long
                 updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
                 updateSector.difference = (updateSector.registerTime - goalTime).toFloat()
                 Log.i("Update Sector", updateSector.toString())
                 sectorDbInstance?.updateSector(updateSector)
-                posLap++
+                reloadFragment()
             }
-            reloadFragment()
+        } else {
+            Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).setAction("Action", null).show()
         }
-    }
 
-    private fun updateDataLongRun() {
-        lifecycleScope.launch(){
-            var acuRegisterTime: Float = 0f
-            var acuDistance: Float = 0f
-            for (lap: Lap? in listLaps) {
-                acuRegisterTime += lap!!.moving_time
-                acuDistance += (lap!!.distance / 1000).toFloat()
-            }
-            var updateSector: Sector = listDataSectors[0]!!
-            var goalTime = updateSector!!.goalTime
-            var registerTime = (acuRegisterTime / acuDistance).toLong() // Lo transformamos a Long
-            updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
-            updateSector.difference = (updateSector.registerTime - goalTime).toFloat()
-            Log.i("Update Sector", updateSector.toString())
-            sectorDbInstance?.updateSector(updateSector)
-            reloadFragment()
-        }
     }
 
     companion object {

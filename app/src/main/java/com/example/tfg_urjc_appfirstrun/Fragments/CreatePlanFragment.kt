@@ -155,62 +155,62 @@ class CreatePlanFragment : Fragment() {
 
         // Creamos las sesiones
         // week1
-        val session1w_1s = Session(week1.weekId, 1, 8, "400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 1), "400m")
-        val session2w_1s = Session(week2.weekId, 1, 5, "800", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 8), "400m")
-        val session3w_1s = Session(week3.weekId, 1, 3, "1600, 1600, 800", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 15), "400m")
-        val session4w_1s = Session(week4.weekId, 1, 6, "400, 600, 800, 800, 600, 400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 22), "400m")
-        val session5w_1s = Session(week5.weekId, 1, 4, "1000", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 29), "400m")
-        val session6w_1s = Session(week6.weekId, 1, 4, "1600, 1200, 800, 400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 36), "400m")
-        val session7w_1s = Session(week7.weekId, 1, 10, "400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 43), "90seg")
-        val session8w_1s = Session(week8.weekId, 1, 6, "800", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 50), "400m")
-        val session9w_1s = Session(week9.weekId, 1, 4, "1200", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 57), "400m")
-        val session10w_1s = Session(week10.weekId, 1, 5, "1000", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 64), "400m")
-        val session11w_1s = Session(week11.weekId, 1, 3, "1600", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 71), "400m")
-        val session12w_1s = Session(week12.weekId, 1, 6, "400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 78), "400m")
+        val session1w_1s = Session(week1.weekId, 1, 8, "400", addDaystoDate(startingDate!!,1), "400m")
+        val session2w_1s = Session(week2.weekId, 1, 5, "800", addDaystoDate(startingDate!!,8), "400m")
+        val session3w_1s = Session(week3.weekId, 1, 3, "1600, 1600, 800", addDaystoDate(startingDate!!,15), "400m")
+        val session4w_1s = Session(week4.weekId, 1, 6, "400, 600, 800, 800, 600, 400", addDaystoDate(startingDate!!,22), "400m")
+        val session5w_1s = Session(week5.weekId, 1, 4, "1000", addDaystoDate(startingDate!!,29), "400m")
+        val session6w_1s = Session(week6.weekId, 1, 4, "1600, 1200, 800, 400", addDaystoDate(startingDate!!,36), "400m")
+        val session7w_1s = Session(week7.weekId, 1, 10, "400", addDaystoDate(startingDate!!,43), "90seg")
+        val session8w_1s = Session(week8.weekId, 1, 6, "800", addDaystoDate(startingDate!!,50), "400m")
+        val session9w_1s = Session(week9.weekId, 1, 4, "1200", addDaystoDate(startingDate!!,57), "400m")
+        val session10w_1s = Session(week10.weekId, 1, 5, "1000", addDaystoDate(startingDate!!,64), "400m")
+        val session11w_1s = Session(week11.weekId, 1, 3, "1600", addDaystoDate(startingDate!!,71), "400m")
+        val session12w_1s = Session(week12.weekId, 1, 6, "400", addDaystoDate(startingDate!!,78), "400m")
         val session1s_List = arrayListOf(session1w_1s, session2w_1s, session3w_1s, session4w_1s, session5w_1s, session6w_1s, session7w_1s, session8w_1s, session9w_1s, session10w_1s, session11w_1s, session12w_1s)
         // week2
-        val session1w_2s = Session(week1.weekId, 2, 1, "3K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 4), null)
-        val session2w_2s = Session(week2.weekId, 2, 1, "5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 11), null)
-        val session3w_2s = Session(week3.weekId, 2, 3, "3K, 1.5K, 3K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 18), null)
-        val session4w_2s = Session(week4.weekId, 2, 1, "6.5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 25), null)
-        val session5w_2s = Session(week5.weekId, 2, 1, "5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 32), null)
-        val session6w_2s = Session(week6.weekId, 2, 5, "1.5K, 1.5k, 1.5K, 1.5K, 1.5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 39), null)
-        val session7w_2s = Session(week7.weekId, 2, 1, "6.5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 46), null)
-        val session8w_2s = Session(week8.weekId, 2, 3, "3K, 1.5K, 3K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 53), null)
-        val session9w_2s = Session(week9.weekId, 2, 1, "5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 60), null)
-        val session10w_2s = Session(week10.weekId, 2, 5, "3K, 1.5K, 1.5K, 1.5K, 3K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 67), null)
-        val session11w_2s = Session(week11.weekId, 2, 1, "5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 74), null)
-        val session12w_2s = Session(week12.weekId, 2, 1, "5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 81), null)
+        val session1w_2s = Session(week1.weekId, 2, 1, "3K", addDaystoDate(startingDate!!,4), null)
+        val session2w_2s = Session(week2.weekId, 2, 1, "5K", addDaystoDate(startingDate!!,11), null)
+        val session3w_2s = Session(week3.weekId, 2, 3, "3K, 1.5K, 3K", addDaystoDate(startingDate!!,18), null)
+        val session4w_2s = Session(week4.weekId, 2, 1, "6.5K", addDaystoDate(startingDate!!,25), null)
+        val session5w_2s = Session(week5.weekId, 2, 1, "5K", addDaystoDate(startingDate!!,32), null)
+        val session6w_2s = Session(week6.weekId, 2, 5, "1.5K, 1.5k, 1.5K, 1.5K, 1.5K", addDaystoDate(startingDate!!,39), null)
+        val session7w_2s = Session(week7.weekId, 2, 1, "6.5K", addDaystoDate(startingDate!!,46), null)
+        val session8w_2s = Session(week8.weekId, 2, 3, "3K, 1.5K, 3K", addDaystoDate(startingDate!!,53), null)
+        val session9w_2s = Session(week9.weekId, 2, 1, "5K", addDaystoDate(startingDate!!,60), null)
+        val session10w_2s = Session(week10.weekId, 2, 5, "3K, 1.5K, 1.5K, 1.5K, 3K", addDaystoDate(startingDate!!,67), null)
+        val session11w_2s = Session(week11.weekId, 2, 1, "5K", addDaystoDate(startingDate!!,74), null)
+        val session12w_2s = Session(week12.weekId, 2, 1, "5K", addDaystoDate(startingDate!!,81), null)
         val session2s_List = arrayListOf(session1w_2s, session2w_2s, session3w_2s, session4w_2s, session5w_2s, session6w_2s, session7w_2s, session8w_2s, session9w_2s, session10w_2s, session11w_2s, session12w_2s)
         //week3
-        val session1w_3s = Session(week1.weekId, 3, 1, "8K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 6), null)
-        val session2w_3s = Session(week2.weekId, 3, 1, "10K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 13), null)
-        val session3w_3s = Session(week3.weekId, 3, 1, "8K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 20), null)
-        val session4w_3s = Session(week4.weekId, 3, 1, "10K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 27), null)
-        val session5w_3s = Session(week5.weekId, 3, 1, "11K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 34), null)
-        val session6w_3s = Session(week6.weekId, 3, 1, "10K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 41), null)
-        val session7w_3s = Session(week7.weekId, 3, 1, "13K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 48), null)
-        val session8w_3s = Session(week8.weekId, 3, 1, "11K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 55), null)
-        val session9w_3s = Session(week9.weekId, 3, 1, "10K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 62), null)
-        val session10w_3s = Session(week10.weekId, 3, 1, "10K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 69), null)
-        val session11w_3s = Session(week11.weekId, 3, 1, "10K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 76), null)
-        val session12w_3s = Session(week12.weekId, 3, 1, "5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 83), null)
+        val session1w_3s = Session(week1.weekId, 3, 1, "8K", addDaystoDate(startingDate!!,6), null)
+        val session2w_3s = Session(week2.weekId, 3, 1, "10K", addDaystoDate(startingDate!!,13), null)
+        val session3w_3s = Session(week3.weekId, 3, 1, "8K", addDaystoDate(startingDate!!,20), null)
+        val session4w_3s = Session(week4.weekId, 3, 1, "10K", addDaystoDate(startingDate!!,27), null)
+        val session5w_3s = Session(week5.weekId, 3, 1, "11K", addDaystoDate(startingDate!!,34), null)
+        val session6w_3s = Session(week6.weekId, 3, 1, "10K", addDaystoDate(startingDate!!,41), null)
+        val session7w_3s = Session(week7.weekId, 3, 1, "13K", addDaystoDate(startingDate!!,48), null)
+        val session8w_3s = Session(week8.weekId, 3, 1, "11K", addDaystoDate(startingDate!!,55), null)
+        val session9w_3s = Session(week9.weekId, 3, 1, "10K", addDaystoDate(startingDate!!,62), null)
+        val session10w_3s = Session(week10.weekId, 3, 1, "10K", addDaystoDate(startingDate!!,69), null)
+        val session11w_3s = Session(week11.weekId, 3, 1, "10K", addDaystoDate(startingDate!!,76), null)
+        val session12w_3s = Session(week12.weekId, 3, 1, "5K", addDaystoDate(startingDate!!,83), null)
         val session3s_List = arrayListOf(session1w_3s, session2w_3s, session3w_3s, session4w_3s, session5w_3s, session6w_3s, session7w_3s,
                 session8w_3s, session9w_3s, session10w_3s, session11w_3s, session12w_3s)
         // Creamos los sectores y lo guardamos en un array para pasarselo a las sesiones
         // SERIES (Xw_1s)
         val sectors1w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session1w_1s.replays-1)) {
+        for (i in 0 until session1w_1s.replays) {
             val number = i + 1
             sectors1w_1s.add(Sector(session1w_1s.sessionId, number, hashMapPlanning!!.get("400")!!))
         }
         val sectors2w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session2w_1s.replays-1)) {
+        for (i in 0 until session2w_1s.replays) {
             val number = i + 1
             sectors2w_1s.add(Sector(session2w_1s.sessionId, number, hashMapPlanning!!.get("800")!!))
         }
         val sectors3w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session3w_1s.replays-1)) {
+        for (i in 0 until session3w_1s.replays) {
             val number = i + 1
             if (i < 2) {
                 sectors3w_1s.add(Sector(session3w_1s.sessionId, number, hashMapPlanning!!.get("1600")!!))
@@ -219,7 +219,7 @@ class CreatePlanFragment : Fragment() {
             }
         }
         val sectors4w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session4w_1s.replays-1)) {
+        for (i in 0 until session4w_1s.replays) {
             val number = i + 1
             if (i == 0 || i == 5) {
                 sectors4w_1s.add(Sector(session4w_1s.sessionId, number, hashMapPlanning!!.get("400")!!))
@@ -230,7 +230,7 @@ class CreatePlanFragment : Fragment() {
             }
         }
         val sectors5w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session5w_1s.replays-1)) {
+        for (i in 0 until session5w_1s.replays) {
             val number = i + 1
             sectors5w_1s.add(Sector(session5w_1s.sessionId, number, hashMapPlanning!!.get("1000")!!))
         }
@@ -240,32 +240,32 @@ class CreatePlanFragment : Fragment() {
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning!!.get("800")!!))
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning!!.get("400")!!))
         val sectors7w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session7w_1s.replays-1)) {
+        for (i in 0 until session7w_1s.replays) {
             val number = i + 1
             sectors7w_1s.add(Sector(session7w_1s.sessionId, number, hashMapPlanning.get("400")!!))
         }
         val sectors8w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session8w_1s.replays-1)) {
+        for (i in 0 until session8w_1s.replays) {
             val number = i + 1
             sectors8w_1s.add(Sector(session8w_1s.sessionId, number, hashMapPlanning.get("800")!!))
         }
         val sectors9w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session9w_1s.replays-1)) {
+        for (i in 0 until session9w_1s.replays) {
             val number = i + 1
             sectors9w_1s.add(Sector(session9w_1s.sessionId, number, hashMapPlanning.get("1200")!!))
         }
         val sectors10w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session10w_1s.replays-1)) {
+        for (i in 0 until session10w_1s.replays) {
             val number = i + 1
             sectors10w_1s.add(Sector(session10w_1s.sessionId, number, hashMapPlanning.get("1000")!!))
         }
         val sectors11w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session11w_1s.replays-1)) {
+        for (i in 0 until session11w_1s.replays) {
             val number = i + 1
             sectors11w_1s.add(Sector(session11w_1s.sessionId, number, hashMapPlanning.get("1600")!!))
         }
         val sectors12w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session12w_1s.replays-1)) {
+        for (i in 0 until session12w_1s.replays) {
             val number = i + 1
             sectors12w_1s.add(Sector(session12w_1s.sessionId, number, hashMapPlanning.get("400")!!))
         }
@@ -412,62 +412,62 @@ class CreatePlanFragment : Fragment() {
 
         // Creamos las sesiones
         // week1
-        val session1w_1s = Session(week1.weekId, 1, 8, "400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 1), "400m")
-        val session2w_1s = Session(week2.weekId, 1, 5, "800", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 8), "400m")
-        val session3w_1s = Session(week3.weekId, 1, 3, "1600, 1600, 800", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 15), "400m")
-        val session4w_1s = Session(week4.weekId, 1, 6, "400, 600, 800, 800, 600, 400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 22), "400m")
-        val session5w_1s = Session(week5.weekId, 1, 4, "1000", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 29), "400m")
-        val session6w_1s = Session(week6.weekId, 1, 4, "1600, 1200, 800, 400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 36), "400m")
-        val session7w_1s = Session(week7.weekId, 1, 10, "400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 43), "90seg")
-        val session8w_1s = Session(week8.weekId, 1, 6, "800", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 50), "400m")
-        val session9w_1s = Session(week9.weekId, 1, 4, "1200", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 57), "400m")
-        val session10w_1s = Session(week10.weekId, 1, 5, "1000", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 64), "400m")
-        val session11w_1s = Session(week11.weekId, 1, 3, "1600", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 71), "400m")
-        val session12w_1s = Session(week12.weekId, 1, 6, "400", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 78), "400m")
+        val session1w_1s = Session(week1.weekId, 1, 8, "400", addDaystoDate(startingDate!!,1), "400m")
+        val session2w_1s = Session(week2.weekId, 1, 5, "800", addDaystoDate(startingDate!!,8), "400m")
+        val session3w_1s = Session(week3.weekId, 1, 3, "1600, 1600, 800", addDaystoDate(startingDate!!,15), "400m")
+        val session4w_1s = Session(week4.weekId, 1, 6, "400, 600, 800, 800, 600, 400", addDaystoDate(startingDate!!,22), "400m")
+        val session5w_1s = Session(week5.weekId, 1, 4, "1000", addDaystoDate(startingDate!!,29), "400m")
+        val session6w_1s = Session(week6.weekId, 1, 4, "1600, 1200, 800, 400", addDaystoDate(startingDate!!,36), "400m")
+        val session7w_1s = Session(week7.weekId, 1, 10, "400", addDaystoDate(startingDate!!,43), "90seg")
+        val session8w_1s = Session(week8.weekId, 1, 6, "800", addDaystoDate(startingDate!!,50), "400m")
+        val session9w_1s = Session(week9.weekId, 1, 4, "1200", addDaystoDate(startingDate!!,57), "400m")
+        val session10w_1s = Session(week10.weekId, 1, 5, "1000", addDaystoDate(startingDate!!,64), "400m")
+        val session11w_1s = Session(week11.weekId, 1, 3, "1600", addDaystoDate(startingDate!!,71), "400m")
+        val session12w_1s = Session(week12.weekId, 1, 6, "400", addDaystoDate(startingDate!!,78), "400m")
         val session1s_List = arrayListOf(session1w_1s, session2w_1s, session3w_1s, session4w_1s, session5w_1s, session6w_1s, session7w_1s, session8w_1s, session9w_1s, session10w_1s, session11w_1s, session12w_1s)
         // week2
-        val session1w_2s = Session(week1.weekId, 2, 1, "3K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 4), null)
-        val session2w_2s = Session(week2.weekId, 2, 3, "3K, 1.5K, 3K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 11), null)
-        val session3w_2s = Session(week3.weekId, 2, 1, "6.5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 18), null)
-        val session4w_2s = Session(week4.weekId, 2, 5, "3K, 1.5k, 1.5K, 1.5K, 3K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 25), null)
-        val session5w_2s = Session(week5.weekId, 2, 1, "6.5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 32), null)
-        val session6w_2s = Session(week6.weekId, 2, 1, "8K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 39), null)
-        val session7w_2s = Session(week7.weekId, 2, 1, "6.5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 46), null)
-        val session8w_2s = Session(week8.weekId, 2, 5, "1.5K, 1.5K, 3K, 1.5K, 1.5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 53), null)
-        val session9w_2s = Session(week9.weekId, 2, 1, "5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 60), null)
-        val session10w_2s = Session(week10.weekId, 2, 1, "10K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 67), null)
-        val session11w_2s = Session(week11.weekId, 2, 1, "5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 74), null)
-        val session12w_2s = Session(week12.weekId, 2, 1, "5K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 81), null)
+        val session1w_2s = Session(week1.weekId, 2, 1, "3K", addDaystoDate(startingDate!!,4), null)
+        val session2w_2s = Session(week2.weekId, 2, 3, "3K, 1.5K, 3K", addDaystoDate(startingDate!!,11), null)
+        val session3w_2s = Session(week3.weekId, 2, 1, "6.5K", addDaystoDate(startingDate!!,18), null)
+        val session4w_2s = Session(week4.weekId, 2, 5, "3K, 1.5k, 1.5K, 1.5K, 3K", addDaystoDate(startingDate!!,25), null)
+        val session5w_2s = Session(week5.weekId, 2, 1, "6.5K", addDaystoDate(startingDate!!,32), null)
+        val session6w_2s = Session(week6.weekId, 2, 1, "8K", addDaystoDate(startingDate!!,39), null)
+        val session7w_2s = Session(week7.weekId, 2, 1, "6.5K", addDaystoDate(startingDate!!,46), null)
+        val session8w_2s = Session(week8.weekId, 2, 5, "1.5K, 1.5K, 3K, 1.5K, 1.5K",addDaystoDate(startingDate!!,53), null)
+        val session9w_2s = Session(week9.weekId, 2, 1, "5K", addDaystoDate(startingDate!!,60), null)
+        val session10w_2s = Session(week10.weekId, 2, 1, "10K", addDaystoDate(startingDate!!,67), null)
+        val session11w_2s = Session(week11.weekId, 2, 1, "5K", addDaystoDate(startingDate!!,74), null)
+        val session12w_2s = Session(week12.weekId, 2, 1, "5K", addDaystoDate(startingDate!!,81), null)
         val session2s_List = arrayListOf(session1w_2s, session2w_2s, session3w_2s, session4w_2s, session5w_2s, session6w_2s, session7w_2s, session8w_2s, session9w_2s, session10w_2s, session11w_2s, session12w_2s)
         //week3
-        val session1w_3s = Session(week1.weekId, 3, 1, "10K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 6), null)
-        val session2w_3s = Session(week2.weekId, 3, 1, "11K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 13), null)
-        val session3w_3s = Session(week3.weekId, 3, 1, "13K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 20), null)
-        val session4w_3s = Session(week4.weekId, 3, 1, "14K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 27), null)
-        val session5w_3s = Session(week5.weekId, 3, 1, "16K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 34), null)
-        val session6w_3s = Session(week6.weekId, 3, 1, "13K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 41), null)
-        val session7w_3s = Session(week7.weekId, 3, 1, "16K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 48), null)
-        val session8w_3s = Session(week8.weekId, 3, 1, "13K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 55), null)
-        val session9w_3s = Session(week9.weekId, 3, 1, "16K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 62), null)
-        val session10w_3s = Session(week10.weekId, 3, 1, "13K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 69), null)
-        val session11w_3s = Session(week11.weekId, 3, 1, "11K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 76), null)
-        val session12w_3s = Session(week12.weekId, 3, 1, "10K", Date(startingDate!!.getTime() + DAY_IN_MILLISECONDS * 83), null)
+        val session1w_3s = Session(week1.weekId, 3, 1, "10K", addDaystoDate(startingDate!!,6), null)
+        val session2w_3s = Session(week2.weekId, 3, 1, "11K", addDaystoDate(startingDate!!,13), null)
+        val session3w_3s = Session(week3.weekId, 3, 1, "13K", addDaystoDate(startingDate!!,20), null)
+        val session4w_3s = Session(week4.weekId, 3, 1, "14K", addDaystoDate(startingDate!!,27), null)
+        val session5w_3s = Session(week5.weekId, 3, 1, "16K", addDaystoDate(startingDate!!,34), null)
+        val session6w_3s = Session(week6.weekId, 3, 1, "13K", addDaystoDate(startingDate!!,41), null)
+        val session7w_3s = Session(week7.weekId, 3, 1, "16K", addDaystoDate(startingDate!!,48), null)
+        val session8w_3s = Session(week8.weekId, 3, 1, "13K", addDaystoDate(startingDate!!,55), null)
+        val session9w_3s = Session(week9.weekId, 3, 1, "16K", addDaystoDate(startingDate!!,62), null)
+        val session10w_3s = Session(week10.weekId, 3, 1, "13K", addDaystoDate(startingDate!!,69), null)
+        val session11w_3s = Session(week11.weekId, 3, 1, "11K", addDaystoDate(startingDate!!,76), null)
+        val session12w_3s = Session(week12.weekId, 3, 1, "10K", addDaystoDate(startingDate!!,83), null)
         val session3s_List = arrayListOf(session1w_3s, session2w_3s, session3w_3s, session4w_3s, session5w_3s, session6w_3s, session7w_3s,
                 session8w_3s, session9w_3s, session10w_3s, session11w_3s, session12w_3s)
         // Creamos los sectores y lo guardamos en un array para pasarselo a las sesiones
         // SERIES (Xw_1s)
         val sectors1w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session1w_1s.replays-1)) {
+        for (i in 0 until session1w_1s.replays) {
             val number = i + 1
             sectors1w_1s.add(Sector(session1w_1s.sessionId, number, hashMapPlanning!!.get("400")!!))
         }
         val sectors2w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session2w_1s.replays-1)) {
+        for (i in 0 until session2w_1s.replays) {
             val number = i + 1
             sectors2w_1s.add(Sector(session2w_1s.sessionId, number, hashMapPlanning!!.get("800")!!))
         }
         val sectors3w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session3w_1s.replays-1)) {
+        for (i in 0 until session3w_1s.replays) {
             val number = i + 1
             if (i < 2) {
                 sectors3w_1s.add(Sector(session3w_1s.sessionId, number, hashMapPlanning!!.get("1600")!!))
@@ -476,7 +476,7 @@ class CreatePlanFragment : Fragment() {
             }
         }
         val sectors4w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session4w_1s.replays-1)) {
+        for (i in 0 until session4w_1s.replays) {
             val number = i + 1
             if (i == 0 || i == 5) {
                 sectors4w_1s.add(Sector(session4w_1s.sessionId, number, hashMapPlanning!!.get("400")!!))
@@ -487,7 +487,7 @@ class CreatePlanFragment : Fragment() {
             }
         }
         val sectors5w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session5w_1s.replays-1)) {
+        for (i in 0 until session5w_1s.replays) {
             val number = i + 1
             sectors5w_1s.add(Sector(session5w_1s.sessionId, number, hashMapPlanning!!.get("1000")!!))
         }
@@ -497,32 +497,32 @@ class CreatePlanFragment : Fragment() {
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning!!.get("800")!!))
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning!!.get("400")!!))
         val sectors7w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session7w_1s.replays-1)) {
+        for (i in 0 until session7w_1s.replays) {
             val number = i + 1
             sectors7w_1s.add(Sector(session7w_1s.sessionId, number, hashMapPlanning.get("400")!!))
         }
         val sectors8w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session8w_1s.replays-1)) {
+        for (i in 0 until session8w_1s.replays) {
             val number = i + 1
             sectors8w_1s.add(Sector(session8w_1s.sessionId, number, hashMapPlanning.get("800")!!))
         }
         val sectors9w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session9w_1s.replays-1)) {
+        for (i in 0 until session9w_1s.replays) {
             val number = i + 1
             sectors9w_1s.add(Sector(session9w_1s.sessionId, number, hashMapPlanning.get("1200")!!))
         }
         val sectors10w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session10w_1s.replays-1)) {
+        for (i in 0 until session10w_1s.replays) {
             val number = i + 1
             sectors10w_1s.add(Sector(session10w_1s.sessionId, number, hashMapPlanning.get("1000")!!))
         }
         val sectors11w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session11w_1s.replays-1)) {
+        for (i in 0 until session11w_1s.replays) {
             val number = i + 1
             sectors11w_1s.add(Sector(session11w_1s.sessionId, number, hashMapPlanning.get("1600")!!))
         }
         val sectors12w_1s = arrayListOf<Sector>()
-        for (i in 0 until (session12w_1s.replays-1)) {
+        for (i in 0 until session12w_1s.replays) {
             val number = i + 1
             sectors12w_1s.add(Sector(session12w_1s.sessionId, number, hashMapPlanning.get("400")!!))
         }
@@ -707,7 +707,12 @@ class CreatePlanFragment : Fragment() {
         open fun onFragmentInteraction(uri: Uri?)
     }
 
-    companion object {
-        private const val DAY_IN_MILLISECONDS = 86400000
+
+    // Suma los días recibidos a la fecha
+    private fun addDaystoDate(fecha: Date, dias: Int): Date{
+        var calendar : Calendar = Calendar.getInstance();
+        calendar.setTime(fecha); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, dias);  // numero de días a añadir, o restar en caso de días<0
+        return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
     }
 }
