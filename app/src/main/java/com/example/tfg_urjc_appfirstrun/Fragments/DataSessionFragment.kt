@@ -36,7 +36,7 @@ import java.text.SimpleDateFormat
 /**
  * A fragment representing a list of Items.
  */
-class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, actualSessionNumber: Int?, listActivities: ArrayList<Activity>): Fragment() {
+class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, actualSessionNumber: Int?, listActivities: ArrayList<Activity>): BaseFragment() {
 
     private var _session = selectedSession
     private var _actualWeekNumber = actualWeekNumber
@@ -59,6 +59,13 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
     private lateinit var adapter: ArrayAdapter<Activity>
     private var columnCount = 1
 
+    override fun onClick(v: View?) {
+    }
+
+    override fun onBackPressed() {
+        getActivityContext().onBackPressed()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -71,6 +78,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_data_session_list, container, false)
 
+        showBackButton(true)
 
         // Instancia de TrainingDB para inicialr la bd
         sectorDbInstance = SectorLab.get(context)

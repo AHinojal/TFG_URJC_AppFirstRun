@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -26,6 +27,7 @@ import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment
 import com.example.tfg_urjc_appfirstrun.Fragments.HistoricalTrainingFragment
+import com.example.tfg_urjc_appfirstrun.Interfaces.OnBackPressedListener
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -41,6 +43,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val grantType: String? = "authorization_code"
     private var navigationView: NavigationView? = null
 
+    var _drawer: DrawerLayout? = null
+    var _toolbar: Toolbar? = null
+    var _toggle : ActionBarDrawerToggle? = null
+
     // Database Instances
     var trainingDbInstance: TrainingLab? = null
     var weekDbInstance: WeekLab? = null
@@ -55,8 +61,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById<View?>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+        _toolbar = findViewById<View?>(R.id.toolbar) as Toolbar
+        setSupportActionBar(_toolbar)
 
         /*val formatDateTimer = SimpleDateFormat("mm:ss")
         val seconds: Int = 109 * 1000
@@ -76,13 +82,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             loadTrainingPlan()
         }
 
-        val drawer = findViewById<View?>(R.id.drawer_layout) as DrawerLayout
-        val toggle = ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.addDrawerListener(toggle)
-        toggle.syncState()
+        _drawer = findViewById<View?>(R.id.drawer_layout) as DrawerLayout
+        _toggle = ActionBarDrawerToggle(
+                this, _drawer, _toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        _drawer?.addDrawerListener(_toggle!!)
+        _toggle?.syncState()
+
         navigationView = findViewById<View?>(R.id.nav_view) as NavigationView
         val menuNavigation = navigationView?.getMenu()
+
         // Para conseguir el valor de si estamos logueados en Strava ya
         checkIfIsStravaIsLogin(menuNavigation)
         navigationView?.setNavigationItemSelectedListener(this)
@@ -96,10 +104,37 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    override fun onBackPressed() {
+        /*val fragment = supportFragmentManager.findFragmentById(R.id.content_main)
+
+        when {
+            _drawer?.isDrawerOpen(GravityCompat.START)!! -> {
+                _drawer?.closeDrawer(GravityCompat.START)
+            }
+            fragment is OnBackPressedListener -> {
+                (fragment as OnBackPressedListener?)!!.onBackPressed()
+                //this.recreate();
+            }
+            else -> {
+                super.onBackPressed()
+            }
+        }*/
+
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStackImmediate()
+            if(supportFragmentManager.backStackEntryCount == 1){
+                this.recreate();
+            }
+        } else {
+            super.onBackPressed()
+        }
+
+    }
+
     private fun preloadSharedPreferences() {
         val preferences = getSharedPreferences("credentials", MODE_PRIVATE)
         val editor = preferences.edit()
-        editor.putBoolean("isStravaLogin", true) // Es FALSE. TRUE es para test en creacion pantalla tras login
+        editor.putBoolean("isStravaLogin", false) // Es FALSE. TRUE es para test en creacion pantalla tras login
         editor.putString("access_token", null)
         editor.commit()
     }
@@ -160,32 +195,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (weeks != null) {
                 for (w in weeks){
                     listDataWeeks.add(w!!)
-                    Log.i("Week", w!!.numberWeek.toString())
-                    var sessions = sessionDbInstance?.getSessionByWeekId(w.weekId!!)
+                    Log.i("Week", w.numberWeek.toString())
+                    var sessions = sessionDbInstance?.getSessionByWeekId(w.weekId)
                     if (sessions != null) {
                         var listDataSessionByWeek = ArrayList<Session>()
                         for (s in sessions){
                             listDataSessionByWeek.add(s!!)
-                            Log.i("Session", s!!.sessionId)
+                            Log.i("Session", s.sessionId)
                         }
-                        listDataSession.set(w!!.numberWeek.toString(), listDataSessionByWeek)
+                        listDataSession.set(w.numberWeek.toString(), listDataSessionByWeek)
                     }
                 }
             }
-        }
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        finish()
-        startActivity(intent)
-    }
-
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStackImmediate()
-        } else {
-            super.onBackPressed()
         }
     }
 
@@ -209,15 +230,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        val id = p0?.getItemId()
+        val id = p0.getItemId()
         var fragmentSelected = false
         var fragment: Fragment? = null
         if (id == R.id.create_plan) {
             fragment = CreatePlanFragment()
             fragmentSelected = true
         } else if (id == R.id.redirect_strava) {
-            /*fragment = new InfoApiStravaFragment();
-            fragmentSelected = true;*/
             // Nos redirecciona a Strava
             val intentUri = Uri.parse("https://www.strava.com/oauth/mobile/authorize")
                     .buildUpon()
@@ -243,7 +262,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             fragmentSelected = true
         }
         if (fragmentSelected) {
-            fragment?.let { supportFragmentManager.beginTransaction().replace(R.id.content_main, it, "nextFragment").addToBackStack("").commit() }
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.content_main, fragment!!, "nextFragment")
+                    .addToBackStack("")
+                    .commit()
             p0.setChecked(true)
             supportActionBar?.setTitle(p0.getTitle())
         }

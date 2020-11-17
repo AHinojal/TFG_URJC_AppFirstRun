@@ -24,7 +24,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ActualPlanFragment(training: Training, listDataWeeks: ArrayList<Week>, listDataSession: HashMap<String, ArrayList<Session>>) : Fragment() {
+class ActualPlanFragment(training: Training, listDataWeeks: ArrayList<Week>, listDataSession: HashMap<String, ArrayList<Session>>) : BaseFragment() {
 
     var _training: Training = training
     // Load lists
@@ -36,13 +36,22 @@ class ActualPlanFragment(training: Training, listDataWeeks: ArrayList<Week>, lis
     // List with Strava's activities
     var listActivities = ArrayList<Activity>()
 
+    override fun onClick(v: View?) {
+    }
+
+    override fun onBackPressed() {
+        getActivityContext().onBackPressed()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val v = inflater?.inflate(R.layout.fragment_actual_plan, container, false)
+        val v = inflater.inflate(R.layout.fragment_actual_plan, container, false)
+
+        showBackButton(true)
 
         // textView
         val nameView: TextView = v.findViewById(R.id.tv_nameTraining)
@@ -55,20 +64,20 @@ class ActualPlanFragment(training: Training, listDataWeeks: ArrayList<Week>, lis
         // get the listview
         expListView = v.findViewById(R.id.lvExp)
 
-        listAdapter = ExpandableListAdapter(context!!, listDataWeeks!!, listDataSession!!)
+        listAdapter = ExpandableListAdapter(context!!, listDataWeeks, listDataSession)
 
         getActivitiesStrava()
 
         // setting list adapter
         expListView!!.setAdapter(listAdapter)
 
-        expListView!!.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+        expListView!!.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
             // Introducir ir a seccion concreta
             var selectedSession : Session? = obtainSession(groupPosition+1,childPosition)
             Log.i("Session Seleccionada", selectedSession?.sessionId.toString())
 
             val transaction = activity?.supportFragmentManager?.beginTransaction()
-            transaction?.replace(R.id.content_main, DataSessionFragment(selectedSession, groupPosition+1, childPosition+1, listActivities!!), "infoDataFragment")
+            transaction?.replace(R.id.content_main, DataSessionFragment(selectedSession, groupPosition+1, childPosition+1, listActivities), "infoDataFragment")
             transaction?.addToBackStack(null)
             transaction?.commit()
             false
@@ -78,12 +87,12 @@ class ActualPlanFragment(training: Training, listDataWeeks: ArrayList<Week>, lis
     }
 
     private fun obtainSession(numberWeek: Int, numberSessionPos: Int) : Session {
-        var listSessions : ArrayList<Session>? = listDataSession.get(numberWeek.toString())
+        val listSessions : ArrayList<Session>? = listDataSession.get(numberWeek.toString())
         return listSessions!![numberSessionPos]
     }
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        open fun onFragmentInteraction(uri: Uri?)
+        fun onFragmentInteraction(uri: Uri?)
     }
 
     private fun getActivitiesStrava() {

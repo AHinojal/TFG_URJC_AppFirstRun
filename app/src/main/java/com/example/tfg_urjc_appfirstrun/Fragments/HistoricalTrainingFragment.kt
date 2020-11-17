@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,10 +16,11 @@ import com.example.tfg_urjc_appfirstrun.Database.Labs.TrainingLab
 import com.example.tfg_urjc_appfirstrun.Entities.Training
 import com.example.tfg_urjc_appfirstrun.R
 
+
 /**
  * A fragment representing a list of Trainings.
  */
-class HistoricalTrainingFragment : Fragment() {
+class HistoricalTrainingFragment : BaseFragment(){
 
     private var columnCount = 1
 
@@ -42,6 +42,8 @@ class HistoricalTrainingFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_historical_training_list, container, false)
 
+        showBackButton(true)
+
         loadTrainingList()
 
         // Set the adapter
@@ -51,7 +53,7 @@ class HistoricalTrainingFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyTrainingRecyclerViewAdapter(trainingList, fragmentManager!!.findFragmentByTag("nextFragment"), fragmentManager!!.beginTransaction() )
+                adapter = MyTrainingRecyclerViewAdapter(trainingList, fragmentManager!!.findFragmentByTag("nextFragment"), fragmentManager!!.beginTransaction())
                 var itemTouchHelperDelete = ItemTouchHelper(SwipeToDeleteCallback(adapter as MyTrainingRecyclerViewAdapter, context))
                 itemTouchHelperDelete.attachToRecyclerView(view)
                 var itemTouchHelperUpdateActualTraining = ItemTouchHelper(SwipeToUpdateActualTrainingCallback(adapter as MyTrainingRecyclerViewAdapter, context))
@@ -66,9 +68,17 @@ class HistoricalTrainingFragment : Fragment() {
         if (trainings != null) {
             for (t in trainings){
                 trainingList.add(t!!)
-                Log.i("Trainings", t!!.name)
+                Log.i("Trainings", t.name)
             }
         }
+    }
+
+    override fun onClick(v: View?) {
+        // TODO: Nothing
+    }
+
+    override fun onBackPressed() {
+        getActivityContext().onBackPressed()
     }
 
     companion object {

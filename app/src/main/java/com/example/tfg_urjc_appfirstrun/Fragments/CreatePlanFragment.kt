@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.tfg_urjc_appfirstrun.Database.Labs.SectorLab
 import com.example.tfg_urjc_appfirstrun.Database.Labs.SessionLab
@@ -29,7 +27,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreatePlanFragment : Fragment() {
+class CreatePlanFragment : BaseFragment() {
 
     private var spinner_durationPlan: Spinner? = null
     private var spinner_distancePlan: Spinner? = null
@@ -49,6 +47,13 @@ class CreatePlanFragment : Fragment() {
 
     private var startingDate: Date? = null
 
+    override fun onClick(v: View?) {
+    }
+
+    override fun onBackPressed() {
+        getActivityContext().onBackPressed()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -56,7 +61,9 @@ class CreatePlanFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val v = inflater?.inflate(R.layout.fragment_create_plan, container, false)
+        val v = inflater.inflate(R.layout.fragment_create_plan, container, false)
+
+        showBackButton(true)
 
         // Instancia de TrainingDB para inicialr la bd
         trainingDbInstance = TrainingLab.get(context)
@@ -96,7 +103,7 @@ class CreatePlanFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         val fab: FloatingActionButton = v.findViewById(R.id.floatingActionButton_savePlan)
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener { _ ->
             // Creamos variable para el dia de inicio del programa
             startingDate = Date(picker_startingDate!!.getYear() - 1900, picker_startingDate!!.getMonth(), picker_startingDate!!.getDayOfMonth())
             // Creamos la lista de tiempos a hacer segun la marca que nos da el usuario
@@ -114,12 +121,10 @@ class CreatePlanFragment : Fragment() {
             createTraining(hashMapTraining!!.get(spinner_distancePlan?.getSelectedItem().toString())!!, v)
 
             // Indicar ID de entrenamiento actual
-            val preferences = context?.getSharedPreferences("credentials", AppCompatActivity.MODE_PRIVATE)
+            /*val preferences = context?.getSharedPreferences("credentials", AppCompatActivity.MODE_PRIVATE)
             val editor = preferences?.edit()
             editor!!.putString("actualIdTraining", training?.trainingId)
-            editor!!.commit()
-            // Volver a la anterior vista
-            // getActivity().onBackPressed();
+            editor.commit()*/
         }
         return v
     }
@@ -247,13 +252,13 @@ class CreatePlanFragment : Fragment() {
         val sectors5w_1s = arrayListOf<Sector>()
         for (i in 0 until session5w_1s.replays) {
             val number = i + 1
-            sectors5w_1s.add(Sector(session5w_1s.sessionId, number, hashMapPlanning!!.get("1000")!!))
+            sectors5w_1s.add(Sector(session5w_1s.sessionId, number, hashMapPlanning!!["1000"]!!))
         }
         val sectors6w_1s = arrayListOf<Sector>()
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 1, hashMapPlanning!!.get("1600")!!))
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 2, hashMapPlanning!!.get("1200")!!))
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning!!.get("800")!!))
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning!!.get("400")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 2, hashMapPlanning.get("1200")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning.get("800")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning.get("400")!!))
         val sectors7w_1s = arrayListOf<Sector>()
         for (i in 0 until session7w_1s.replays) {
             val number = i + 1
@@ -406,6 +411,7 @@ class CreatePlanFragment : Fragment() {
         Log.i("CREATION TRAINING", "Done...")
         newIdTraining = training!!.trainingId
         Snackbar.make(view, "¡Entrenamiento de 5 Kilómetros creado!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+        this.onBackPressed()
     }
 
     private fun creation10km(view: View) {
@@ -509,9 +515,9 @@ class CreatePlanFragment : Fragment() {
         }
         val sectors6w_1s = arrayListOf<Sector>()
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 1, hashMapPlanning!!.get("1600")!!))
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 2, hashMapPlanning!!.get("1200")!!))
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning!!.get("800")!!))
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning!!.get("400")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 2, hashMapPlanning.get("1200")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning.get("800")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning.get("400")!!))
         val sectors7w_1s = arrayListOf<Sector>()
         for (i in 0 until session7w_1s.replays) {
             val number = i + 1
@@ -659,6 +665,7 @@ class CreatePlanFragment : Fragment() {
         Log.i("CREATION TRAINING", "Done...")
         newIdTraining = training!!.trainingId
         Snackbar.make(view, "¡Entrenamiento de 10 Kilómetros creado!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+        this.onBackPressed()
     }
 
     private fun creationMarathon(view: View) {
