@@ -2,18 +2,19 @@ package com.example.tfg_urjc_appfirstrun.Activities
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -27,12 +28,13 @@ import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.Fragments.ActualPlanFragment
 import com.example.tfg_urjc_appfirstrun.Fragments.CreatePlanFragment
 import com.example.tfg_urjc_appfirstrun.Fragments.HistoricalTrainingFragment
-import com.example.tfg_urjc_appfirstrun.Interfaces.OnBackPressedListener
 import com.example.tfg_urjc_appfirstrun.R
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.json.JSONException
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, CreatePlanFragment.OnFragmentInteractionListener {
@@ -58,6 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val listDataSession: HashMap<String, ArrayList<Session>> = HashMap()
     var haveActualTraining: Boolean = false
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -69,7 +72,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var test = findViewById<View?>(R.id.test) as TextView
         test.text = formatDateTimer.format(seconds)*/
 
-        preloadSharedPreferences()
+        if (intent.extras != null) {
+            if (!getIntent().getExtras().getBoolean("isReload")){
+                preloadSharedPreferences()
+            } else {
+                val preferences = getSharedPreferences("credentials", MODE_PRIVATE)
+                val expiredAt_token = preferences.getInt("expires_at", 0)
+                var dateExpired: Calendar? =  Calendar.getInstance()
+                dateExpired?.timeInMillis = expiredAt_token * 1000.toLong()
+                var dateActual: LocalDateTime = LocalDateTime.now()
+                Log.i("Fecha actual", dateActual.toString())
+                Log.i("Fecha Expiracion Token", convertToLocalDateTime(dateExpired!!).toString())
+                if(dateActual.isAfter(convertToLocalDateTime(dateExpired!!))){
+                    preloadSharedPreferences()
+                }
+            }
+        }
 
         // Instancia de TrainingDB para iniciar la bd
         trainingDbInstance = TrainingLab.get(this)
@@ -105,25 +123,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        /*val fragment = supportFragmentManager.findFragmentById(R.id.content_main)
-
-        when {
-            _drawer?.isDrawerOpen(GravityCompat.START)!! -> {
-                _drawer?.closeDrawer(GravityCompat.START)
-            }
-            fragment is OnBackPressedListener -> {
-                (fragment as OnBackPressedListener?)!!.onBackPressed()
-                //this.recreate();
-            }
-            else -> {
-                super.onBackPressed()
-            }
-        }*/
-
-        if (supportFragmentManager.backStackEntryCount > 0) {
+        var data = supportFragmentManager.backStackEntryCount
+        if (data > 0) {
             supportFragmentManager.popBackStackImmediate()
-            if(supportFragmentManager.backStackEntryCount == 1){
-                this.recreate();
+            if (data < 2) { // Si el paso atras viene desde un fragment, reiniciamos activity
+                val intent = Intent(this, MainActivity::class.java)
+                val bundle = Bundle()
+                bundle.putBoolean("isReload", true)
+                intent.putExtras(bundle)
+                startActivity(intent)
+                this.finish()
             }
         } else {
             super.onBackPressed()
@@ -136,6 +145,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val editor = preferences.edit()
         editor.putBoolean("isStravaLogin", false) // Es FALSE. TRUE es para test en creacion pantalla tras login
         editor.putString("access_token", null)
+        editor.putInt("expires_at", 0)
         editor.commit()
     }
 
@@ -166,6 +176,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         val editor = preferences.edit()
                         editor.putBoolean("isStravaLogin", true)
                         editor.putString("access_token", response.getString("access_token"))
+                        editor.putInt("expires_at", response.getInt("expires_at"))
                         editor.commit()
                         Log.i("Access Token in BDInt", preferences.getString("access_token", "No access token"))
                         val menuNavigation = navigationView?.getMenu()
@@ -276,4 +287,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onFragmentInteraction(uri: Uri?) {}
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun convertToLocalDateTime(calendar: Calendar): LocalDateTime{
+        return LocalDateTime.ofInstant(calendar.toInstant(), calendar.timeZone.toZoneId())
+    }
 }

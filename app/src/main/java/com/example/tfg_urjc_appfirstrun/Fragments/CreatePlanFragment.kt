@@ -411,7 +411,6 @@ class CreatePlanFragment : BaseFragment() {
         Log.i("CREATION TRAINING", "Done...")
         newIdTraining = training!!.trainingId
         Snackbar.make(view, "¡Entrenamiento de 5 Kilómetros creado!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-        this.onBackPressed()
     }
 
     private fun creation10km(view: View) {
@@ -665,7 +664,7 @@ class CreatePlanFragment : BaseFragment() {
         Log.i("CREATION TRAINING", "Done...")
         newIdTraining = training!!.trainingId
         Snackbar.make(view, "¡Entrenamiento de 10 Kilómetros creado!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-        this.onBackPressed()
+        //this.onBackPressed()
     }
 
     private fun creationMarathon(view: View) {

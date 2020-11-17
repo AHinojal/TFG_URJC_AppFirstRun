@@ -63,6 +63,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
     }
 
     override fun onBackPressed() {
+        _listActivities.clear()
         getActivityContext().onBackPressed()
     }
 
@@ -251,7 +252,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
     }
 
     private fun updateDataLongRun(view: View) {
-        if (listLaps.size < 2) { // Si hay mas de dos vueltas, no es un carrera larga
+        if (listLaps.size < 3) { // Si hay mas de dos vueltas, no es un carrera larga
             lifecycleScope.launch(){
                 var acuRegisterTime: Float = 0f
                 var acuDistance: Float = 0f
