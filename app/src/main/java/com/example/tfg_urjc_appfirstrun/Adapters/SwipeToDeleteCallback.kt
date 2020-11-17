@@ -14,7 +14,7 @@ import com.example.tfg_urjc_appfirstrun.R
 class SwipeToDeleteCallback(var adapter: MyTrainingRecyclerViewAdapter, val context: Context):ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     private var icon: Drawable? = ContextCompat.getDrawable(context, R.drawable.ic_delete);
-    private var background: ColorDrawable? = ColorDrawable(Color.RED)
+    private var background: ColorDrawable? = ColorDrawable(Color.parseColor("#FF1744"))
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
         return false
@@ -33,8 +33,8 @@ class SwipeToDeleteCallback(var adapter: MyTrainingRecyclerViewAdapter, val cont
         val iconTop: Int = itemView.getTop() + (itemView.getHeight() - icon!!.intrinsicHeight) / 2
         val iconBottom = iconTop + icon!!.intrinsicHeight
         if (dX > 0) { // Swiping to the right
-            val iconLeft: Int = itemView.getLeft() + iconMargin + icon!!.intrinsicWidth
-            val iconRight: Int = itemView.getLeft() + iconMargin
+            val iconLeft = itemView.left + iconMargin
+            val iconRight = itemView.left + iconMargin + icon!!.intrinsicWidth
             icon!!.setBounds(iconLeft, iconTop, iconRight, iconBottom)
             background!!.setBounds(itemView.getLeft(), itemView.getTop(),
                     itemView.getLeft() + dX.toInt() + backgroundCornerOffset, itemView.getBottom())
