@@ -513,7 +513,7 @@ class CreatePlanFragment : BaseFragment() {
             sectors5w_1s.add(Sector(session5w_1s.sessionId, number, hashMapPlanning!!.get("1000")!!))
         }
         val sectors6w_1s = arrayListOf<Sector>()
-        sectors6w_1s.add(Sector(session6w_1s.sessionId, 1, hashMapPlanning!!.get("1600")!!))
+        sectors6w_1s.add(Sector(session6w_1s.sessionId, 1,  hashMapPlanning!!.get("1600")!!))
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 2, hashMapPlanning.get("1200")!!))
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 3, hashMapPlanning.get("800")!!))
         sectors6w_1s.add(Sector(session6w_1s.sessionId, 4, hashMapPlanning.get("400")!!))

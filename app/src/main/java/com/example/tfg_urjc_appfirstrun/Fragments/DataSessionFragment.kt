@@ -92,15 +92,16 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
         sessionDay.text = formatDateCalender.format(_session!!.sessionDay)
         val actualWeekNumber = view.findViewById(R.id.tv_numberWeek) as TextView
         actualWeekNumber.text = _actualWeekNumber.toString()
-        val actualSessionNumber = view.findViewById(R.id.tv_sessionNumber) as TextView
-        actualSessionNumber.text = _actualSessionNumber.toString()
-        // All training info variables
-        val replays = view.findViewById(R.id.tv_replays) as TextView
-        replays.text = _session!!.replays.toString()
-        val recoveryTime = view.findViewById(R.id.tv_recoveryTime) as TextView
-        recoveryTime.text = _session!!.recoveryTime
-        val distance = view.findViewById(R.id.tv_distance) as TextView
-        distance.text = _session!!.distance
+        val actualSessionName = view.findViewById(R.id.et_typeSession) as TextView
+        when (_actualSessionNumber) {
+            1 -> actualSessionName.text = "SERIES"
+            2 -> actualSessionName.text = "CARRRERA CORTA"
+            3 -> actualSessionName.text = "CARRERA LARGA"
+            else -> {
+            }
+        }
+
+
 
         // Set the adapter list Sectors
         val recyclerView = view.findViewById(R.id.rv_resultsList) as RecyclerView

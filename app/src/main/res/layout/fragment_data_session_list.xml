@@ -23,6 +23,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@id/titleSession">
+
+        <TextView
+            android:id="@+id/et_sessionDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DÍA: "
+            android:layout_below="@+id/titleSession"/>
+        <TextView
+            android:id="@+id/tv_sessionDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XX/XX/XXXX"
+            android:layout_below="@+id/titleSession"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/et_weekDay"
             android:layout_width="wrap_content"
@@ -42,111 +61,20 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/et_sessionNumber"
+            android:id="@+id/et_typeSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SESIÓN: "
+            android:text="XXXXXXXXXXXXXXXXXX"
             android:layout_below="@+id/et_sessionDay"/>
-        <TextView
-            android:id="@+id/tv_sessionNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_sessionDay"
-            android:text="XX" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_below="@id/linearLayout_session">
-        <TextView
-            android:id="@+id/et_sessionDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DÍA: "
-            android:layout_below="@+id/titleSession"/>
-        <TextView
-            android:id="@+id/tv_sessionDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XX/XX/XXXX"
-            android:layout_below="@+id/titleSession"/>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/titleTraining"
+        android:id="@+id/titleImportStrava"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="ENTRENO"
-        android:padding="10dp"
-        android:layout_below="@+id/linearLayout_date"
-        android:layout_centerHorizontal="true"
-        />
-
-    <LinearLayout
-        android:id="@+id/linearLayout_replays"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_below="@id/titleTraining">
-        <TextView
-            android:id="@+id/et_replays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="REPETICIONES: "
-            />
-        <TextView
-            android:id="@+id/tv_replays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XX"/>
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-        <TextView
-            android:id="@+id/et_recoveryTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TIEMPO RECUPERACIÓN: " />
-        <TextView
-            android:id="@+id/tv_recoveryTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XX" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout_distance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_below="@id/linearLayout_replays">
-        <TextView
-            android:id="@+id/et_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DISTANCIA/REP: " />
-        <TextView
-            android:id="@+id/tv_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XXXX,XXXX,XXXX,XXXX,XXXX,XXXX" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/titleResults"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_below="@+id/linearLayout_distance"
-        android:text="RESULTADOS"
+        android:layout_below="@+id/linearLayout_session"
+        android:text="IMPORTAR ACTIVIDAD STRAVA"
         android:padding="10dp"
         android:layout_centerHorizontal="true"
         />
@@ -157,7 +85,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_below="@id/titleResults">
+        android:layout_below="@id/titleImportStrava">
         <Spinner
             android:id="@+id/spinner_activities"
             android:layout_width="303dp"
@@ -174,8 +102,19 @@
             android:layout_alignParentBottom="true"
             android:backgroundTint="@color/colorPrimary"
             android:clickable="true"
-            android:src="@drawable/ic_btn_add" />
+            android:src="@drawable/ic_download" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/titleResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_below="@+id/spinnerButton"
+        android:text="RESULTADOS"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        />
 
     <LinearLayout
         android:id="@+id/linearLayout_infoResults"
@@ -184,7 +123,7 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/spinnerButton">
+        android:layout_below="@id/titleResults">
         <TextView
             android:id="@+id/et_sectorNumber"
             android:layout_width="wrap_content"
