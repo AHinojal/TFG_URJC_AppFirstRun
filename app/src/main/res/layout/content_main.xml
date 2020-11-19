@@ -7,14 +7,7 @@
     android:id="@+id/content_main"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activities.MainActivity"
-    tools:showIn="@layout/app_bar_main">
-
-    <!--<TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="AA:AA"
-        android:textSize="40dp"
-        android:layout_alignParentRight="true"/>-->
+    tools:showIn="@layout/app_bar_main"
+    android:background="@drawable/image_app">
 
 </RelativeLayout>

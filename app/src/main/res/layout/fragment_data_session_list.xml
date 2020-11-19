@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
+    android:background="#FFFFFF"
     tools:context=".Fragments.DataSessionFragment">
 
     <TextView
@@ -100,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorStrava"
             android:clickable="true"
             android:src="@drawable/ic_download" />
     </LinearLayout>
