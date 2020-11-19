@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull
 import java.util.*
 
 @Entity(tableName = "sectors")
-class Sector(sessionOwnerId: String?, numberSector: Int, goalTime: Float) {
+class Sector(sessionOwnerId: String?, numberSector: Int, distance: String, goalTime: Float) {
     @PrimaryKey
     @NotNull
     var sectorId: String
@@ -17,6 +17,9 @@ class Sector(sessionOwnerId: String?, numberSector: Int, goalTime: Float) {
 
     @ColumnInfo(name = "number_sector")
     var numberSector: Int
+
+    @ColumnInfo(name = "distance")
+    var distance: String?
 
     // Estos valores vienen en milliseconds -> En la vista hay que tranformarlos parseandolos "mm:ss"
     @ColumnInfo(name = "goal_time")
@@ -33,6 +36,7 @@ class Sector(sessionOwnerId: String?, numberSector: Int, goalTime: Float) {
         this.sectorId = UUID.randomUUID().toString()
         this.sessionOwnerId = sessionOwnerId
         this.numberSector = numberSector
+        this.distance = distance
         this.goalTime = goalTime
         this.registerTime = 0f
         this.difference = 0f

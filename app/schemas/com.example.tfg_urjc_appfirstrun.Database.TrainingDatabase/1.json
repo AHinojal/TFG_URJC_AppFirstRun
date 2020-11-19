@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f4f664973a32e5f654f95ce3a3af9733",
+    "identityHash": "c24d502861a8e61cf9c1527c169c1770",
     "entities": [
       {
         "tableName": "trainings",
@@ -94,7 +94,7 @@
       },
       {
         "tableName": "sessions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` TEXT NOT NULL, `week_owner_id` TEXT, `number_session` INTEGER NOT NULL, `replays` INTEGER NOT NULL, `distance` TEXT, `session_day` INTEGER, `recovery_time` TEXT, PRIMARY KEY(`sessionId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` TEXT NOT NULL, `week_owner_id` TEXT, `number_session` INTEGER NOT NULL, `replays` INTEGER NOT NULL, `session_day` INTEGER, `recovery_time` TEXT, PRIMARY KEY(`sessionId`))",
         "fields": [
           {
             "fieldPath": "sessionId",
@@ -121,12 +121,6 @@
             "notNull": true
           },
           {
-            "fieldPath": "distance",
-            "columnName": "distance",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
             "fieldPath": "sessionDay",
             "columnName": "session_day",
             "affinity": "INTEGER",
@@ -150,7 +144,7 @@
       },
       {
         "tableName": "sectors",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sectorId` TEXT NOT NULL, `session_owner_id` TEXT, `number_sector` INTEGER NOT NULL, `goal_time` REAL NOT NULL, `register_time` REAL NOT NULL, `difference` REAL NOT NULL, PRIMARY KEY(`sectorId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sectorId` TEXT NOT NULL, `session_owner_id` TEXT, `number_sector` INTEGER NOT NULL, `distance` TEXT, `goal_time` REAL NOT NULL, `register_time` REAL NOT NULL, `difference` REAL NOT NULL, PRIMARY KEY(`sectorId`))",
         "fields": [
           {
             "fieldPath": "sectorId",
@@ -169,6 +163,12 @@
             "columnName": "number_sector",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "distance",
+            "columnName": "distance",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "goalTime",
@@ -202,7 +202,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f4f664973a32e5f654f95ce3a3af9733')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c24d502861a8e61cf9c1527c169c1770')"
     ]
   }
 }

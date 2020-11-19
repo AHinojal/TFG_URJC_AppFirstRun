@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull
 import java.util.*
 
 @Entity(tableName = "sessions")
-class Session(weekOwnerId: String?, numberSession: Int, replays: Int, distance: String?, sessionDay: Date?, recoveryTime: String?) {
+class Session(weekOwnerId: String?, numberSession: Int, replays: Int, sessionDay: Date?, recoveryTime: String?) {
     @PrimaryKey
     @NotNull
     var sessionId: String
@@ -21,9 +21,6 @@ class Session(weekOwnerId: String?, numberSession: Int, replays: Int, distance: 
     @ColumnInfo(name = "replays")
     var replays: Int
 
-    @ColumnInfo(name = "distance")
-    var distance: String?
-
     @ColumnInfo(name = "session_day")
     var sessionDay: Date?
 
@@ -36,7 +33,6 @@ class Session(weekOwnerId: String?, numberSession: Int, replays: Int, distance: 
         this.weekOwnerId = weekOwnerId
         this.numberSession = numberSession
         this.replays = replays
-        this.distance = distance
         this.sessionDay = sessionDay
         this.recoveryTime = recoveryTime
     }

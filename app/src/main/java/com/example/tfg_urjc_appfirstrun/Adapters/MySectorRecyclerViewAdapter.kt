@@ -28,7 +28,7 @@ class MySectorRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.sectionNumber.text = item?.numberSector.toString()
+        holder.sectionNumber.text = item?.distance
         holder.goalTime.text = formatDateTimer.format(item?.goalTime)
         holder.registerTime.text = formatDateTimer.format(item?.registerTime)
         if (item?.difference!!.toFloat() == 0f) {

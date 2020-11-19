@@ -34,7 +34,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.json.JSONException
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, CreatePlanFragment.OnFragmentInteractionListener {
@@ -132,7 +131,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundle.putBoolean("isReload", true)
                 intent.putExtras(bundle)
                 startActivity(intent)
-                this.finish()
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                finish()
+                overridePendingTransition(0, 0)
+
             }
         } else {
             super.onBackPressed()
