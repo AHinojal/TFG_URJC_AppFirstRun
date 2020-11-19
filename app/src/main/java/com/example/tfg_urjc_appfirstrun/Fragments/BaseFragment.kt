@@ -46,6 +46,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, OnBackPressedLis
             // Show back button
             _actionBar!!.setDisplayHomeAsUpEnabled(true)
             // when DrawerToggle is disabled i.e. setDrawerIndicatorEnabled(false), navigation icon
+            _drawer?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             // clicks are disabled i.e. the UP button will not work.
             // We need to add a listener, as in below, so DrawerToggle will forward
             // click events to this listener.
@@ -59,6 +60,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, OnBackPressedLis
             // Show hamburger
             _toggle?.isDrawerIndicatorEnabled = true
             // Remove the/any drawer toggle listener
+            _drawer?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             _toggle?.toolbarNavigationClickListener = null
             mToolBarNavigationListenerIsRegistered = false
         }
