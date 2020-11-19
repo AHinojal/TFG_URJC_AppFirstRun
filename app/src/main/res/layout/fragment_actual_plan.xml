@@ -15,7 +15,7 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/tv_nameTraining"
+            android:id="@+id/tv_typeTraining"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -26,7 +26,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
         <TextView
-            android:id="@+id/tv_typeTraining"
+            android:id="@+id/tv_durationTraining"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -36,7 +36,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
         <TextView
-            android:id="@+id/tv_personalMark"
+            android:id="@+id/tv_dateTraining"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

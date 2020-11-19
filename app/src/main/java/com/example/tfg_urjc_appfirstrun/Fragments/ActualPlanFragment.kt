@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -20,6 +20,7 @@ import com.example.tfg_urjc_appfirstrun.Entities.Session
 import com.example.tfg_urjc_appfirstrun.Entities.Training
 import com.example.tfg_urjc_appfirstrun.Entities.Week
 import com.example.tfg_urjc_appfirstrun.R
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,6 +46,7 @@ class ActualPlanFragment(training: Training, listDataWeeks: ArrayList<Week>, lis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,13 +55,20 @@ class ActualPlanFragment(training: Training, listDataWeeks: ArrayList<Week>, lis
 
         showBackButton(true)
 
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title = "Plan Actual: " + _training.name
+
         // textView
-        val nameView: TextView = v.findViewById(R.id.tv_nameTraining)
-        nameView.text = _training.name
         val typeView: TextView = v.findViewById(R.id.tv_typeTraining)
         typeView.text = _training.typeTraining
-        val personalMark: TextView = v.findViewById(R.id.tv_personalMark)
-        personalMark.text = _training.mark5Km
+        val nameView: TextView = v.findViewById(R.id.tv_durationTraining)
+        if (_training.typeTraining == "5 Kilómetros" || _training.typeTraining == "10 Kilómetros"){
+            nameView.text = "12 semanas"
+        } else {
+            nameView.text = "16 semanas"
+        }
+        val startDateTraining: TextView = v.findViewById(R.id.tv_dateTraining)
+        val formatDate = SimpleDateFormat("dd/MM/yyyy")
+        startDateTraining.text = formatDate.format(_training.startDate)
 
         // get the listview
         expListView = v.findViewById(R.id.lvExp)
@@ -73,11 +82,11 @@ class ActualPlanFragment(training: Training, listDataWeeks: ArrayList<Week>, lis
 
         expListView!!.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
             // Introducir ir a seccion concreta
-            var selectedSession : Session? = obtainSession(groupPosition+1,childPosition)
+            var selectedSession : Session? = obtainSession(groupPosition + 1, childPosition)
             Log.i("Session Seleccionada", selectedSession?.sessionId.toString())
 
             val transaction = activity?.supportFragmentManager?.beginTransaction()
-            transaction?.replace(R.id.content_main, DataSessionFragment(selectedSession, groupPosition+1, childPosition+1, listActivities), "infoDataFragment")
+            transaction?.replace(R.id.content_main, DataSessionFragment(selectedSession, groupPosition + 1, childPosition + 1, listActivities), "infoDataFragment")
             transaction?.addToBackStack(null)
             transaction?.commit()
             false

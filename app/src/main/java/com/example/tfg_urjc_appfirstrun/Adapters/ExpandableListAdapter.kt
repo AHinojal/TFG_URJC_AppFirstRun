@@ -41,7 +41,13 @@ class ExpandableListAdapter(context: Context, listDataHeader: ArrayList<Week>, l
         }
         val txtListChild = convertView?.findViewById(R.id.lblListItem) as TextView
         val formatDate = SimpleDateFormat("dd/MM/yyyy")
-        txtListChild.text = "Sesión " + childText?.numberSession.toString() + " - " + formatDate.format(childText?.sessionDay)
+        when (childText?.numberSession) {
+            1 -> txtListChild.text = formatDate.format(childText?.sessionDay) + " - SERIES"
+            2 -> txtListChild.text = formatDate.format(childText?.sessionDay) + " - CARRERA CORTA"
+            3 -> txtListChild.text = formatDate.format(childText?.sessionDay) + " - CARRERA LARGA"
+            else -> {
+            }
+        }
         return convertView
     }
 

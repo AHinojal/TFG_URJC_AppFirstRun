@@ -1,40 +1,16 @@
 <resources>
-    <string name="app_name">TFG_URJC_AppFirstRun</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">TFG_URJC_AppFirstRun</string>
+    <string name="app_name">Follow FIRST</string>
+    <string name="navigation_drawer_open">Abrir navegador</string>
+    <string name="navigation_drawer_close">Cerrar navegador</string>
+    <string name="nav_header_title">Follow FIRST</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_desc">Follow FIRST</string>
     <string name="action_settings">Opciones</string>
 
-    <!-- STRING LOGIN ACTIVITY-->
-    <string name="prompt_username">Nombre de usuario</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Contraseña</string>
-    <string name="action_sign_in">Iniciar sesión</string>
-    <string name="action_sign_in_short">Iniciar</string>
-    <string name="action_register">Crear Usuario</string>
-    <string name="welcome">"Bienvenido!"</string>
-    <string name="session_closed">Sesión cerrada</string>
-    <string name="invalid_username">No es un correo válido</string>
-    <string name="invalid_password">La contraseña debe ser mayor a 5 caracteres</string>
-    <string name="login_failed">"Inicio de sesión fallido"</string>
-    <string name="register_success">"Registro de usuario completado"</string>
-    <string name="register_failed">"Registro de usuario fallido"</string>
-    <string name="title_activity_login">Log In</string>
-
     <!-- STRINGS MENU NAVEGACION -->
-    <string name="info_first">Información sobre FIRST</string>
     <string name="redirect_strava">Iniciar sesión Strava</string>
     <string name="create_plan">Crear plan</string>
     <string name="actual_plan">Ver plan actual</string>
     <string name="historical_plan">Historial de planes</string>
-    <string name="log_out">Cerrar sesión</string>
 
-    <!-- STRINGS API STRAVA -->
-    <string name="cliente_id">ID del cliente</string>
-    <string name="secret_client">Secreto del cliente</string>
-    <string name="button_go_to_strava">Redireccionar a Strava</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
