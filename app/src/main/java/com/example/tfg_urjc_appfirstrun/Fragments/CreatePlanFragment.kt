@@ -493,7 +493,7 @@ class CreatePlanFragment : BaseFragment() {
             if (i < 2) {
                 sectors3w_1s.add(Sector(session3w_1s.sessionId, number, "1600m", hashMapPlanning!!.get("1600")!!))
             } else {
-                sectors3w_1s.add(Sector(session3w_1s.sessionId, number, "800k", hashMapPlanning!!.get("800")!!))
+                sectors3w_1s.add(Sector(session3w_1s.sessionId, number, "800m", hashMapPlanning!!.get("800")!!))
             }
         }
         val sectors4w_1s = arrayListOf<Sector>()
