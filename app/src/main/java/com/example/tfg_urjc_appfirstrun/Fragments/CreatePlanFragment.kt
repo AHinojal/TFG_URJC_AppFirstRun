@@ -65,7 +65,7 @@ class CreatePlanFragment : BaseFragment() {
 
         showBackButton(true)
 
-        // Instancia de TrainingDB para inicialr la bd
+        // Instancia de TrainingDB para iniciar la base de datos
         trainingDbInstance = TrainingLab.get(context)
         weekDbInstance = WeekLab.get(context)
         sessionDbInstance = SessionLab.get(context)
@@ -106,8 +106,8 @@ class CreatePlanFragment : BaseFragment() {
         fab.setOnClickListener { _ ->
             // Creamos variable para el dia de inicio del programa
             startingDate = Date(picker_startingDate!!.getYear() - 1900, picker_startingDate!!.getMonth(), picker_startingDate!!.getDayOfMonth())
-            // Creamos la lista de tiempos a hacer segun la marca que nos da el usuario
 
+            // Creamos la lista de tiempos a hacer segun la marca que nos da el usuario
             this.fillHashMapWithTrainingTimes()
 
             /* To show in log all the training times
@@ -120,11 +120,12 @@ class CreatePlanFragment : BaseFragment() {
             hashMapTrainings()
             createTraining(hashMapTraining!!.get(spinner_distancePlan?.getSelectedItem().toString())!!, v)
 
-            // Indicar ID de entrenamiento actual
-            /*val preferences = context?.getSharedPreferences("credentials", AppCompatActivity.MODE_PRIVATE)
+            /* Indicar ID de entrenamiento actual
+            val preferences = context?.getSharedPreferences("credentials", AppCompatActivity.MODE_PRIVATE)
             val editor = preferences?.edit()
             editor!!.putString("actualIdTraining", training?.trainingId)
-            editor.commit()*/
+            editor.commit()
+            */
         }
         return v
     }

@@ -215,7 +215,7 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                 for (sector: Sector? in listDataSectors) {
                     var updateSector: Sector = sector!!
                     var goalTime = updateSector!!.goalTime
-                    var registerTime = listLaps[posLap]!!.elapsed_time.toLong() // Lo transformamos a Long
+                    var registerTime = listLaps[posLap]!!.moving_time.toLong() // Lo transformamos a Long
                     updateSector.registerTime = registerTime.toFloat() * 1000 // Hay que pasarlo a milliseconds
                     updateSector.difference = updateSector.registerTime - goalTime
                     Log.i("Update Sector", updateSector.toString())
@@ -225,13 +225,14 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                 reloadFragment()
             }
         } else {
-            Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).setAction("Action", null).show()
+            Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).
+            setActionTextColor(Color.RED).setAction("Action", null).show()
             listLaps.clear()
         }
     }
 
     private fun updateDataShortRun(view: View) {
-        if (listDataSectors.size == (listLaps.size-2)) { // Si el numero de vueltas - 2 no es el mismo que el de sectores, no es una carrera corta válida
+        if (listDataSectors.size == (listLaps.size-2)) { //Si el numero de vueltas-2 no es el mismo que el de sectores, no es una carrera corta válida
             lifecycleScope.launch(){
                 var posLap: Int = 1;
                 for (sector: Sector? in listDataSectors) {
@@ -247,7 +248,8 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                 reloadFragment()
             }
         } else {
-            Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).setAction("Action", null).show()
+            Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).
+            setActionTextColor(Color.RED).setAction("Action", null).show()
             listLaps.clear()
         }
     }
@@ -271,7 +273,8 @@ class DataSessionFragment(selectedSession: Session?, actualWeekNumber: Int?, act
                 reloadFragment()
             }
         } else {
-            Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).setAction("Action", null).show()
+            Snackbar.make(view, "Error en la entrada de datos. Compruebe el entrenamiento seleccionado", Snackbar.LENGTH_LONG).
+            setActionTextColor(Color.RED).setAction("Action", null).show()
             listLaps.clear()
         }
     }

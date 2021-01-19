@@ -45,7 +45,6 @@ class TrainingLab private constructor(context: Context?) {
     }
 
     init {
-
         val appContext = context!!.applicationContext
         val database: TrainingDatabase = Room.databaseBuilder(
                 appContext,

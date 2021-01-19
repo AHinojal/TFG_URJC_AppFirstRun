@@ -22,7 +22,6 @@ interface TrainingDao {
     @Update
     fun update(training: Training)
 
-
     @Delete
     suspend fun delete(training: Training?)
 }
