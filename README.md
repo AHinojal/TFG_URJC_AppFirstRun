@@ -15,4 +15,7 @@
 - Instalar dicha aplicación en un dispositivo con sistema operativo Android.
 - Ir a la aplicación Follow First.
 
+#### LICENCIA:
+- [MIT License](https://github.com/AHinojal/TFG_URJC_FollowFIRST/blob/master/LICENSE.md) 
+
 ### ¡Disfruta de la aplicación!
